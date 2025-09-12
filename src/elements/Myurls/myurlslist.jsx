@@ -5,7 +5,6 @@ function Urlslist() {
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const { t } = useTranslation();
   const [urls, setUrls] = useState([]);
-  const token = localStorage.getItem("usertoken");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -18,20 +17,17 @@ function Urlslist() {
     setError(null);
     try {
       const response = await fetch(`${API_BASE_URL}/myurls/`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        method: "GET"
       });
 
       if (!response.ok) {
-        throw new Error(`Ошибка загрузки: ${response.status}`);
+        throw new Error();
       }
 
       const data = await response.json();
       setUrls(data);
     } catch (error) {
-      setError(error.message);
+      setError(`Ошибка загрузки: ${response.status}`);
     } finally {
       setLoading(false);
     }
@@ -52,7 +48,7 @@ function Urlslist() {
       </button>
 
       {loading && <p className="text-xl text-rose-700">Loading...</p>}
-      {error && <p className="text-xl text-red-700">Error: {error}</p>}
+      {error && <p className="text-xl text-red-700">{error}</p>}
       {!loading && !error && urls.length === 0 && (
         <p className="text-xl text-rose-700">{t("myurls.nourls")}</p>
       )}

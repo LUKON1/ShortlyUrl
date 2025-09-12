@@ -1,8 +1,12 @@
 import { http, HttpResponse } from "msw";
-
+const CookieString = `userToken=13G51U6GKH7342K7JSDGJK; Path=/; HttpOnly; Sequre=False; SameSite=Lax; Max-Age=86400`
 export const handlers = [
   http.post("https://devmode/Registr/", () => {
-    return new HttpResponse("WRSH9WSTJ9K2", { status: 201 });
+    return new HttpResponse(null,{
+      headers:{
+        'set-cookie': CookieString,
+      },
+    }, { status: 201 });
   }),
   http.get("https://devmode/myurls/", () => {
     return HttpResponse.json([

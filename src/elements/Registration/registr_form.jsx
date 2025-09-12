@@ -36,9 +36,8 @@ function Registrform() {
       if (!response.ok) {
         throw new Error(t('registration.registrationError'));
       }
-      const usertoken = await response.text();
+      
       localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("usertoken", usertoken);
       window.dispatchEvent(new Event('storage'));
       navigate("/myurls");
     } catch (error) {
