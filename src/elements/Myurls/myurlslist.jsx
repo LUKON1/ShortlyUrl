@@ -1,12 +1,16 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-
+import dayjs from "dayjs";
 function Urlslist() {
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const { t } = useTranslation();
   const [urls, setUrls] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const formatDate = (isoDate) =>{
+    return dayjs(isoDate).format('DD.MM.YYYY')
+  };
 
   useEffect(() => {
     fetchUrls();
@@ -27,7 +31,7 @@ function Urlslist() {
       const data = await response.json();
       setUrls(data);
     } catch (error) {
-      setError(`Ошибка загрузки: ${response.status}`);
+      setError(`${t()}: ${response.status}`);
     } finally {
       setLoading(false);
     }
@@ -47,20 +51,28 @@ function Urlslist() {
         {t("myurls.refresh")}
       </button>
 
-      {loading && <p className="text-xl text-rose-700">Loading...</p>}
-      {error && <p className="text-xl text-red-700">{error}</p>}
-      {!loading && !error && urls.length === 0 && (
-        <p className="text-xl text-rose-700">{t("myurls.nourls")}</p>
-      )}
-      {!loading && !error && urls.length > 0 && (
+      {loading ? (
+        <div className="flex justify-center mt-20 w-full max-w-5xl  min-h-[100vh]">
+          <p className="text-4xl font-bold text-rose-700">{t("myurls.loading")}</p>
+        </div>
+      ) : error ? (
+        <div className="flex justify-center mt-20 w-full max-w-5xl  min-h-[100vh]">
+          <p className="text-4xl font-bold text-red-700">{error}</p>
+        </div>
+      ) : urls.length === 0 ? (
+        <div className="flex justify-center mt-20 w-full max-w-5xl  min-h-[100vh]">
+          <p className="text-4xl font-bold text-rose-700">{t("myurls.nourls")}</p>
+        </div>
+      ) : (
+        <>
         <ul className="w-full max-w-5xl">
           {urls.map((url) => (
             <li
               key={url.shortUrl}
-              className="bg-rose-100 rounded-md shadow-md p-4 mb-4 mx-2 lg:mx-0"
+              className="bg-rose-100 rounded-md shadow-md p-4 sm:p-6 mb-4 mx-2 lg:mx-0"
             >
               <div className="flex justify-between items-center">
-                <span className="select-all text-2xl font-bold text-rose-800 hover:text-rose-600 transition-colors">
+                <span className="select-all text-2xl sm:text-3xl md:text-4xl font-bold text-rose-800 hover:text-rose-600 transition-colors">
                   {url.shortUrl}
                 </span>
                 <button
@@ -69,28 +81,34 @@ function Urlslist() {
                   }}
                   className="transition-all duration-200 ease-out
                      hover:bg-rose-400 active:bg-rose-500 bg-rose-300
-                      shadow-md hover:shadow-lg h-10
-                       text-1xl md:text-xl 
-                      p-2 rounded-md text-rose-950 font-extrabold flex items-center"
+                      shadow-md hover:shadow-lg h-12 sm:h-14 md:h-16
+                      text-base sm:text-lg md:text-xl
+                      p-3 sm:p-4 rounded-md text-rose-950 font-extrabold flex items-center"
                 >
                   {t("myurls.copy")}
                 </button>
               </div>
-              <p className="text-sm text-gray-500 mt-1">{url.longUrl}</p>
+              <p className="text-base sm:text-lg md:text-xl text-gray-500 mt-1">{url.longUrl}</p>
               <div className="flex justify-between mt-2">
-                <p className="text-gray-700">
-                  {t("myurls.lifetime")} {url.urlTime}
-                </p>
-                <p className="text-gray-700">
-                  {t("myurls.clicks")} {url.urlClicks}
-                </p>
+                <div className={`py-2  px-6 -ml-4  rounded-tr-4xl sm:-ml-6 md:-ml-6 font-extrabold ${dayjs(url.expiredAt).isAfter(dayjs())? "bg-green-300 text-green-900": "bg-red-300 text-red-900"} `}>
+                  <p className="text-lg sm:text-xl md:text-2xl">
+                  {dayjs(url.expiredAt).isAfter(dayjs())? t("myurls.isexpiredF") : t("myurls.isexpiredT")}
+                  </p>
+                  <span className="text-base sm:text-lg md:text-xl text-gray-500">{formatDate(url.createdAt)} -- {formatDate(url.expiredAt)}</span>
+                </div>
+                <div>
+                  <p className="text-lg sm:text-xl md:text-2xl text-gray-700 font-extrabold">
+                    {t("myurls.clicks")} {url.urlClicks}
+                  </p>
+                </div>
               </div>
             </li>
           ))}
         </ul>
+        <a className="text-2xl font-bold" href="#top">{t("myurls.top")}</a>
+        </>
       )}
     </div>
   );
 }
-
 export default Urlslist;

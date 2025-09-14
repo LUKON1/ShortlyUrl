@@ -8,14 +8,6 @@
     "copied": "Скопировано!",
     "downloadqr": "Скачать QR",
     "urlopt": {
-      "clicks": {
-        "clicksword": "Клики:",
-        "unlim": "неограничено",
-        "1k": "1k",
-        "10k": "10k",
-        "100k": "100k",
-        "1mln": "1m"
-      },
       "urtime": {
         "liftimeword": "Время жизни:",
         "week": "неделя",
@@ -46,7 +38,12 @@
     "copy": "Копировать",
     "lifetime": "Время жизни:",
     "clicks": "Клики:",
-    "logout": "Выйти"
+    "logout": "Выйти",
+    "isexpiredF": "Действует",
+    "isexpiredT": "Недействительна",
+    "loading": "Загрузка..",
+    "loaderr": "Ошибка загрузки",
+    "top":"Вверх"
   },
   "registration": {
     "title": "Зарегистрироваться",

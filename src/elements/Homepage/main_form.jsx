@@ -21,21 +21,13 @@ function ShortenerForm() {
   const qrContainerRef = useRef(null);
   const inputRef = useRef(); 
 
-  // --- Опции для URL (время жизни, количество кликов) и их перевод | URL options (lifetime, click count) and their translation ---
+  // --- Опции для URL (время жизни) и их перевод | URL options (lifetime) and their translation ---
   const [urlTime, setUrlTime] = useState("");
   const urlTimeOptions = [
     { value: 604800, label: t('homepage.urlopt.urtime.week')},
     { value: 86400, label: t('homepage.urlopt.urtime.day') },
     { value: 3600, label: t('homepage.urlopt.urtime.hour') },
     { value: 2592000, label: t('homepage.urlopt.urtime.month') },
-  ];
-  const [urlClicks, setUrlClicks] = useState("-1");
-  const urlClicksOptions = [
-    { value: -1, label: t('homepage.urlopt.clicks.unlim') },
-    { value: 1000, label: t('homepage.urlopt.clicks.1k') },
-    { value: 10000, label: t('homepage.urlopt.clicks.10k') },
-    { value: 100000, label: t('homepage.urlopt.clicks.100k') },
-    { value: 1000000, label: t('homepage.urlopt.clicks.1mln') },
   ];
  
   // --- Фокусировка на поле ввода при монтировании компонента | Focus input field on component mount ---
@@ -70,7 +62,6 @@ function ShortenerForm() {
           throw new Error(); // Генерирует ошибку, если URL совпадает с доменом приложения. | Throws an error if URL matches the application's domain.
         }
         setIsLoading(true); // Устанавливает состояние загрузки. | Sets loading state.
-        const usertoken = localStorage.getItem("usertoken"); // Получает токен пользователя. | Gets user token.
        
         // Отправка запроса на сокращение URL к API. | Sending URL shortening request to the API.
         const response = await fetch(`${API_BASE_URL}/ShortUrl/`, {
@@ -79,7 +70,7 @@ function ShortenerForm() {
             "Content-Type": "application/json",
           },
           // Отправка URL, времени жизни, количества кликов и токена пользователя. | Sending URL, lifetime, click count, and user token.
-          body: JSON.stringify({url:url, urlTime:urlTime, urlClicks:urlClicks, usertoken: usertoken ? usertoken : "unregistred"}) 
+          body: JSON.stringify({url:url, urlTime:urlTime}) 
         });
         
         if (!response.ok) {
@@ -92,7 +83,7 @@ function ShortenerForm() {
           throw new Error(); // Проверка длины кода. | Code length check.
         }
         
-        const shortUrl = `https://localhost:7206/ShortUrl/${usercode}`; // Формирование полного сокращенного URL. | Construct the full shortened URL.
+        const shortUrl = `${API_BASE_URL}/ShortUrl/${usercode}`; // Формирование полного сокращенного URL. | Construct the full shortened URL.
         setShortUrl(shortUrl); // Обновление состояния сокращенного URL. | Update the shortened URL state.
 
       } catch (error) {
@@ -105,7 +96,7 @@ function ShortenerForm() {
         setIsLoading(false); // Сброс состояния загрузки. | Reset loading state.
       }
     },
-    [urlClicks, urlTime, url] // Зависимости `useCallback`. | `useCallback` dependencies.
+    [urlTime, url] // Зависимости `useCallback`. | `useCallback` dependencies.
   );
 
   // --- Рендеринг компонента | Component rendering ---
@@ -155,23 +146,6 @@ function ShortenerForm() {
                   }}
                 >
                   {urlTimeOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              {/* Выбор количества кликов URL. | URL click count selection. */}
-              <div className="flex flex-row justify-between md:gap-2  md:justify-normal">
-                <p>{t('homepage.urlopt.clicks.clicksword')}</p>
-                <select
-                  className="w-30 text-center md:w-23 lg:w-35"
-                  value={urlClicks}
-                  onChange={(e) => {
-                    setUrlClicks(Number(e?.target.value));
-                  }}
-                >
-                  {urlClicksOptions.map((option) => (
                     <option key={option.value} value={option.value}>
                       {option.label}
                     </option>

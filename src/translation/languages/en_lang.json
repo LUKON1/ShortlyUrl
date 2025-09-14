@@ -8,14 +8,6 @@
     "copied": "Copied!",
     "downloadqr": "Download QR",
     "urlopt": {
-      "clicks": {
-        "clicksword": "Clicks:",
-        "unlim": "unlimited",
-        "1k": "1k",
-        "10k": "10k",
-        "100k": "100k",
-        "1mln": "1m"
-      },
       "urtime": {
         "liftimeword": "Lifetime:",
         "week": "week",
@@ -46,7 +38,12 @@
     "copy": "Copy",
     "lifetime": "Lifetime:",
     "clicks": "Clicks:",
-    "logout": "Logout" 
+    "logout": "Logout",
+    "isexpiredF": "Active",
+    "isexpiredT": "Expired",
+    "loading": "Loading...",
+    "loaderr": "Load error",
+    "top":"On top"
   },
   "registration": {
     "title": "Sign Up",
