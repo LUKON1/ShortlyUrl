@@ -47,11 +47,19 @@ export const handlers = [
       },
       {
         shortUrl: "https://examle.com/satq3",
-        longUrl: "https://gogle.com",
+        longUrl: "https://messanger.max",
         createdAt: "2025-09-05T00:00:00Z",
         expiredAt: "2025-09-28T00:00:00Z",
         urlClicks: 100000,
       },
+      {
+        shortUrl: "https://xamlcom/satq3t82",
+        longUrl: "https://tumtum.goo",
+        createdAt: "2025-09-13T16:00:00Z",
+        expiredAt: "2025-09-25T16:00:00Z",
+        urlClicks: 5757,
+      },
+      
       
     ],{ status: 200 });
   }),

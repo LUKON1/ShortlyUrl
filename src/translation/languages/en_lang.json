@@ -43,7 +43,8 @@
     "isexpiredT": "Expired",
     "loading": "Loading...",
     "loaderr": "Load error",
-    "top":"On top"
+    "top":"On top",
+    "search":"Search by original url"
   },
   "registration": {
     "title": "Sign Up",
