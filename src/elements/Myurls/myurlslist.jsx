@@ -114,7 +114,7 @@ function Urlslist() {
                 </p>
                 <div className="flex justify-between mt-2">
                   <div
-                    className={`py-2  px-6 -ml-4  rounded-tr-4xl sm:-ml-6 md:-ml-6 font-extrabold ${
+                    className={`py-2  px-6 -ml-4 -mb-4 sm:-mb-6 rounded-tr-4xl sm:-ml-6 md:-ml-6 font-extrabold ${
                       dayjs(url.expiredAt).isAfter(dayjs())
                         ? "bg-green-300 text-green-900"
                         : "bg-red-300 text-red-900"
@@ -138,9 +138,6 @@ function Urlslist() {
               </li>
             ))}
           </ul>
-          <a className="text-2xl font-bold mt-8 mb-4 text-rose-700 hover:text-rose-900 transition-colors" href="#top">
-            {t("myurls.top")}
-          </a>
         </>
       )}
     </div>
