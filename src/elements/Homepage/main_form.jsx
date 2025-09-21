@@ -6,6 +6,7 @@ import LoadQR_Button from "./loadQR_Button.jsx";
 import Notifications from "../shared/messagewindow.jsx";
 import { useTranslation } from "react-i18next";
 import { containsMyDomain } from "../../utils/containsMyDomain.js";
+import axios from "../../api/axios.js";
 
 function ShortenerForm() {
   const API_SHORTER = "/shorter"
@@ -46,25 +47,19 @@ function ShortenerForm() {
         }
         setIsLoading(true);
        
-        const response = await fetch(`${API_BASE_URL}/ShortUrl/`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({url:url, urlTime:urlTime}) 
-        });
+        const response = await axios.post(API_SHORTER,
+          JSON.stringify({url:url, urlTime:urlTime}),
+          {
+          headers: {"Content-Type": "application/json"}
+          }
+        );
         
-        if (!response.ok) {
-          throw new Error("Response error");
-        }
-        console.log(`http status:  ${response.status}`);
-        
-        const usercode = await response.text();
+        const usercode =  response?.data?.usercode;
         if (usercode.length !== 7) {
           throw new Error();
         }
         
-        const shortUrl = `${API_BASE_URL}/ShortUrl/${usercode}`;
+        const shortUrl = `${API_BASE_URL}/ShortlyUrl/${usercode}`;
         setShortUrl(shortUrl);
 
       } catch (error) {

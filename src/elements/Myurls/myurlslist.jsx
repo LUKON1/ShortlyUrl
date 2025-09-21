@@ -1,14 +1,16 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
 import { formatDate } from "../../utils/formatDate";
+import axios from "../../api/axios";
+import Notifications from "../shared/messagewindow";
 function Urlslist() {
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const API_MYURLS = "/myurls"
   const { t } = useTranslation();
   const [urls, setUrls] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const notificationRef = useRef();
 
   const displayedUrls = useMemo(() => {
     return searchTerm
@@ -26,26 +28,21 @@ function Urlslist() {
 
   const fetchUrls = async () => {
     setLoading(true);
-    setError(null);
     try {
-      const response = await fetch(`${API_BASE_URL}/myurls/`, {
-        method: "GET",
-      });
-
-      if (!response.ok) {
-        throw new Error();
-      }
-
-      const data = await response.json();
+      const response = await axios.get(API_MYURLS);
+      const data = await response?.data;
       setUrls(data);
     } catch (error) {
-      setError(`${t()}: ${response.status}`);
+      console.log("ошибка запроса")
+      notificationRef.current?.addNotification(t("myurls.loaderr"), 3000);
     } finally {
       setLoading(false);
     }
   };
 
   return (
+    <>
+    <Notifications ref={notificationRef}/>
     <div className="flex flex-col items-center w-full">
       <button
         onClick={fetchUrls}
@@ -64,10 +61,6 @@ function Urlslist() {
           <p className="text-4xl font-bold text-rose-700">
             {t("myurls.loading")}
           </p>
-        </div>
-      ) : error ? (
-        <div className="flex justify-center mt-20 w-full max-w-5xl  min-h-[100vh]">
-          <p className="text-4xl font-bold text-red-700">{error}</p>
         </div>
       ) : urls.length === 0 ? (
         <div className="flex justify-center mt-20 w-full max-w-5xl  min-h-[100vh]">
@@ -142,6 +135,7 @@ function Urlslist() {
         </>
       )}
     </div>
+    </>
   );
 }
 export default Urlslist;

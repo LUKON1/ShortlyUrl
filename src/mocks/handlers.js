@@ -6,7 +6,7 @@ export const handlers = [
   http.post("https://devmode/signin", () => {
     return HttpResponse.json({accesToken:"as2g24hgadsgej", user: "LUKONDEV"}, { status: 201 });
   }),
-  http.get("https://devmode/myurls/", () => {
+  http.get("https://devmode/myurls", () => {
     return HttpResponse.json([
       {
         shortUrl: "https://ele.com/sfh79",
@@ -68,7 +68,7 @@ export const handlers = [
       
     ],{ status: 200 });
   }),
-  http.post("https://devmode/ShortUrl/", () => {
-    return new HttpResponse("Hw81kOM", { status: 201 });
+  http.post("https://devmode/shorter", () => {
+    return HttpResponse.json({usercode : "Hw81kOM"}, { status: 201 });
   }),
 ];
