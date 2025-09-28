@@ -7,11 +7,13 @@ import Notifications from "../shared/messagewindow.jsx";
 import { useTranslation } from "react-i18next";
 import { containsMyDomain } from "../../utils/containsMyDomain.js";
 import axios from "../../api/axios.js";
+import useAuth from "../../utils/useAuth.js";
 
 function ShortenerForm() {
-  const API_SHORTER = "/shorter"
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const API_SHORTER = "/cut/shorter"
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const {t} = useTranslation()
+  const {userId} = useAuth();
 
   const [url, setUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
@@ -48,7 +50,7 @@ function ShortenerForm() {
         setIsLoading(true);
        
         const response = await axios.post(API_SHORTER,
-          JSON.stringify({url:url, urlTime:urlTime}),
+          JSON.stringify({url:url, urlTime:urlTime, userId:userId}),
           {
           headers: {"Content-Type": "application/json"}
           }
@@ -59,7 +61,7 @@ function ShortenerForm() {
           throw new Error();
         }
         
-        const shortUrl = `${API_BASE_URL}/ShortlyUrl/${usercode}`;
+        const shortUrl = `${BASE_URL}${usercode}`;
         setShortUrl(shortUrl);
 
       } catch (error) {

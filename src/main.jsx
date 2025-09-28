@@ -7,7 +7,7 @@ import App from "/src/elements/App";
 import i18n from "./translation/i18n";
 import { AuthProvider } from "./context/AuthProvider";
 
-if (process.env.NODE_ENV === 'development') {
+if (import.meta.env.VITE_MSW_ACTIVE === 'TRUE') {
   import('./mocks/browser')
     .then((module) => module.worker.start())
     .catch((err) => console.error('Failed to start service worker', err));

@@ -33,7 +33,8 @@ function Signinform() {
         }
       );
       const accessToken = response?.data?.accessToken;
-      setAuth({ user, pwd, accessToken });
+      const userId = response?.data?.userId;
+      setAuth({ user, pwd, accessToken, userId });
       setUser("");
       setPwd("");
       navigate("/myurls");
