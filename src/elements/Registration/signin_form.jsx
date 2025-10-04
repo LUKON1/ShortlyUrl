@@ -7,7 +7,7 @@ import axios from "../../api/axios";
 import useAuth from "../../utils/useAuth";
 
 function Signinform() {
-  const API_SIGNIN = "/signin";
+  const API_SIGNIN = "/login";
   const { setAuth } = useAuth();
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");

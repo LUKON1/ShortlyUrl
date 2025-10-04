@@ -5,7 +5,7 @@ import { formatDate } from "../../utils/formatDate";
 import axios from "../../api/axios";
 import Notifications from "../shared/messagewindow";
 function Urlslist() {
-  const API_MYURLS = "/myurls"
+  const API_MYURLS = "/geturls"
   const { t } = useTranslation();
   const [urls, setUrls] = useState([]);
   const [loading, setLoading] = useState(true);

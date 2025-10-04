@@ -58,7 +58,8 @@
     "incorrectpwdus": "Incorrect Username or password",
     "haveanacc" : "already have an account?",
     "donthaveacc" : "need an account?",
-    "pwddif": "passwords don't match"
+    "pwddif": "passwords don't match",
+    "Usalreadyexists": "Username already exists"
   }
 }
 
