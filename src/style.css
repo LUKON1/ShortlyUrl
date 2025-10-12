@@ -1,9 +1,5 @@
-/* цвета tailwind:
-шапка и фут rose-300
-текст sky-400
-фон rose-50
-*/
 @import "tailwindcss";
+
 @font-face {
   font-family: 'AmazeDoom';
   src: url('./fonts/amazdoomleft.ttf') format('truetype');
@@ -11,6 +7,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 :root {
   overflow: hidden;
   overflow-y: scroll;
