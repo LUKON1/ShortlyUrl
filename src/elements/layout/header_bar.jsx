@@ -64,8 +64,8 @@ function Header_bar() {
             to="/about"
             className={({ isActive }) =>
               isActive
-                ? "text-rose-900 h-full flex justify-center items-center flex-grow basis-1/5  font-extrabold transition duration-300 ease-in-out delay-100"
-                : "text-rose-100 h-full flex justify-center items-center hover:text-rose-250  flex-grow basis-1/5 font-bold transition duration-300 ease-in-out delay-100 hover:-translate-y-2"
+                ? "text-rose-900 h-full flex justify-center items-center grow basis-1/5  font-extrabold transition duration-300 ease-in-out delay-100"
+                : "text-rose-100 h-full flex justify-center items-center hover:text-rose-250  grow basis-1/5 font-bold transition duration-300 ease-in-out delay-100 hover:-translate-y-2"
             }
           >
             {t("header.about")}
@@ -75,8 +75,8 @@ function Header_bar() {
               to="/myurls"
               className={({ isActive }) =>
                 isActive
-                  ? "text-rose-900 h-full flex justify-center items-center flex-grow basis-1/5 font-extrabold transition duration-300 ease-in-out delay-100"
-                  : "text-rose-100 h-full flex justify-center items-center hover:text-rose-250 flex-grow basis-1/5 font-bold transition duration-300 ease-in-out delay-100 hover:-translate-y-2"
+                  ? "text-rose-900 h-full flex justify-center items-center grow basis-1/5 font-extrabold transition duration-300 ease-in-out delay-100"
+                  : "text-rose-100 h-full flex justify-center items-center hover:text-rose-250 grow basis-1/5 font-bold transition duration-300 ease-in-out delay-100 hover:-translate-y-2"
               }
             >
               {t("header.myurls")}
@@ -86,8 +86,8 @@ function Header_bar() {
               to="/registration"
               className={({ isActive }) =>
                 isActive
-                  ? "text-rose-900 h-full flex justify-center items-center flex-grow basis-1/5 font-extrabold transition duration-300 ease-in-out delay-100"
-                  : "text-rose-100 h-full flex justify-center items-center hover:text-rose-250 flex-grow basis-1/5 font-bold transition duration-300 ease-in-out delay-100 hover:-translate-y-2"
+                  ? "text-rose-900 h-full flex justify-center items-center grow basis-1/5 font-extrabold transition duration-300 ease-in-out delay-100"
+                  : "text-rose-100 h-full flex justify-center items-center hover:text-rose-250 grow basis-1/5 font-bold transition duration-300 ease-in-out delay-100 hover:-translate-y-2"
               }
             >
               {t("header.signup")}
@@ -121,7 +121,7 @@ function Header_bar() {
           <style>{fallAnimation}</style>
           <div
             className="absolute top-20 left-0 bg-rose-400
-              h-[20vh] w-[100vw] overflow-hidden z-30 transition-all duration-200 ease-out "
+              h-[20vh] w-screen overflow-hidden z-30 transition-all duration-200 ease-out "
             style={{
               animation: isClosing
                 ? "fallUp 0.5s ease-out forwards"

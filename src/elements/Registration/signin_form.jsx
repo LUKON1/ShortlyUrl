@@ -56,7 +56,7 @@ function Signinform() {
         <input
           ref={inputRef}
           className="transition-all duration-200 ease-out text-center
-               p-2 h-16 lg:h-20  text-1xl md:text-2xl lg:text-3xl border-1
+               p-2 h-16 lg:h-20  text-1xl md:text-2xl lg:text-3xl border
                 rounded-md max-w-5xl border-sky-400 w-3xs md:w-[55vw]
                  lg:w-[70vw]"
           type="text"
@@ -69,7 +69,7 @@ function Signinform() {
         />
         <input
           className="transition-all duration-200 ease-out text-center
-               p-2 h-16 lg:h-20  text-1xl md:text-2xl lg:text-3xl border-1
+               p-2 h-16 lg:h-20  text-1xl md:text-2xl lg:text-3xl border
                 rounded-md max-w-5xl border-sky-400 w-3xs md:w-[55vw]
                  lg:w-[70vw]"
           type="password"

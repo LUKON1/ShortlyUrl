@@ -39,7 +39,7 @@ function Myurlspage() {
 
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center flex-grow text-rose-900 text-2xl">
+            <div className="flex justify-center items-center grow text-rose-900 text-2xl">
                 {t('myurls.loading')}
             </div>
         );
@@ -47,14 +47,14 @@ function Myurlspage() {
 
     if (error) {
         return (
-            <div className="flex justify-center items-center flex-grow text-red-600 text-2xl">
+            <div className="flex justify-center items-center grow text-red-600 text-2xl">
                 {error}
             </div>
         );
     }
 
     return (
-        <div className="flex flex-col flex-grow items-center p-4">
+        <div className="flex flex-col grow items-center p-4">
              <Notifications ref={notificationRef} />
             <Logout />
             <h1 className="text-3xl font-bold mb-6 text-sky-400">{t('myurls.myurls')}</h1>

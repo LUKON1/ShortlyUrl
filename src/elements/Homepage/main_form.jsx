@@ -117,7 +117,7 @@ function ShortenerForm() {
                 text-center p-2
                 h-16 lg:h-20
                 text-1xl md:text-2xl lg:text-3xl
-                border-1 rounded-md
+                border rounded-md
                 max-w-5xl border-sky-400
                 w-3xs md:w-[55vw] lg:w-[70vw"
 							type="url"
@@ -178,7 +178,7 @@ function ShortenerForm() {
                   flex flex-col items-center justify-center
                   overflow-hidden text-center
                   h-16 p-2 box-border
-                  border-1 rounded-md
+                  border rounded-md
                   lg:h-20
                   text-1xl md:text-2xl lg:text-3xl
                   max-w-5xl border-sky-400

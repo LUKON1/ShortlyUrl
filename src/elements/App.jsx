@@ -24,7 +24,7 @@ function App() {
   return (
     <div className="flex flex-col w-screen min-h-screen bg-rose-50">
       <Header_bar />
-      <main className="flex flex-col flex-grow">
+      <main className="flex flex-col grow">
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/about" element={<Aboutpage />}/>
