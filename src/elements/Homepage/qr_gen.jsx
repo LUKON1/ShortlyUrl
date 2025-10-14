@@ -1,14 +1,14 @@
-import { QRCode } from "react-qr-code";
+import { QRCodeSVG } from "qrcode.react";
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
 function Qrgen({ ShortUrl, qrContainerRef, notificationRef }) {
 	const { t } = useTranslation();
 	const [pngUrl, setPngUrl] = useState(null);
+	const tempSvgContainerRef = useRef(null);
 	const isConverting = useRef(false);
 
 	useEffect(() => {
-		// Очищаем предыдущий URL
 		return () => {
 			if (pngUrl) {
 				URL.revokeObjectURL(pngUrl);
@@ -18,7 +18,6 @@ function Qrgen({ ShortUrl, qrContainerRef, notificationRef }) {
 
 	useEffect(() => {
 		if (!ShortUrl) {
-			// Если нет URL, очищаем состояние
 			if (pngUrl) {
 				URL.revokeObjectURL(pngUrl);
 				setPngUrl(null);
@@ -26,56 +25,47 @@ function Qrgen({ ShortUrl, qrContainerRef, notificationRef }) {
 			return;
 		}
 
-		// Сбрасываем флаг конвертации
 		isConverting.current = false;
 
 		const convertSvgToPng = () => {
-			if (isConverting.current || !qrContainerRef?.current) return;
+			if (isConverting.current || !tempSvgContainerRef?.current) return;
 
 			isConverting.current = true;
 
-			// Находим SVG элемент
-			const svgElement = qrContainerRef.current.querySelector("svg");
+			const svgElement = tempSvgContainerRef.current.querySelector("svg");
 			if (!svgElement) {
 				isConverting.current = false;
 				return;
 			}
 
-			// Получаем размеры
 			const width = svgElement.getAttribute("width") || 256;
 			const height = svgElement.getAttribute("height") || 256;
 
-			// Преобразуем SVG в строку
 			const svgString = new XMLSerializer().serializeToString(svgElement);
 
-			// Создаём canvas
 			const canvas = document.createElement("canvas");
 			canvas.width = width;
 			canvas.height = height;
 			const ctx = canvas.getContext("2d");
 
-			// Создаём изображение из SVG
 			const img = new Image();
 			img.src = URL.createObjectURL(
 				new Blob([svgString], { type: "image/svg+xml" })
 			);
 
 			img.onload = () => {
-				// Рисуем SVG на canvas
 				ctx.drawImage(img, 0, 0, width, height);
 
-				// Преобразуем canvas в PNG
 				const newPngUrl = canvas.toDataURL("image/png");
 				setPngUrl(newPngUrl);
 
-				// Освобождаем память
 				URL.revokeObjectURL(img.src);
 				isConverting.current = false;
 			};
 
 			img.onerror = () => {
 				notificationRef.current?.addNotification(
-					"Ошибка при загрузке QR",
+					t("message.qrdownloaderror"),
 					3000
 				);
 				URL.revokeObjectURL(img.src);
@@ -83,13 +73,12 @@ function Qrgen({ ShortUrl, qrContainerRef, notificationRef }) {
 			};
 		};
 
-		// Запускаем конвертацию с небольшой задержкой
 		const timer = setTimeout(convertSvgToPng, 100);
 
 		return () => {
 			clearTimeout(timer);
 		};
-	}, [ShortUrl, qrContainerRef, notificationRef]);
+	}, [ShortUrl, notificationRef]);
 
 	if (!ShortUrl) return null;
 
@@ -98,9 +87,8 @@ function Qrgen({ ShortUrl, qrContainerRef, notificationRef }) {
 			ref={qrContainerRef}
 			className="flex flex-col items-center relative"
 		>
-			{/* Всегда рендерим SVG для генерации, но делаем его невидимым */}
-			<div className="invisible absolute">
-				<QRCode
+			<div ref={tempSvgContainerRef} className="invisible absolute">
+				<QRCodeSVG
 					value={ShortUrl}
 					size={256}
 					bgColor={"#fff1f2"}
@@ -109,7 +97,6 @@ function Qrgen({ ShortUrl, qrContainerRef, notificationRef }) {
 				/>
 			</div>
 
-			{/* Показываем PNG когда он готов */}
 			{pngUrl ? (
 				<img
 					src={pngUrl}
@@ -117,7 +104,6 @@ function Qrgen({ ShortUrl, qrContainerRef, notificationRef }) {
 					className="w-64 h-64 object-contain user-select-all"
 				/>
 			) : (
-				// Показываем placeholder пока генерируется PNG
 				<div className="w-64 h-64 flex items-center justify-center bg-rose-50 rounded-lg">
 					<span className="text-rose-300">Downloading...</span>
 				</div>

@@ -1,6 +1,8 @@
 import { useTranslation } from "react-i18next";
+
 function LoadQR_Button({ qrContainerRef, notificationRef, url }) {
 	const { t } = useTranslation();
+
 	const handleLoadQR = () => {
 		if (!qrContainerRef?.current) {
 			notificationRef.current?.addNotification(
@@ -9,32 +11,55 @@ function LoadQR_Button({ qrContainerRef, notificationRef, url }) {
 			);
 			return;
 		}
-		try {
-			// Находим img элемент внутри контейнера
-			const imgElement = qrContainerRef.current.querySelector("img");
-			if (!imgElement || !imgElement.src) {
-				notificationRef.current?.addNotification(
-					t("message.qrdownloading"),
-					3000
-				);
-				return;
-			}
+
+		const svgElement = qrContainerRef.current.querySelector("svg");
+
+		if (!svgElement) {
+			notificationRef.current?.addNotification(
+				t("message.qrdownloading"),
+				3000
+			);
+			return;
+		}
+
+		const svgString = new XMLSerializer().serializeToString(svgElement);
+		const canvas = document.createElement("canvas");
+		const ctx = canvas.getContext("2d");
+		const img = new Image();
+
+		const svgSize = svgElement.getBoundingClientRect();
+		canvas.width = svgSize.width * 2; // Увеличиваем разрешение для лучшего качества
+		canvas.height = svgSize.height * 2;
+
+		img.onload = () => {
+			ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
 			const urlFullDomain = new URL(url);
 			const urlMainDomain = urlFullDomain.hostname;
 			const domainParts = urlMainDomain.split(".");
 			const baseDomain = domainParts.slice(-2).join(".");
-			// Создаём ссылку для скачивания
 
 			const link = document.createElement("a");
-			link.href = imgElement.src;
+			link.href = canvas.toDataURL("image/png");
 			link.download = `${baseDomain}-QRcode.png`;
 			document.body.appendChild(link);
 			link.click();
 			document.body.removeChild(link);
-		} catch {
-			return;
-		}
+
+			URL.revokeObjectURL(img.src);
+		};
+
+		img.onerror = () => {
+			notificationRef.current?.addNotification(
+				t("message.qrdownloaderror"),
+				3000
+			);
+			URL.revokeObjectURL(img.src);
+		};
+
+		img.src = URL.createObjectURL(new Blob([svgString], { type: "image/svg+xml" }));
 	};
+
 	return (
 		<div>
 			<button
@@ -51,4 +76,5 @@ function LoadQR_Button({ qrContainerRef, notificationRef, url }) {
 		</div>
 	);
 }
+
 export default LoadQR_Button;
