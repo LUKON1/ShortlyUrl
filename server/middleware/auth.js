@@ -7,7 +7,7 @@ const auth = (req, res, next) => {
     req.userId = decoded.userId;
     next();
   } catch (error) {
-    res.status(401).send({ error: "Please authenticate." });
+    return res.status(401).send({ error: "Please authenticate." });
   }
 };
 

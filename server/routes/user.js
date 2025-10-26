@@ -27,7 +27,7 @@ router.post("/registr", async (req, res) => {
 		const accessToken = jwt.sign(
 			{ userId: newUser._id, user: newUser.user },
 			process.env.JWT_SECRET,
-			{ expiresIn: "30m" }
+			{ expiresIn: "20m" }
 		);
 
 		const refreshToken = jwt.sign(
@@ -75,7 +75,7 @@ router.post("/login", async (req, res) => {
 		const accessToken = jwt.sign(
 			{ userId: foundUser._id, user: foundUser.user },
 			process.env.JWT_SECRET,
-			{ expiresIn: "30m" }
+			{ expiresIn: "20m" }
 		);
 
 		const newRefreshToken = jwt.sign(
@@ -108,7 +108,7 @@ router.post("/refresh", async (req, res) => {
 	try {
 		const cookies = req.cookies;
 		if (!cookies?.jwt) {
-			res.status(401).json({
+			return res.status(401).json({
 				error: "Unautorized: Refresh token not found",
 			});
 		}
@@ -157,7 +157,7 @@ router.post("/refresh", async (req, res) => {
 				const newAccessToken = jwt.sign(
 					{ userId: foundUser._id, user: foundUser.user },
 					process.env.JWT_SECRET,
-					{ expiresIn: "30m" }
+					{ expiresIn: "20m" }
 				);
 
 				const newRefreshToken = jwt.sign(
