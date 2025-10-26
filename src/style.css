@@ -51,4 +51,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
+  transition: background-color 0.3s ease;
+}
+
+:root.dark {
+  background-color: #0f172a;
+}
+
+* {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }

@@ -93,9 +93,9 @@ function ShortenerForm() {
                 <div className="mb-6 flex flex-col items-center gap-40 md:mb-18 md:flex-row md:gap-6">
                     <div className="felx relative flex-col">
                         {url && (
-                            <button className="absolute" onClick={() => setUrl("")} type="button">
+                            <button className="absolute z-10 p-1" onClick={() => setUrl("")} type="button">
                                 <img
-                                    className="h-full w-8 hover:cursor-pointer lg:w-10"
+                                    className="h-full w-8 hover:cursor-pointer lg:w-10 dark:invert"
                                     src="/src/assets/cross.svg"
                                     alt="X"
                                 />
@@ -103,7 +103,7 @@ function ShortenerForm() {
                         )}
                         <input
                             ref={inputRef}
-                            className="text-1xl lg:w-[70vw h-16 w-3xs max-w-5xl rounded-md border border-sky-400 p-2 text-center transition-all duration-200 ease-out md:w-[55vw] md:text-2xl lg:h-20 lg:text-3xl"
+                            className="text-1xl lg:w-[70vw h-16 w-3xs max-w-5xl rounded-lg border-2 border-sky-400 dark:border-sky-500 p-2 text-center transition-all duration-200 ease-out md:w-[55vw] md:text-2xl lg:h-20 lg:text-3xl bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 shadow-md focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400 focus:outline-none"
                             type="url"
                             value={url}
                             onChange={(e) => {
@@ -112,11 +112,11 @@ function ShortenerForm() {
                             }}
                             placeholder={t("homepage.placeholder")}
                         />
-                        <div className="absolute mt-2.5 flex w-full flex-col justify-center gap-x-2.5 gap-y-6 rounded border border-sky-400 bg-rose-50 px-1 py-2 text-xs focus:outline-none md:flex-row md:text-lg lg:gap-x-10 lg:text-2xl">
+                        <div className="absolute mt-2.5 flex w-full flex-col justify-center gap-x-2.5 gap-y-6 rounded-lg border-2 border-sky-400 dark:border-sky-500 bg-white dark:bg-slate-800 shadow-md px-1 py-2 text-xs focus:outline-none md:flex-row md:text-lg lg:gap-x-10 lg:text-2xl text-gray-900 dark:text-gray-100">
                             <div className="flex flex-row justify-between md:justify-normal md:gap-2">
                                 <p>{t("homepage.urlopt.urtime.liftimeword")}</p>
                                 <select
-                                    className="w-30 text-center md:w-20 lg:w-35"
+                                    className="w-30 text-center md:w-20 lg:w-35 bg-rose-100 dark:bg-slate-700 rounded px-2 py-1 border border-sky-400 dark:border-sky-500 focus:ring-2 focus:ring-sky-500 focus:outline-none"
                                     value={urlTime}
                                     onChange={(e) => {
                                         setUrlTime(Number(e?.target.value));
@@ -137,7 +137,7 @@ function ShortenerForm() {
                 {shortUrl && (
                     <div className="mb-30 flex flex-col items-center">
                         <div className="mb-30 flex flex-col items-center justify-center gap-5 md:flex-row md:gap-6">
-                            <div className="text-1xl lg:w-[70vw box-border flex h-16 w-3xs max-w-5xl flex-col items-center justify-center overflow-hidden rounded-md border border-sky-400 p-2 text-center transition-all duration-200 ease-out md:w-[55vw] md:text-2xl lg:h-20 lg:text-3xl">
+                            <div className="text-1xl lg:w-[70vw box-border flex h-16 w-3xs max-w-5xl flex-col items-center justify-center overflow-hidden rounded-lg border-2 border-green-500 dark:border-green-400 bg-green-50 dark:bg-slate-800 p-2 text-center transition-all duration-200 ease-out md:w-[55vw] md:text-2xl lg:h-20 lg:text-3xl shadow-lg text-green-700 dark:text-green-300 font-semibold">
                                 <span className="select-all">{shortUrl}</span>
                             </div>
                             <div className="transition-all duration-200 ease-out">

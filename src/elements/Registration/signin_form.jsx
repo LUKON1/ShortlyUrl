@@ -51,14 +51,15 @@ function Signinform() {
       <Notifications ref={notificationRef} />
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col transition-all duration-200 ease-out gap-5"
+        className="flex flex-col transition-all duration-200 ease-out gap-5 bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl border border-gray-200 dark:border-slate-700"
       >
         <input
           ref={inputRef}
           className="transition-all duration-200 ease-out text-center
-               p-2 h-16 lg:h-20  text-1xl md:text-2xl lg:text-3xl border
-                rounded-md max-w-5xl border-sky-400 w-3xs md:w-[55vw]
-                 lg:w-[70vw]"
+               p-2 h-16 lg:h-20  text-1xl md:text-2xl lg:text-3xl border-2
+                rounded-lg max-w-5xl border-sky-400 dark:border-sky-500 w-3xs md:w-[55vw]
+                 lg:w-[70vw] bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100
+                 focus:ring-2 focus:ring-sky-500 focus:outline-none shadow-sm"
           type="text"
           placeholder={t("registration.loginPlaceholder")}
           value={user}
@@ -69,9 +70,10 @@ function Signinform() {
         />
         <input
           className="transition-all duration-200 ease-out text-center
-               p-2 h-16 lg:h-20  text-1xl md:text-2xl lg:text-3xl border
-                rounded-md max-w-5xl border-sky-400 w-3xs md:w-[55vw]
-                 lg:w-[70vw]"
+               p-2 h-16 lg:h-20  text-1xl md:text-2xl lg:text-3xl border-2
+                rounded-lg max-w-5xl border-sky-400 dark:border-sky-500 w-3xs md:w-[55vw]
+                 lg:w-[70vw] bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100
+                 focus:ring-2 focus:ring-sky-500 focus:outline-none shadow-sm"
           type="password"
           placeholder={t("registration.passwordPlaceholder")}
           value={pwd}
@@ -80,7 +82,7 @@ function Signinform() {
           minLength={5}
         />
         <Registrsubmit>{t("registration.submit")}</Registrsubmit>
-        <Link className="underline text-lg hover:text-sky-600" to={"/registration"}>{t("registration.donthaveacc")}</Link>
+        <Link className="underline text-lg hover:text-sky-600 dark:hover:text-sky-400 text-gray-700 dark:text-gray-300 transition-colors" to="/registration">{t("registration.donthaveacc")}</Link>
       </form>
     </>
   );

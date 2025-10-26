@@ -30,7 +30,7 @@ const Notifications = forwardRef((props, ref) => {
 			{notifications.map((notification) => (
 				<div
 					key={notification.id}
-					className="text-xl lg:text-2xl animate-fade-out opacity-100 bg-rose-400 text-white px-4 py-2 lg:px-10 lg:py-6 rounded shadow-lg w-full animate-fadeout"
+					className="text-xl lg:text-2xl animate-fade-out opacity-100 bg-rose-400 dark:bg-slate-700 text-white dark:text-slate-100 px-4 py-2 lg:px-10 lg:py-6 rounded-lg shadow-xl border border-rose-500 dark:border-slate-600 w-full animate-fadeout"
 				>
 					{notification.message}
 				</div>
