@@ -61,6 +61,22 @@
     "donthaveacc" : "need an account?",
     "pwddif": "passwords don't match",
     "Usalreadyexists": "Username already exists"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Manage your URLs and track analytics",
+    "overview": "Overview",
+    "myUrls": "My URLs",
+    "totalUrls": "Total URLs",
+    "totalClicks": "Total Clicks",
+    "activeUrls": "Active URLs",
+    "expiredUrls": "Expired URLs",
+    "last7Days": "last 7 days",
+    "last30Days": "last 30 days",
+    "activityChart": "Activity Over Last 7 Days",
+    "topUrls": "Top 5 URLs by Clicks",
+    "memberSince": "Member since",
+    "noData": "No data available"
   }
 }
 
