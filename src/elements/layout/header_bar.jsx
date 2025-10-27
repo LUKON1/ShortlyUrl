@@ -56,7 +56,7 @@ function Header_bar() {
           <LangDropdown />
           {auth?.userId ? (
             <NavLink
-              to="/myurls"
+              to="/profile"
               className={({ isActive }) =>
                 isActive
                   ? "text-rose-900 dark:text-rose-400 px-4 py-2 rounded-lg bg-rose-100 dark:bg-slate-700 font-extrabold transition duration-300 ease-in-out"
@@ -110,7 +110,7 @@ function Header_bar() {
             <nav className="flex flex-col text-left px-6 h-[50vh] text-xl gap-2">
               {auth?.userId ? (
                 <NavLink
-                  to="/myurls"
+                  to="/profile"
                   className={({ isActive }) =>
                     isActive
                       ? "text-rose-900 dark:text-rose-400 w-fit px-2 py-2 flex items-center font-extrabold transition duration-300 ease-in-out"

@@ -54,7 +54,7 @@ function Registrform() {
 			setUser("");
 			setPwd("");
 			setConfPwd("");
-			navigate("/myurls");
+			navigate("/profile");
 		} catch (err) {
 			if (err.response) {
 				if (err.response.data.error === "Username already exists") {

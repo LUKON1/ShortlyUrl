@@ -19,7 +19,7 @@
   },
   "header": {
     "about": "About",
-    "myurls": "My urls",
+    "myurls": "Profile",
     "signup": "Sign Up"
   },
   "footer": {
@@ -33,7 +33,6 @@
     "qrdownloading": "QR code not ready yet"
   },
    "myurls": {
-    "myurls" : "My urls",
     "refresh": "Refresh List",
     "nourls": "No URLs found.",
     "copy": "Copy",
@@ -66,7 +65,7 @@
     "title": "Dashboard",
     "subtitle": "Manage your URLs and track analytics",
     "overview": "Overview",
-    "myUrls": "My URLs",
+    "myUrls": "URLs",
     "totalUrls": "Total URLs",
     "totalClicks": "Total Clicks",
     "activeUrls": "Active URLs",
@@ -76,7 +75,8 @@
     "activityChart": "Activity Over Last 7 Days",
     "topUrls": "Top 5 URLs by Clicks",
     "memberSince": "Member since",
-    "noData": "No data available"
+    "noData": "No data available",
+    "loaderr": "profile load error"
   }
 }
 

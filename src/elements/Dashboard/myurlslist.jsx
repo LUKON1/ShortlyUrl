@@ -16,7 +16,7 @@ function Urlslist({ urls, notificationRef, getMyUrls, isLoading }) {
         <>
             <div className="flex w-full flex-col items-center">
                 <>
-                    <div className="flex w-full max-w-5xl flex-row items-center h-12 mb-4">
+                    <div className="flex w-full max-w-7xl mx-auto flex-row items-center h-12 mb-4">
                         <input
                             type="text"
                             value={searchTerm}
@@ -24,7 +24,7 @@ function Urlslist({ urls, notificationRef, getMyUrls, isLoading }) {
                                 setSearchTerm(e.target.value);
                             }}
                             placeholder={t("myurls.search")}
-                            className="w-full max-w-5xl rounded-lg h-full rounded-r-none border-2 border-sky-400 dark:border-sky-500 px-3 text-lg focus:outline-none bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500"
+                            className="w-full rounded-lg h-full rounded-r-none border-2 border-sky-400 dark:border-sky-500 px-3 text-lg focus:outline-none bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500"
                         />
                         <button
                             onClick={getMyUrls}
@@ -44,16 +44,22 @@ function Urlslist({ urls, notificationRef, getMyUrls, isLoading }) {
                         </div>
                     ) : (
                       <>
-                        {displayedUrls.length > 0 ? (<ul className="w-full max-w-5xl">
+                        {displayedUrls.length > 0 ? (
+                        <ul className="w-full max-w-7xl mx-auto">
                             {displayedUrls.map((urlItem) => (
                                 <li
                                     key={urlItem._id}
-                                    className="mx-2 mb-4 rounded-lg bg-white dark:bg-slate-800 p-4 shadow-lg border border-gray-200 dark:border-slate-700 sm:p-6 lg:mx-0 hover:shadow-xl transition-shadow"
+                                    className="mb-4 rounded-lg bg-white dark:bg-slate-800 p-4 shadow-lg border border-gray-200 dark:border-slate-700 sm:p-6 hover:shadow-xl transition-shadow"
                                 >
                                     <div className="flex items-center justify-between">
-                                        <span className="text-2xl font-bold text-rose-700 dark:text-rose-400 transition-colors select-all hover:text-rose-600 dark:hover:text-rose-300 sm:text-3xl md:text-4xl">
-                                            {`${import.meta.env.VITE_BASE_URL}/${urlItem.shortCode}`}
-                                        </span>
+                                        <div className="flex flex-col max-w-2/3">
+                                            <p className="text-2xl font-bold text-rose-700 dark:text-rose-400 transition-colors select-all hover:text-rose-600 dark:hover:text-rose-300 sm:text-3xl md:text-4xl">
+                                                {`${import.meta.env.VITE_BASE_URL}/${urlItem.shortCode}`}
+                                            </p>
+                                            <p className="mt-1 text-base text-gray-600 dark:text-gray-400 sm:text-lg truncate md:text-xl">
+                                            {urlItem.url}
+                                            </p>
+                                        </div>
                                         <button
                                             onClick={() => {
                                                 navigator.clipboard.writeText(
@@ -69,9 +75,6 @@ function Urlslist({ urls, notificationRef, getMyUrls, isLoading }) {
                                             {t("myurls.copy")}
                                         </button>
                                     </div>
-                                    <p className="mt-1 text-base text-gray-600 dark:text-gray-400 sm:text-lg md:text-xl">
-                                        {urlItem.url}
-                                    </p>
                                     <div className="mt-2 flex justify-between">
                                         <div
                                             className={`-mb-4 -ml-4 rounded-tr-4xl px-6 py-2 font-extrabold sm:-mb-6 sm:-ml-6 md:-ml-6 ${
@@ -98,7 +101,10 @@ function Urlslist({ urls, notificationRef, getMyUrls, isLoading }) {
                                     </div>
                                 </li>
                             ))}
-                        </ul>):(<p className="text-xl text-rose-900 dark:text-rose-400">{t("myurls.nourls")}</p>)}
+                        </ul>
+                        ) : (
+                        <p className="text-xl text-rose-900 dark:text-rose-400">{t("myurls.nourls")}</p>
+                        )}
                       </>
                     )}
                 </>
@@ -107,3 +113,4 @@ function Urlslist({ urls, notificationRef, getMyUrls, isLoading }) {
     );
 }
 export default Urlslist;
+

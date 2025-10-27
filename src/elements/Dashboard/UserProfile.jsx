@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { formatDate } from "../../utils/formatDate";
+import Logout from "./logout";
 
 function UserProfile({ profile }) {
   const { t } = useTranslation();
@@ -22,6 +23,7 @@ function UserProfile({ profile }) {
             {t("dashboard.memberSince")} {formatDate(profile.accountCreated)}
           </p>
         </div>
+        <Logout />
       </div>
       <div className="mt-6 grid grid-cols-2 gap-4">
         <div className="bg-gradient-to-br from-sky-50 to-blue-50 dark:from-slate-700 dark:to-slate-800 rounded-lg p-4">

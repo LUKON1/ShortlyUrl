@@ -29,7 +29,7 @@ function Logout() {
           shadow-lg hover:shadow-xl h-12
           lg:h-16  text-1xl md:text-2xl
           p-4  rounded-lg text-white dark:text-slate-900 font-extrabold
-          flex items-center justify-center w-1/5 max-w-35 absolute top-0 right-0 mt-21 mr-2"
+          flex items-center justify-center w-1/5 max-w-35"
 		>
 			{t("myurls.logout")}
 		</button>

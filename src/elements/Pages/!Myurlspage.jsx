@@ -1,13 +1,13 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import useAxiosPrivate from "../../utils/useAxiosPrivate";
-import Logout from "../Myurls/logout";
-import Urlslist from "../Myurls/myurlslist";
+import Urlslist from "../Dashboard/myurlslist";
 import Notifications from "../shared/messagewindow";
 import UserProfile from "../Dashboard/UserProfile";
 import StatsCard from "../Dashboard/StatsCard";
 import AnalyticsChart from "../Dashboard/AnalyticsChart";
 import TopUrlsList from "../Dashboard/TopUrlsList";
+import H1 from ".././shared/h1"
 
 function Myurlspage() {
     const API_MYURLS = "/myurls/geturls";
@@ -22,7 +22,31 @@ function Myurlspage() {
     const [activeTab, setActiveTab] = useState("overview");
     const notificationRef = useRef();
 
-    const getMyUrls = async () => {
+    const fetchDashboardData = useCallback(async () => {
+        setIsLoading(true);
+        try {
+            const profileResponse = await axiosPrivate.get(API_PROFILE);
+            setProfile(profileResponse.data);
+
+            const urlsResponse = await axiosPrivate.get(API_MYURLS);
+            setUrls(urlsResponse.data);
+
+            const analyticsResponse = await axiosPrivate.get(API_ANALYTICS);
+            setAnalytics(analyticsResponse.data);
+
+        } catch (err) {
+            console.error("Failed to fetch dashboard data:", err);
+            notificationRef.current?.addNotification(t("dashboard.loaderr"), 3000);
+        } finally {
+            setIsLoading(false);
+        }
+    }, [axiosPrivate, t, API_PROFILE, API_MYURLS, API_ANALYTICS]);
+
+    useEffect(() => {
+        fetchDashboardData();
+    }, [fetchDashboardData]);
+
+    const getMyUrls = useCallback(async () => {
         try {
             setIsLoading(true);
             const response = await axiosPrivate.get(API_MYURLS);
@@ -33,48 +57,21 @@ function Myurlspage() {
         } finally {
             setIsLoading(false);
         }
-    };
+    }, [axiosPrivate, t, API_MYURLS]);
 
-    const getAnalytics = async () => {
-        try {
-            const response = await axiosPrivate.get(API_ANALYTICS);
-            setAnalytics(response.data);
-        } catch (err) {
-            console.error("Failed to fetch analytics:", err);
-        }
-    };
-
-    const getProfile = async () => {
-        try {
-            const response = await axiosPrivate.get(API_PROFILE);
-            setProfile(response.data);
-        } catch (err) {
-            console.error("Failed to fetch profile:", err);
-        }
-    };
-
-    useEffect(() => {
-        getMyUrls();
-        getAnalytics();
-        getProfile();
-    }, []);
 
     return (
         <div className="flex w-full flex-col items-center px-4 pb-20">
             <Notifications ref={notificationRef} />
-            <Logout />
 
-            <div className="w-full max-w-7xl mt-8">
+            <div className="w-full max-w-7xl">
                 <div className="mb-8">
-                    <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+                    <H1>
                         {t("dashboard.title")}
-                    </h1>
-                    <p className="text-gray-600 dark:text-gray-400 text-lg">
-                        {t("dashboard.subtitle")}
-                    </p>
+                    </H1>
                 </div>
 
-                <div className="mb-6 border-b border-gray-200 dark:border-slate-700">
+                <div className="flex flex-row justify-between mb-6 border-b border-gray-200 dark:border-slate-700">
                     <nav className="flex gap-4">
                         <button
                             onClick={() => setActiveTab("overview")}
@@ -97,11 +94,15 @@ function Myurlspage() {
                             {t("dashboard.myUrls")}
                         </button>
                     </nav>
+                    <p className="text-gray-600 dark:text-gray-400 flex items-center">
+                        {t("dashboard.subtitle")}
+                    </p>
                 </div>
 
                 {activeTab === "overview" && (
                     <div className="space-y-6">
                         <UserProfile profile={profile} />
+
 
                         {analytics && (
                             <>

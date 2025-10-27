@@ -37,7 +37,7 @@ function Signinform() {
       setAuth({ user, pwd, accessToken, userId });
       setUser("");
       setPwd("");
-      navigate("/myurls");
+      navigate("/profile");
     } catch (err) {
       notificationRef.current?.addNotification(
         t("registration.incorrectpwdus"),

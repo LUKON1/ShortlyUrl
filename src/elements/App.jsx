@@ -33,7 +33,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/about" element={<Aboutpage />}/>
-            <Route path="/myurls" element={
+            <Route path="/profile" element={
              <PrivateRoute>
               <Myurlspage />
              </PrivateRoute>
