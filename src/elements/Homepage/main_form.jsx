@@ -114,7 +114,7 @@ function ShortenerForm() {
                         />
                         <div className="absolute mt-2.5 flex w-full flex-col justify-center gap-x-2.5 gap-y-6 rounded-lg border-2 border-sky-400 dark:border-sky-500 bg-white dark:bg-slate-800 shadow-md px-1 py-2 text-xs focus:outline-none md:flex-row md:text-lg lg:gap-x-10 lg:text-2xl text-gray-900 dark:text-gray-100">
                             <div className="flex flex-row justify-between md:justify-normal md:gap-2">
-                                <p>{t("homepage.urlopt.urtime.liftimeword")}</p>
+                                <p className="flex items-center">{t("homepage.urlopt.urtime.liftimeword")}</p>
                                 <select
                                     className="w-30 text-center md:w-20 lg:w-35 bg-rose-100 dark:bg-slate-700 rounded px-2 py-1 border border-sky-400 dark:border-sky-500 focus:ring-2 focus:ring-sky-500 focus:outline-none"
                                     value={urlTime}
