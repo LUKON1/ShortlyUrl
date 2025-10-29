@@ -5,7 +5,7 @@ import Urlslist from "../Dashboard/myurlslist";
 import Notifications from "../shared/messagewindow";
 import UserProfile from "../Dashboard/UserProfile";
 import StatsCard from "../Dashboard/StatsCard";
-import AnalyticsChart from "../Dashboard/AnalyticsChart";
+import ProfileAnalyticsChart from "../Dashboard/ProfileAnalyticsChart";
 import TopUrlsList from "../Dashboard/TopUrlsList";
 import H1 from ".././shared/h1"
 
@@ -94,7 +94,7 @@ function Myurlspage() {
                             {t("dashboard.myUrls")}
                         </button>
                     </nav>
-                    <p className="text-gray-600 dark:text-gray-400 flex items-center">
+                    <p className="text-gray-600 dark:text-gray-400 hidden md:flex items-center">
                         {t("dashboard.subtitle")}
                     </p>
                 </div>
@@ -148,7 +148,7 @@ function Myurlspage() {
                                     />
                                 </div>
 
-                                <AnalyticsChart
+                                <ProfileAnalyticsChart
                                     data={analytics.chartData}
                                     title={t("dashboard.activityChart")}
                                 />

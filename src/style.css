@@ -1,78 +1,74 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 @theme {
-    --animate-falldown: fallDown 0.3s ease-out forwards;
-    --animate-fallup: fallUp 0.5s ease-out forwards;
-    --animate-reversespin: reverseSpin 1s linear infinite;
-    --animate-fadeout: fadeOut 0.5s ease-out 2.5s forwards;
+  --animate-falldown: fallDown 0.3s ease-out forwards;
+  --animate-fallup: fallUp 0.5s ease-out forwards;
+  --animate-reversespin: reverseSpin 1s linear infinite;
+  --animate-fadeout: fadeOut 0.5s ease-out 2.5s forwards;
 
-    --font-brutal: "AmazeDoom", sans-serif;
+  --font-brutal: "AmazeDoom", sans-serif;
 
-    @keyframes fallDown {
-        from {
-            height: 0vh;
-        }
-        to {
-            height: 50vh;
-        }
+  @keyframes fallDown {
+    from {
+      height: 0vh;
     }
+    to {
+      height: 50vh;
+    }
+  }
 
-    @keyframes fallUp {
-        from {
-            height: 50vh;
-        }
-        to {
-            height: 0vh;
-        }
+  @keyframes fallUp {
+    from {
+      height: 50vh;
     }
+    to {
+      height: 0vh;
+    }
+  }
 
-    @keyframes reverseSpin {
-        from {
-            transform: rotate(0deg);
-        }
-        to {
-            transform: rotate(-720deg);
-        }
+  @keyframes reverseSpin {
+    from {
+      transform: rotate(0deg);
     }
-    @keyframes fadeOut {
-        from {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        to {
-            opacity: 0;
-            transform: translateX(100%);
-        }
+    to {
+      transform: rotate(-720deg);
     }
+  }
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+  }
 }
 
 @font-face {
-    font-family: "AmazeDoom";
-    src: url("./fonts/amazdoomleft.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: "AmazeDoom";
+  src: url("./fonts/amazdoomleft.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 :root {
-    overflow: hidden;
-    overflow-y: scroll;
-    background-color: #fff1f2;
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    box-sizing: border-box;
-    transition: background-color 0.3s ease;
+  overflow: hidden;
+  overflow-y: scroll;
+  background-color: #fff1f2;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
 }
 
 :root.dark {
-    background-color: #0f172a;
+  background-color: #0f172a;
 }
-
 * {
-    transition:
-        background-color 0.2s ease,
-        color 0.2s ease,
-        border-color 0.2s ease,
+  transition: all 0.4s ease;
 }

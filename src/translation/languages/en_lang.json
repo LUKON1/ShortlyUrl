@@ -32,19 +32,24 @@
     "qrdownloaderror": "QR download error",
     "qrdownloading": "QR code not ready yet"
   },
-   "myurls": {
+  "myurls": {
     "refresh": "Refresh List",
     "nourls": "No URLs found.",
     "copy": "Copy",
+    "downloadQr": "Download QR",
+    "viewAnalytics": "View Analytics",
+    "analytics": "Analytics of activity",
+    "loadingAnalytics": "Loading Analytics...",
+    "analyticsError": "Failed to load analytics",
     "lifetime": "Lifetime:",
-    "clicks": "Clicks:",
+    "clicks": "Clicks",
     "logout": "Logout",
     "isexpiredF": "Active",
     "isexpiredT": "Expired",
     "loading": "Loading...",
     "loaderr": "Load error",
-    "top":"On top",
-    "search":"Search by original url"
+    "top": "On top",
+    "search": "Search by original url"
   },
   "registration": {
     "title": "Sign Up",
@@ -56,8 +61,8 @@
     "invalidLogin": "Username must be 4-15 latin alphanumeric characters (no special symbols).",
     "login": "Log in",
     "incorrectpwdus": "Incorrect Username or password",
-    "haveanacc" : "already have an account?",
-    "donthaveacc" : "need an account?",
+    "haveanacc": "already have an account?",
+    "donthaveacc": "need an account?",
     "pwddif": "passwords don't match",
     "Usalreadyexists": "Username already exists"
   },
@@ -79,4 +84,3 @@
     "loaderr": "profile load error"
   }
 }
-

@@ -36,8 +36,13 @@
     "refresh": "Обновить список",
     "nourls": "URL-адреса не найдены.",
     "copy": "Копировать",
+    "downloadQr": "Скачать QR",
+    "viewAnalytics": "Просмотреть аналитику",
+    "analytics": "Аналитика активности",
+    "loadingAnalytics": "Загрузка аналитики...",
+    "analyticsError": "Ошибка загрузки аналитики",
     "lifetime": "Время жизни:",
-    "clicks": "Клики:",
+    "clicks": "Клики",
     "logout": "Выйти",
     "isexpiredF": "Действует",
     "isexpiredT": "Недействительна",
@@ -79,3 +84,4 @@
     "loaderr": "profile load error"
   }
 }
+

@@ -1,6 +1,6 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-function AnalyticsChart({ data, title }) {
+function ProfileAnalyticsChart({ data, title }) {
   return (
     <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-gray-200 dark:border-slate-700 p-6">
       <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">
@@ -51,4 +51,4 @@ function AnalyticsChart({ data, title }) {
   );
 }
 
-export default AnalyticsChart;
+export default ProfileAnalyticsChart;
