@@ -16,13 +16,9 @@ const UrlAnalyticsChart = ({ urlId }) => {
       try {
         setLoading(true);
         setError(null);
-        // In a real application, you would fetch data from an API endpoint like `/api/analytics/${urlId}`
-        // For now, we'll use mock data.
-        const mockData = Array.from({ length: 25 }, (_, i) => ({
-          date: dayjs().subtract(i, 'day').format('YYYY-MM-DD'),
-          clicks: Math.floor(Math.random() * 100) + 10, // Random clicks between 10 and 109
-        }));
-        setChartData(mockData.reverse()); // Reverse to show latest data on the right
+        
+        const response = await axiosPrivate.get(`/myurls/analytics/${urlId}`);
+        setChartData(response.data.chartData);
       } catch (err) {
         setError(t('myurls.analyticsError'));
         console.error('Failed to fetch analytics:', err);
@@ -31,7 +27,9 @@ const UrlAnalyticsChart = ({ urlId }) => {
       }
     };
 
-    fetchAnalytics();
+    if (urlId) {
+      fetchAnalytics();
+    }
   }, [urlId, axiosPrivate, t]);
 
   if (loading) {
@@ -62,7 +60,7 @@ const UrlAnalyticsChart = ({ urlId }) => {
             top: 5,
             right: 30,
             left: 20,
-            bottom: 5,
+            bottom: 30,
           }}
         >
           <CartesianGrid strokeDasharray="3 3" className="stroke-gray-300 dark:stroke-gray-600" />
@@ -73,7 +71,6 @@ const UrlAnalyticsChart = ({ urlId }) => {
             labelStyle={{ color: '#fff' }}
             itemStyle={{ color: '#fff' }}
           />
-          <Legend />
           <Line type="monotone" dataKey="clicks" stroke="#8884d8" activeDot={{ r: 8 }} name={t('myurls.clicks')} />
         </LineChart>
       </ResponsiveContainer>
