@@ -2,28 +2,52 @@ import { useTranslation } from "react-i18next";
 import { useLocation, Link } from "react-router-dom";
 function Footer() {
   const location = useLocation();
-   const {t} = useTranslation()
+  const { t } = useTranslation();
   return (
-    <footer className="transition-all duration-200 ease-out bg-rose-400 dark:bg-slate-800 w-full md:h-[22vh] h-[38vh] relative mt-20 flex flex-col items-center shadow-inner">
-      {location.pathname === "/profile" && <a className="text-2xl font-bold text-rose-700 dark:text-rose-400 hover:text-rose-900 dark:hover:text-rose-300 transition-colors absolute p-2 -top-16" href="#top">
-            {t("myurls.top")}
-      </a>}
-      <div className="w-[70vw] h-full flex flex-col gap-4 text-base md:text-xl lg:text-2xl justify-center items-center text-rose-50 dark:text-slate-200 font-bold text-center pt-6">
-        <p>{t('footer.discription')}</p>
+    <footer className="relative mt-20 flex h-[38vh] w-full flex-col items-center bg-rose-400 shadow-inner transition-all duration-200 ease-out md:h-[22vh] dark:bg-slate-800">
+      {location.pathname === "/profile" && (
+        <button
+          className="absolute -top-5 flex h-12 w-12 items-center justify-center rounded-full bg-rose-500 text-white shadow-lg transition-all duration-200 hover:-translate-y-4 hover:scale-110 hover:bg-rose-600 dark:bg-slate-700 dark:hover:bg-slate-600"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          title={t("myurls.topTitle")}
+          aria-label={t("myurls.topTitle")}
+        >
+          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5 10l7-7m0 0l7 7m-7-7v18"
+            />
+          </svg>
+        </button>
+      )}
+      <div className="flex h-full w-[70vw] flex-col items-center justify-center gap-4 pt-6 text-center text-base font-bold text-rose-50 md:text-xl lg:text-2xl dark:text-slate-200">
+        <p>{t("footer.discription")}</p>
         <Link
           to="/about"
-          className="text-rose-100 dark:text-slate-300 hover:text-rose-900 dark:hover:text-rose-400
-                     text-lg md:text-xl underline decoration-2 underline-offset-4
-                     transition-colors duration-200"
+          className="text-lg text-rose-100 underline decoration-2 underline-offset-4 transition-colors duration-200 hover:text-rose-900 md:text-xl dark:text-slate-300 dark:hover:text-rose-400"
         >
           {t("header.about")}
         </Link>
       </div>
-      <div className="font-bold text-rose-50 dark:text-slate-300 mb-1.5 text-sm md:text-base">
-        powered by <a className="text-blue-400 dark:text-blue-300 hover:text-blue-600 dark:hover:text-blue-200 underline transition-colors" href="https://github.com/LUKON1">LUKON</a> and supported by <a className="text-blue-400 dark:text-blue-300 hover:text-blue-600 dark:hover:text-blue-200 underline transition-colors" href="https://github.com/Kribzdy">Kribzdy</a>
+      <div className="mb-1.5 text-sm font-bold text-rose-50 md:text-base dark:text-slate-300">
+        powered by{" "}
+        <a
+          className="text-blue-400 underline transition-colors hover:text-blue-600 dark:text-blue-300 dark:hover:text-blue-200"
+          href="https://github.com/LUKON1"
+        >
+          LUKON
+        </a>{" "}
+        and supported by{" "}
+        <a
+          className="text-blue-400 underline transition-colors hover:text-blue-600 dark:text-blue-300 dark:hover:text-blue-200"
+          href="https://github.com/Kribzdy"
+        >
+          Kribzdy
+        </a>
       </div>
     </footer>
   );
 }
 export default Footer;
-

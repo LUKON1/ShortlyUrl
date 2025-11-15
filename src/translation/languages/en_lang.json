@@ -50,6 +50,7 @@
     "loading": "Loading...",
     "loaderr": "Load error",
     "top": "On top",
+    "topTitle": "Scroll to top",
     "search": "Search by original url"
   },
   "modal": {
