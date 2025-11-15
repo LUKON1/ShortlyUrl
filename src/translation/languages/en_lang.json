@@ -91,6 +91,11 @@
     "topUrls": "Top 5 URLs by Clicks",
     "memberSince": "Member since",
     "noData": "No data available",
-    "loaderr": "profile load error"
+    "loaderr": "profile load error",
+    "error": {
+      "title": "Loading Error",
+      "message": "Failed to load dashboard data. Please try refreshing the page.",
+      "retry": "Refresh Data"
+    }
   }
 }

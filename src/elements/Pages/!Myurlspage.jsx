@@ -2,6 +2,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import useAxiosPrivate from "../../utils/useAxiosPrivate";
 import useRefreshToken from "../../utils/useRefreshToken";
+import retryRequest from "../../utils/retryRequest";
 import Urlslist from "../Dashboard/myurlslist";
 import Notifications from "../shared/messagewindow";
 import UserProfile from "../Dashboard/UserProfile";
@@ -23,16 +24,18 @@ function Myurlspage() {
   const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("overview");
+  const [hasDashboardError, setHasDashboardError] = useState(false);
   const notificationRef = useRef();
 
   const fetchDashboardData = useCallback(async () => {
     setIsLoading(true);
+    setHasDashboardError(false);
     try {
       await refresh();
       const results = await Promise.allSettled([
-        axiosPrivate.get(API_MYURLS),
-        axiosPrivate.get(API_PROFILE),
-        axiosPrivate.get(API_ANALYTICS),
+        await axiosPrivate.get(API_MYURLS),
+        await axiosPrivate.get(API_PROFILE),
+        await axiosPrivate.get(API_ANALYTICS),
       ]);
       const [urlsRes, profileRes, analyticsRes] = results;
       if (urlsRes.status === "fulfilled") {
@@ -44,16 +47,16 @@ function Myurlspage() {
       if (analyticsRes.status === "fulfilled") {
         setAnalytics(analyticsRes.value.data);
       }
-      if (results.some((result) => result.status === "rejected")) {
-        notificationRef.current?.addNotification(t("dashboard.loaderr"), 3000);
+      const hasErrors = results.some((res) => res.status === "rejected");
+      if (hasErrors) {
+        setHasDashboardError(true);
       }
     } catch (err) {
-      console.error("Failed to refresh token or other error:", err);
-      notificationRef.current?.addNotification(t("dashboard.loaderr"), 3000);
+      setHasDashboardError(true);
     } finally {
       setIsLoading(false);
     }
-  }, [axiosPrivate, refresh, API_PROFILE, API_MYURLS, API_ANALYTICS, t]);
+  }, [axiosPrivate, refresh, API_PROFILE, API_MYURLS, API_ANALYTICS]);
 
   useEffect(() => {
     fetchDashboardData();
@@ -62,7 +65,7 @@ function Myurlspage() {
   const getMyUrls = useCallback(async () => {
     try {
       setIsLoading(true);
-      const response = await axiosPrivate.get(API_MYURLS);
+      const response = await retryRequest(() => axiosPrivate.get(API_MYURLS), 3, 1000);
       setUrls(response.data);
     } catch (err) {
       console.error("Failed to fetch user URLs:", err);
@@ -113,6 +116,51 @@ function Myurlspage() {
           (isLoading ? (
             <div className="flex items-center justify-center">
               <AppLoader />
+            </div>
+          ) : hasDashboardError ? (
+            <div className="flex items-center justify-center">
+              <div className="w-full max-w-md rounded-xl border border-gray-200 bg-white p-8 shadow-lg dark:border-slate-700 dark:bg-slate-800">
+                <div className="text-center">
+                  <svg
+                    className="mx-auto mb-4 h-12 w-12 text-red-500 dark:text-red-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+                    />
+                  </svg>
+                  <h3 className="mb-2 text-xl font-semibold text-gray-900 dark:text-gray-100">
+                    {t("dashboard.error.title")}
+                  </h3>
+                  <p className="mb-6 text-gray-600 dark:text-gray-400">
+                    {t("dashboard.error.message")}
+                  </p>
+                  <button
+                    onClick={fetchDashboardData}
+                    className="inline-flex items-center rounded-lg bg-sky-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-sky-600 focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:outline-none dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-600"
+                  >
+                    <svg
+                      className="mr-2 h-4 w-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                      />
+                    </svg>
+                    {t("dashboard.error.retry")}
+                  </button>
+                </div>
+              </div>
             </div>
           ) : (
             <div className="space-y-6">

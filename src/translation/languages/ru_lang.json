@@ -91,6 +91,11 @@
     "topUrls": "Топ 5 ссылок по переходам",
     "memberSince": "Участник с",
     "noData": "Нет данных",
-    "loaderr": "profile load error"
+    "loaderr": "profile load error",
+    "error": {
+      "title": "Ошибка загрузки",
+      "message": "Не удалось загрузить данные дашборда. Попробуйте обновить страницу.",
+      "retry": "Обновить данные"
+    }
   }
 }
