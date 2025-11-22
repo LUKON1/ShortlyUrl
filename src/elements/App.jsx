@@ -8,38 +8,42 @@ import PrivateRoute from "./Pages/PrivateRoute.jsx";
 import Myurlspage from "./Pages/!Myurlspage.jsx";
 import Aboutpage from "./Aboutpage.jsx";
 import Signinpage from "./Pages/!Signinpage.jsx";
-import useAuthOnLoading from "../utils/useAuthOnLoading.js"
+import SharePage from "./Pages/SharePage.jsx";
+import useAuthOnLoading from "../utils/useAuthOnLoading.js";
 import AppLoader from "./shared/AppLoader.jsx";
 import { ThemeProvider } from "../context/ThemeProvider.jsx";
 
 function App() {
-
   const isLoadingAuth = useAuthOnLoading();
-  if(isLoadingAuth){
-    return(
+  if (isLoadingAuth) {
+    return (
       <ThemeProvider>
-        <div className="flex flex-col w-screen min-h-screen items-center justify-center bg-rose-50 dark:bg-slate-900">
-          <AppLoader/>
+        <div className="flex min-h-screen w-screen flex-col items-center justify-center bg-rose-50 dark:bg-slate-900">
+          <AppLoader />
         </div>
       </ThemeProvider>
-    )
+    );
   }
   //bg-rose-50 dark:bg-slate-900
   return (
     <ThemeProvider>
-      <div className="flex flex-col w-screen min-h-screen ">
+      <div className="flex min-h-screen w-screen flex-col">
         <Header_bar />
-        <main className="flex flex-col grow">
+        <main className="flex grow flex-col">
           <Routes>
             <Route path="/" element={<Homepage />} />
-            <Route path="/about" element={<Aboutpage />}/>
-            <Route path="/profile" element={
-             <PrivateRoute>
-              <Myurlspage />
-             </PrivateRoute>
-            }/>
-            <Route path="/registration" element={<Registrpage />}/>
-            <Route path="/signin" element={<Signinpage />}/>
+            <Route path="/about" element={<Aboutpage />} />
+            <Route
+              path="/profile"
+              element={
+                <PrivateRoute>
+                  <Myurlspage />
+                </PrivateRoute>
+              }
+            />
+            <Route path="/registration" element={<Registrpage />} />
+            <Route path="/signin" element={<Signinpage />} />
+            <Route path="/share/:shortCode" element={<SharePage />} />
           </Routes>
         </main>
         <Footer />
