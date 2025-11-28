@@ -6,7 +6,7 @@ import Homepage from "./Pages/!Homepage.jsx";
 import Header_bar from "./layout/header_bar.jsx";
 import PrivateRoute from "./Pages/PrivateRoute.jsx";
 import Myurlspage from "./Pages/!Myurlspage.jsx";
-import Aboutpage from "./Aboutpage.jsx";
+import PrivacyPolicyPage from "./PrivacyPolicyPage.jsx";
 import Signinpage from "./Pages/!Signinpage.jsx";
 import SharePage from "./Pages/SharePage.jsx";
 import useAuthOnLoading from "../utils/useAuthOnLoading.js";
@@ -32,7 +32,7 @@ function App() {
         <main className="flex grow flex-col">
           <Routes>
             <Route path="/" element={<Homepage />} />
-            <Route path="/about" element={<Aboutpage />} />
+            <Route path="/privacy" element={<PrivacyPolicyPage />} />
             <Route
               path="/profile"
               element={

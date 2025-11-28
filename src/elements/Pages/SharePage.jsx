@@ -66,7 +66,7 @@ function SharePage() {
             to="/"
             className="rounded-lg bg-sky-500 px-6 py-2 text-white transition-colors hover:bg-sky-600"
           >
-            Homepage
+            {t("shared.homepage")}
           </Link>
         </div>
       </div>
@@ -83,16 +83,17 @@ function SharePage() {
         <UrlCard
           mode="share"
           urlData={urlData}
+          t={t}
           onCopy={() => {
             navigator.clipboard.writeText(`${import.meta.env.VITE_BASE_URL}/${urlData.shortCode}`);
-            alert("Copied!");
+            alert(t("homepage.copied"));
           }}
         />
 
         {/* Chart */}
         <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-lg dark:border-slate-700 dark:bg-slate-800">
           <h3 className="mb-4 text-center text-2xl font-bold text-gray-800 dark:text-gray-200">
-            Click History
+            {t("shared.clickHistory")}
           </h3>
           <ResponsiveContainer width="100%" height={300} minWidth={200} minHeight={200}>
             <LineChart

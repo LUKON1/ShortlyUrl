@@ -18,12 +18,13 @@
     }
   },
   "header": {
-    "about": "О сервисе",
+    "about": "Политика конфиденциальности",
     "myurls": "Профиль",
     "signup": "Регистрация"
   },
   "footer": {
-    "discription": "Возьмите под свой контроль свои ссылки, сократите их, сгенерируйте QR-коды и отслеживайте их статус"
+    "copyright": "© 2025 ShrotlyUrl. Все права защищены.",
+    "support": "support@shrotlyurl.com"
   },
   "message": {
     "qrdowngenerror": "Ошибка генерации QR",
@@ -106,6 +107,10 @@
     "homepage": "Главная страница",
     "clickHistory": "История кликов",
     "active": "Действующая",
-    "expired": "Истекшая"
+    "expired": "Истекшая",
+    "shareLinkCopied": "Ссылка скопирована!",
+    "visitSite": "Посетить сайт",
+    "downloadQR": "Скачать QR",
+    "copy": "Копировать"
   }
 }

@@ -18,12 +18,13 @@
     }
   },
   "header": {
-    "about": "About",
+    "about": "Privacy Policy",
     "myurls": "Profile",
     "signup": "Sign Up"
   },
   "footer": {
-    "discription": "Take control of your links, shorten them, generate QR codes, and track their status"
+    "copyright": "© 2025 ShrotlyUrl. All rights reserved.",
+    "support": "support@shrotlyurl.com"
   },
   "message": {
     "qrdowngenerror": "Error generating QR",
@@ -106,6 +107,10 @@
     "homepage": "Homepage",
     "clickHistory": "Click History",
     "active": "Active",
-    "expired": "Expired"
+    "expired": "Expired",
+    "shareLinkCopied": "Share link copied!",
+    "visitSite": "Visit Site",
+    "downloadQR": "Download QR",
+    "copy": "Copy"
   }
 }
