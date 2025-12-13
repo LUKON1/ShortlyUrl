@@ -47,7 +47,7 @@ function UrlCard({
     <div
       className={`mb-8 rounded-lg border p-4 shadow-lg transition-shadow sm:p-6 ${
         isDeleting
-          ? "border-red-500 pointer-events-none shadow-red-500/50 dark:border-red-600 dark:shadow-red-600/50"
+          ? "pointer-events-none border-red-500 shadow-red-500/50 dark:border-red-600 dark:shadow-red-600/50"
           : "border-gray-200 bg-white hover:shadow-xl dark:border-slate-700 dark:bg-slate-800"
       }`}
       style={isDeleting ? { animation: "var(--animate-fadeout-slide)" } : {}}
@@ -220,7 +220,12 @@ function UrlCard({
                   className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-lg border border-red-600 bg-red-500 transition-colors hover:bg-red-600 sm:h-9 sm:w-9 md:h-12 md:w-12 dark:border-red-700 dark:bg-red-600 dark:hover:bg-red-700"
                   title={t("myurls.delete")}
                 >
-                  <svg fill="#FFFFFF" viewBox="-3 -2 24 24" preserveAspectRatio="xMinYMin" className="p-1">
+                  <svg
+                    fill="#FFFFFF"
+                    viewBox="-3 -2 24 24"
+                    preserveAspectRatio="xMinYMin"
+                    className="p-1"
+                  >
                     <path d="M6 2V1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1h4a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-.133l-.68 10.2a3 3 0 0 1-2.993 2.8H5.826a3 3 0 0 1-2.993-2.796L2.137 7H2a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h4zm10 2H2v1h14V4zM4.141 7l.687 10.068a1 1 0 0 0 .998.932h6.368a1 1 0 0 0 .998-.934L13.862 7h-9.72zM7 8a1 1 0 0 1 1 1v7a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v7a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1z" />
                   </svg>
                 </button>
@@ -236,7 +241,11 @@ function UrlCard({
                   title={urlData.isActive !== false ? t("myurls.pause") : t("myurls.resume")}
                 >
                   <svg fill="#FFFFFF" viewBox="0 0 24 24" className="p-1">
-                    {urlData.isActive !== false ? <use href="#pause"></use> : <use href="#play"></use>}
+                    {urlData.isActive !== false ? (
+                      <use href="#pause"></use>
+                    ) : (
+                      <use href="#play"></use>
+                    )}
                   </svg>
                 </button>
               )}
