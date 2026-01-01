@@ -80,7 +80,7 @@ function Header_bar() {
         </nav>
         <div className="md:hidden flex gap-3 items-center">
           <ThemeToggle />
-          <button onClick={handleToggle} type="button">
+          <button onClick={handleToggle} type="button" className="touch-manipulation">
             {!isOpen ? (
               <img
                 src="/src/assets/burger.svg"

@@ -98,7 +98,7 @@ function Myurlspage() {
           <nav className="flex gap-4">
             <button
               onClick={() => setActiveTab("overview")}
-              className={`border-b-2 px-4 py-3 text-sm font-semibold transition-colors md:text-base ${
+              className={`touch-manipulation border-b-2 px-4 py-3 text-sm font-semibold transition-colors md:text-base ${
                 activeTab === "overview"
                   ? "border-sky-500 text-sky-600 dark:text-sky-400"
                   : "border-transparent text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
@@ -108,7 +108,7 @@ function Myurlspage() {
             </button>
             <button
               onClick={() => setActiveTab("urls")}
-              className={`border-b-2 px-4 py-3 text-sm font-semibold transition-colors md:text-base ${
+              className={`touch-manipulation border-b-2 px-4 py-3 text-sm font-semibold transition-colors md:text-base ${
                 activeTab === "urls"
                   ? "border-sky-500 text-sky-600 dark:text-sky-400"
                   : "border-transparent text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
@@ -152,7 +152,7 @@ function Myurlspage() {
                   </p>
                   <button
                     onClick={fetchDashboardData}
-                    className="inline-flex items-center rounded-lg bg-sky-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-sky-600 focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:outline-none dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-600"
+                    className="touch-manipulation inline-flex items-center rounded-lg bg-sky-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-sky-600 focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:outline-none dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-600"
                   >
                     <svg
                       className="mr-2 h-4 w-4"

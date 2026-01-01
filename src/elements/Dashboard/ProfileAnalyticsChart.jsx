@@ -25,6 +25,7 @@ function ProfileAnalyticsChart({ data, title }) {
               backgroundColor: 'white',
               border: '1px solid #e5e7eb',
               borderRadius: '0.5rem',
+              boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
             }}
             labelStyle={{ color: '#374151' }}
           />

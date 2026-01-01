@@ -32,7 +32,7 @@ function DeleteProfile() {
       <button
         onClick={handleDeleteUser}
         type="button"
-        className="flex h-8 w-8 items-center justify-center rounded-md bg-red-300 p-1.5 text-sm font-bold text-white shadow-md transition-all duration-200 ease-out hover:bg-red-400 hover:shadow-lg active:bg-red-500 sm:h-10 sm:w-10 sm:text-base md:h-14 md:w-14 dark:bg-red-500 dark:text-slate-900 dark:hover:bg-red-600 dark:active:bg-red-700"
+        className="touch-manipulation flex h-8 w-8 items-center justify-center rounded-md bg-red-300 p-1.5 text-sm font-bold text-white shadow-md transition-all duration-200 ease-out hover:bg-red-400 hover:shadow-lg active:bg-red-500 sm:h-10 sm:w-10 sm:text-base md:h-14 md:w-14 dark:bg-red-500 dark:text-slate-900 dark:hover:bg-red-600 dark:active:bg-red-700"
         title={t("myurls.deleteProfile")}
       >
         <svg fill="#FFFFFF" viewBox="-3 -2 24 24" preserveAspectRatio="xMinYMin">

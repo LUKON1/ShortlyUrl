@@ -82,7 +82,7 @@ function Urlslist({ urls, notificationRef, getMyUrls, updateUrl, removeUrl, isLo
             />
             <button
               onClick={getMyUrls}
-              className="h-full w-12 rounded-lg rounded-l-none border-2 border-l-0 border-sky-400 bg-sky-400 p-1 transition-colors hover:bg-sky-500 dark:border-sky-500 dark:bg-sky-500 dark:hover:bg-sky-600"
+              className="h-full w-12 touch-manipulation rounded-lg rounded-l-none border-2 border-l-0 border-sky-400 bg-sky-400 p-1 transition-colors hover:bg-sky-500 dark:border-sky-500 dark:bg-sky-500 dark:hover:bg-sky-600"
               type="button"
             >
               <svg fill="#FFFFFF" viewBox="0 0 35 31.8" className="hover:cursor-pointer">
@@ -110,11 +110,11 @@ function Urlslist({ urls, notificationRef, getMyUrls, updateUrl, removeUrl, isLo
                     },
                   }}
                 >
-                  <AnimatePresence mode="popLayout">
+                  <AnimatePresence mode="sync">
                     {displayedUrls.map((urlItem, index) => (
                       <motion.li
                         key={urlItem._id}
-                        className="mb-4"
+                        className={openAnalyticsId !== urlItem._id ? "mb-8" : ""}
                         style={{ willChange: "transform, opacity" }}
                         initial={{ opacity: 0, y: 100 }}
                         animate={deletingIds.has(urlItem._id) ? "exit" : "enter"}
@@ -153,17 +153,13 @@ function Urlslist({ urls, notificationRef, getMyUrls, updateUrl, removeUrl, isLo
                         <AnimatePresence mode="wait">
                           {openAnalyticsId === urlItem._id && (
                             <motion.div
-                              className="mb-4 rounded-lg border border-gray-200 bg-white p-4 shadow-lg transition-shadow hover:shadow-xl sm:p-6 dark:border-slate-700 dark:bg-slate-800"
-                              initial={{ opacity: 0, height: 0, y: 100, scale: 0.95 }}
-                              animate={{ opacity: 1, height: "auto", y: 0, scale: 1 }}
-                              exit={{ opacity: 0, height: 0, y: 100, scale: 0.95 }}
+                              className="mt-2 mb-8 rounded-lg border border-gray-200 bg-white p-4 shadow-lg transition-shadow hover:shadow-xl sm:p-6 dark:border-slate-700 dark:bg-slate-800"
+                              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              exit={{ opacity: 0, y: 20, scale: 0.95 }}
                               transition={{
-                                duration: 0.4,
+                                duration: 0.3,
                                 ease: [0.25, 0.46, 0.45, 0.94],
-                                scale: {
-                                  duration: 0.3,
-                                  ease: "easeOut",
-                                },
                               }}
                             >
                               <UrlAnalyticsChart urlId={urlItem._id} />

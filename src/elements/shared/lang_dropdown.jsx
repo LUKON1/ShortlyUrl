@@ -36,7 +36,7 @@ function LangDropdown() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-4 py-2 bg-rose-500 dark:bg-slate-700
+        className="touch-manipulation flex items-center gap-2 px-4 py-2 bg-rose-500 dark:bg-slate-700
                    text-rose-50 dark:text-slate-200 rounded-lg font-semibold
                    hover:bg-rose-600 dark:hover:bg-slate-600 transition-colors duration-200"
       >
@@ -59,7 +59,7 @@ function LangDropdown() {
             <button
               key={lang.code}
               onClick={() => handleLanguageChange(lang.code)}
-              className={`w-full px-4 py-2 text-left flex items-center gap-2
+              className={`touch-manipulation w-full px-4 py-2 text-left flex items-center gap-2
                          hover:bg-rose-100 dark:hover:bg-slate-700 transition-colors duration-150
                          ${lang.code === i18n.language
                            ? "bg-rose-50 dark:bg-slate-700 text-rose-700 dark:text-rose-400 font-semibold"

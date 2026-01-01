@@ -2,7 +2,7 @@ function Registrsubmit({ children }) {
 	return (
 		<button
 			type="submit"
-			className="transition-all duration-200 ease-out
+			className="touch-manipulation transition-all duration-200 ease-out
          hover:bg-rose-400 dark:hover:bg-rose-600 active:bg-rose-500 dark:active:bg-rose-700
           bg-rose-300 dark:bg-rose-500 shadow-lg hover:shadow-xl h-16
           lg:h-20  text-1xl md:text-2xl lg:text-3xl

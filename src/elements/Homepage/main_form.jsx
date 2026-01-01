@@ -93,7 +93,7 @@ function ShortenerForm() {
         <div className="mb-6 flex flex-col items-center gap-24 md:mb-18 md:flex-row md:gap-6">
           <div className="felx relative flex-col">
             {url && (
-              <button className="absolute z-10 p-1" onClick={() => setUrl("")} type="button">
+              <button className="touch-manipulation absolute z-10 p-1" onClick={() => setUrl("")} type="button">
                 <img
                   className="h-full w-8 hover:cursor-pointer lg:w-10 dark:invert"
                   src="/src/assets/cross.svg"

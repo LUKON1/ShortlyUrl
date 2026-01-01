@@ -51,8 +51,16 @@ const UrlAnalyticsChart = ({ urlId }) => {
 
   if (error) {
     return (
-      <div className="flex items-center justify-center py-4 text-xl text-red-600 dark:text-red-400">
+      <div className="flex items-center justify-center py-8 text-xl text-red-600 dark:text-red-400">
         {error}
+      </div>
+    );
+  }
+
+  if (!chartData || chartData.length === 0) {
+    return (
+      <div className="flex items-center justify-center py-8 text-xl text-gray-600 dark:text-gray-400">
+        {t("myurls.noAnalyticsData")}
       </div>
     );
   }
@@ -62,7 +70,7 @@ const UrlAnalyticsChart = ({ urlId }) => {
       <h3 className="mb-4 text-center text-2xl font-bold text-gray-800 dark:text-gray-200">
         {t("myurls.analytics")}
       </h3>
-      <ResponsiveContainer width="100%" height="100%" minWidth={200} minHeight={200} key={urlId}>
+      <ResponsiveContainer width="100%" height={280} minWidth={200} aspect={undefined} key={urlId}>
         <LineChart
           data={chartData}
           margin={{
@@ -73,12 +81,22 @@ const UrlAnalyticsChart = ({ urlId }) => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" className="stroke-gray-300 dark:stroke-gray-600" />
-          <XAxis dataKey="date" className="fill-gray-700 dark:fill-gray-300" />
+          <XAxis
+            dataKey="date"
+            className="fill-gray-700 dark:fill-gray-300"
+            tickFormatter={(value) => dayjs(value).format("DD/MM")}
+          />
           <YAxis className="fill-gray-700 dark:fill-gray-300" />
           <Tooltip
-            contentStyle={{ backgroundColor: "rgb(30 41 59)", border: "none", borderRadius: "8px" }}
+            contentStyle={{
+              backgroundColor: "rgb(30 41 59)",
+              border: "none",
+              color: "#fff",
+            }}
             labelStyle={{ color: "#fff" }}
-            itemStyle={{ color: "#fff" }}
+            itemStyle={{ color: "#60a5fa" }}
+            labelFormatter={(value) => `${t("myurls.date")}: ${dayjs(value).format("DD/MM/YYYY")}`}
+            formatter={(value, name) => [value, t("myurls.clicks")]}
           />
           <Line
             type="monotone"

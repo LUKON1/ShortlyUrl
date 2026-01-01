@@ -8,7 +8,7 @@ function Footer() {
     <footer className="relative mt-20 flex h-[38vh] w-full flex-col items-center justify-between bg-rose-400 shadow-inner transition-all duration-200 ease-out md:h-[22vh] dark:bg-slate-800">
       {location.pathname === "/profile" && (
         <button
-          className="absolute -top-5 flex h-12 w-12 items-center justify-center rounded-full bg-rose-500 text-white shadow-lg transition-all duration-200 hover:-translate-y-4 hover:scale-110 hover:bg-rose-600 dark:bg-slate-700 dark:hover:bg-slate-600"
+          className="touch-manipulation absolute -top-5 flex h-12 w-12 items-center justify-center rounded-full bg-rose-500 text-white shadow-lg transition-all duration-200 hover:-translate-y-4 hover:scale-110 hover:bg-rose-600 dark:bg-slate-700 dark:hover:bg-slate-600"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           title={t("myurls.topTitle")}
           aria-label={t("myurls.topTitle")}

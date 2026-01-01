@@ -7,7 +7,7 @@ function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="relative inline-flex items-center cursor-pointer
+      className="touch-manipulation relative inline-flex items-center cursor-pointer
                  w-16 h-8 rounded-full transition-colors duration-300
                  bg-amber-400 dark:bg-slate-700"
       aria-label="Toggle theme"

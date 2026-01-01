@@ -106,7 +106,7 @@ function ConfirmModal({
           <div className="flex justify-end gap-3">
             <button
               onClick={onClose}
-              className="rounded-md px-4 py-2 font-medium text-gray-600 transition-colors hover:bg-gray-100 focus:ring-2 focus:ring-gray-500 focus:outline-none dark:text-gray-400 dark:hover:bg-slate-700"
+              className="touch-manipulation rounded-md px-4 py-2 font-medium text-gray-600 transition-colors hover:bg-gray-100 focus:ring-2 focus:ring-gray-500 focus:outline-none dark:text-gray-400 dark:hover:bg-slate-700"
             >
               {cancelText}
             </button>
@@ -115,7 +115,7 @@ function ConfirmModal({
                 onConfirm();
                 onClose();
               }}
-              className={`px-4 py-2 ${getConfirmButtonClass()} rounded-md font-medium text-white transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none`}
+              className={`touch-manipulation px-4 py-2 ${getConfirmButtonClass()} rounded-md font-medium text-white transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none`}
             >
               {confirmText}
             </button>
