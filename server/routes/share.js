@@ -2,11 +2,16 @@ const express = require("express");
 const router = express.Router();
 const UrlModel = require("../models/Url");
 
-router.get("/:shortCode", async (req, res) => {
+router.get("/:shareId", async (req, res) => {
   try {
-    const { shortCode } = req.params;
+    const { shareId } = req.params;
 
-    const urlEntry = await UrlModel.findOne({ shortCode });
+    // Validate ObjectId format
+    if (!shareId || !shareId.match(/^[0-9a-fA-F]{24}$/)) {
+      return res.status(400).json({ error: "Invalid share ID format" });
+    }
+
+    const urlEntry = await UrlModel.findById(shareId);
 
     if (!urlEntry) {
       return res.status(404).json({ error: "Short URL not found." });

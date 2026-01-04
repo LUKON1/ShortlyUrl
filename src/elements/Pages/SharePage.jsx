@@ -15,10 +15,11 @@ import {
 import AppLoader from "../shared/AppLoader";
 import H1 from "../shared/h1";
 import UrlCard from "../shared/UrlCard";
+import axios from "../../api/axios";
 
 function SharePage() {
   const { t } = useTranslation();
-  const { shortCode } = useParams();
+  const { shareId } = useParams();
   const [urlData, setUrlData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -26,25 +27,46 @@ function SharePage() {
   useEffect(() => {
     const fetchUrlData = async () => {
       try {
+        console.log("SharePage: Fetching data for shareId:", shareId);
         setLoading(true);
         setError(null);
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/share/${shortCode}`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch URL data");
-        }
-        const data = await response.json();
-        setUrlData(data);
+
+        const response = await axios.get(`/share/${shareId}`);
+        console.log("SharePage: Response received:", response);
+
+        setUrlData(response.data);
+        console.log("SharePage: Data set:", response.data);
       } catch (err) {
-        setError(err.message);
+        console.error("SharePage: Error in fetchUrlData:", err);
+        if (err.response) {
+          // Сервер ответил с кодом ошибки
+          console.error("SharePage: Server error:", err.response.status, err.response.data);
+          setError(
+            `Server error: ${err.response.status} - ${err.response.data.error || err.response.data}`
+          );
+        } else if (err.request) {
+          // Запрос был сделан, но ответа нет
+          console.error("SharePage: No response received:", err.request);
+          setError("Network error: No response from server");
+        } else {
+          // Что-то пошло не так при настройке запроса
+          console.error("SharePage: Request setup error:", err.message);
+          setError(`Request error: ${err.message}`);
+        }
       } finally {
         setLoading(false);
       }
     };
 
-    if (shortCode) {
+    if (shareId) {
+      console.log("SharePage: shareId found, calling fetchUrlData");
       fetchUrlData();
+    } else {
+      console.log("SharePage: No shareId found in params");
+      setLoading(false);
+      setError("No share ID provided");
     }
-  }, [shortCode]);
+  }, [shareId]);
 
   if (loading) {
     return (
@@ -80,15 +102,19 @@ function SharePage() {
           <H1>{t("shared.title")}</H1>
         </div>
 
-        <UrlCard
-          mode="share"
-          urlData={urlData}
-          t={t}
-          onCopy={() => {
-            navigator.clipboard.writeText(`${import.meta.env.VITE_BASE_URL}/${urlData.shortCode}`);
-            alert(t("homepage.copied"));
-          }}
-        />
+        {urlData && (
+          <UrlCard
+            mode="share"
+            urlData={urlData}
+            t={t}
+            onCopy={() => {
+              navigator.clipboard.writeText(
+                `${import.meta.env.VITE_BASE_URL}/${urlData.shortCode}`
+              );
+              alert(t("homepage.copied"));
+            }}
+          />
+        )}
 
         {/* Chart */}
         <div

@@ -49,7 +49,7 @@ function App() {
             />
             <Route path="/registration" element={<Registrpage />} />
             <Route path="/signin" element={<Signinpage />} />
-            <Route path="/share/:shortCode" element={<SharePage />} />
+            <Route path="/share/:shareId" element={<SharePage />} />
           </Routes>
         </main>
         <Footer />

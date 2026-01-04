@@ -198,7 +198,7 @@ function UrlCard({
                 transition={{ type: "tween", duration: 0.2, ease: "easeOut" }}
                 onClick={() => {
                   navigator.clipboard.writeText(
-                    `${import.meta.env.VITE_BASE_URL}/share/${urlData.shortCode}`
+                    `${import.meta.env.VITE_BASE_URL}/share/${urlData._id}`
                   );
                   notificationRef.current?.addNotification(t("shared.shareLinkCopied"), 2000);
                 }}
