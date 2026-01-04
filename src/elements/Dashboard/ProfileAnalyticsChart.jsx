@@ -2,7 +2,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 
 function ProfileAnalyticsChart({ data, title }) {
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-gray-200 dark:border-slate-700 p-6" style={{ willChange: 'background-color, border-color' }}>
+    <div className="relative z-10 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-gray-200 dark:border-slate-700 p-6 transition-shadow hover:shadow-xl" style={{ willChange: 'background-color, border-color' }}>
       <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">
         {title}
       </h3>

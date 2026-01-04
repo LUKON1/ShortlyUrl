@@ -19,7 +19,7 @@ function App() {
   if (isLoadingAuth) {
     return (
       <ThemeProvider>
-        <div className="flex min-h-screen w-screen flex-col items-center justify-center bg-slate-50 dark:bg-slate-900">
+        <div className="flex min-h-screen w-screen flex-col items-center justify-center bg-white dark:bg-slate-900">
           <AppLoader />
         </div>
       </ThemeProvider>

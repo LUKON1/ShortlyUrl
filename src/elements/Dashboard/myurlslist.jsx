@@ -153,7 +153,7 @@ function Urlslist({ urls, notificationRef, getMyUrls, updateUrl, removeUrl, isLo
                         <AnimatePresence mode="wait">
                           {openAnalyticsId === urlItem._id && (
                             <motion.div
-                              className="mt-2 mb-8 rounded-lg border border-gray-200 bg-white p-4 shadow-lg transition-shadow hover:shadow-xl sm:p-6 dark:border-slate-700 dark:bg-slate-800"
+                              className="relative z-10 mt-2 mb-8 rounded-lg border border-gray-200 bg-white p-4 shadow-lg transition-shadow hover:shadow-xl sm:p-6 dark:border-slate-700 dark:bg-slate-800"
                               initial={{ opacity: 0, y: 20, scale: 0.95 }}
                               animate={{ opacity: 1, y: 0, scale: 1 }}
                               exit={{ opacity: 0, y: 20, scale: 0.95 }}
