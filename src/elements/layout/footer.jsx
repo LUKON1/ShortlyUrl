@@ -11,7 +11,7 @@ function Footer() {
   const isDark = theme === "dark";
 
   return (
-    <footer className="relative mt-20 bg-slate-900 dark:bg-slate-800">
+    <footer className="relative mt-20 bg-slate-900 dark:bg-slate-800" style={{ transition: "var(--transition-bg)" }}>
       <motion.button
         className="touch-manipulation absolute -top-5 left-1/2 z-10 flex h-12 w-12 -translate-x-1/2 items-center justify-center rounded-full text-white shadow-lg"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -41,7 +41,7 @@ function Footer() {
       </motion.button>
 
       {/* Main footer content */}
-      <div className="bg-slate-900 py-12 dark:bg-slate-800">
+      <div className="bg-slate-900 py-12 dark:bg-slate-800" style={{ transition: "var(--transition-bg)" }}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {/* Company Info */}

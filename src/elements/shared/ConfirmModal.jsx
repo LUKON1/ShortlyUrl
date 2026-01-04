@@ -68,7 +68,7 @@ function ConfirmModal({
       <div className="absolute inset-0 bg-black opacity-80 transition-opacity" onClick={onClose} />
 
       {/* Modal */}
-      <div className="animate-modal-fade-in relative w-full max-w-md transform rounded-lg bg-white shadow-xl transition-all dark:bg-slate-800">
+      <div className="animate-modal-fade-in relative w-full max-w-md transform rounded-lg bg-white shadow-xl transition-all dark:bg-slate-800" style={{ transition: "var(--transition-bg)" }}>
         <div className="p-6">
           {/* Header */}
           <div className="mb-4">

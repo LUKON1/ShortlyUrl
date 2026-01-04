@@ -25,7 +25,10 @@ function Header_bar() {
   };
 
   return (
-    <header className="header relative mb-20 flex h-20 w-full min-w-2xs flex-row items-center bg-slate-900 shadow-lg transition-colors duration-200 md:mb-30 lg:mb-40 dark:bg-slate-800">
+    <header
+      className="header relative flex h-20 w-full min-w-2xs flex-row items-center bg-slate-900 shadow-lg transition-colors duration-200 dark:bg-slate-800"
+      style={{ transition: "var(--transition-bg)" }}
+    >
       <div className="flex h-full w-full flex-row items-center justify-between px-6 transition-all duration-200 ease-out lg:px-20">
         <div className="">
           <Link to="/" className="group flex items-center gap-3">
@@ -47,6 +50,7 @@ function Header_bar() {
           {auth?.userId ? (
             <NavLink
               to="/profile"
+              style={{ transition: "var(--transition-bg)" }}
               className={({ isActive }) =>
                 isActive
                   ? "rounded-lg bg-slate-800 px-4 py-2 font-extrabold text-blue-400 transition duration-300 ease-in-out dark:bg-slate-700 dark:text-blue-300"
@@ -58,6 +62,7 @@ function Header_bar() {
           ) : (
             <NavLink
               to="/registration"
+              style={{ transition: "var(--transition-bg)" }}
               className={({ isActive }) =>
                 isActive
                   ? "rounded-lg bg-slate-800 px-4 py-2 font-bold text-blue-400 dark:bg-slate-700 dark:text-blue-300"
@@ -95,11 +100,13 @@ function Header_bar() {
         <div className="md:hidden">
           <div
             className={`absolute top-20 left-0 z-30 h-[20vh] w-screen overflow-hidden bg-slate-900 transition-all duration-200 ease-out dark:bg-slate-800 ${isClosing ? "animate-fallup" : "animate-falldown"}`}
+            style={{ transition: "var(--transition-bg)" }}
           >
             <nav className="flex h-[50vh] flex-col gap-2 px-6 text-left text-xl">
               {auth?.userId ? (
                 <NavLink
                   to="/profile"
+                  style={{ transition: "var(--transition-bg)" }}
                   className={({ isActive }) =>
                     isActive
                       ? "flex w-fit items-center px-2 py-2 font-extrabold text-blue-400 transition duration-300 ease-in-out dark:text-blue-300"
@@ -118,6 +125,7 @@ function Header_bar() {
               ) : (
                 <NavLink
                   to="/registration"
+                  style={{ transition: "var(--transition-bg)" }}
                   className={({ isActive }) =>
                     isActive
                       ? "flex w-fit items-center px-2 py-2 font-extrabold text-blue-400 transition duration-100 ease-in-out dark:text-blue-300"

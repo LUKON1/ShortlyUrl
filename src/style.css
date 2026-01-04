@@ -8,7 +8,6 @@
   --animate-fadeinup: fadeInUp 0.8s ease-out forwards;
   --animate-modal-fade-in: modalFadeIn 0.3s ease-out forwards;
   --animate-fadeout-slide: fadeOutSlide 0.3s ease-in forwards;
-
   --font-brutal: "AmazeDoom", sans-serif;
 
   @keyframes fallDown {
@@ -105,7 +104,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
-  transition: background-color 0.3s ease;
+  --transition-bg: background-color 0.2s ease-out, border-color 0.3s ease-out;
 }
 
 :root.dark {

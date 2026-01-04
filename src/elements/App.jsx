@@ -1,5 +1,6 @@
 import "/src/style.css";
 import { Routes, Route } from "react-router-dom";
+import { motion } from "motion/react";
 import Registrpage from "./Pages/!Registrpage.jsx";
 import Footer from "./layout/footer.jsx";
 import Homepage from "./Pages/!Homepage.jsx";
@@ -28,9 +29,12 @@ function App() {
   //bg-slate-50 dark:bg-slate-900
   return (
     <ThemeProvider>
-      <div className="flex min-h-screen w-screen flex-col">
+      <div
+        className="flex min-h-screen w-screen flex-col bg-white dark:bg-slate-900"
+        style={{ transition: "var(--transition-bg)" }}
+      >
         <Header_bar />
-        <main className="flex grow flex-col">
+        <main className="flex grow flex-col pt-20 md:pt-30 lg:pt-40">
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/privacy" element={<PrivacyPolicyPage />} />

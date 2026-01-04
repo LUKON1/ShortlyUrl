@@ -74,7 +74,7 @@ function SharePage() {
   }
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center bg-white px-4 pb-20 dark:bg-slate-900">
+    <div className="flex min-h-screen w-full flex-col items-center px-4 pb-20">
       <div className="w-full max-w-2xl">
         <div className="mb-8">
           <H1>{t("shared.title")}</H1>
@@ -91,7 +91,10 @@ function SharePage() {
         />
 
         {/* Chart */}
-        <div className="relative z-10 mt-2 mb-8 rounded-lg border border-gray-200 bg-white p-4 shadow-lg transition-shadow hover:shadow-xl sm:p-6 dark:border-slate-700 dark:bg-slate-800">
+        <div
+          className="relative z-10 mt-2 mb-8 rounded-lg border border-gray-200 bg-white p-4 shadow-lg transition-shadow hover:shadow-xl sm:p-6 dark:border-slate-700 dark:bg-slate-800"
+          style={{ transition: "var(--transition-bg)" }}
+        >
           <h3 className="mb-4 text-center text-2xl font-bold text-gray-800 dark:text-gray-200">
             {t("shared.clickHistory")}
           </h3>

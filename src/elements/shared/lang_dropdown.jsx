@@ -11,7 +11,7 @@ function LangDropdown() {
     { code: "en", label: "EN", flag: "🇺🇸" },
   ];
 
-  const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
+  const currentLanguage = languages.find((lang) => lang.code === i18n.language) || languages[0];
 
   const handleLanguageChange = (langCode) => {
     i18n.changeLanguage(langCode);
@@ -36,14 +36,13 @@ function LangDropdown() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="touch-manipulation flex items-center gap-2 px-4 py-2 bg-slate-700 dark:bg-slate-700
-                   text-white dark:text-slate-200 rounded-lg font-semibold
-                   hover:bg-slate-600 dark:hover:bg-slate-600 transition-colors duration-200"
+        style={{ transition: "var(--transition-bg)" }}
+        className="flex touch-manipulation items-center gap-2 rounded-lg bg-slate-700 px-4 py-2 font-semibold text-white transition-colors duration-200 hover:bg-slate-600 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600"
       >
         <span>{currentLanguage.flag}</span>
         <span>{currentLanguage.label}</span>
         <svg
-          className={`w-4 h-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+          className={`h-4 w-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -53,17 +52,17 @@ function LangDropdown() {
       </button>
 
       {isOpen && (
-        <div className="absolute top-full mt-2 right-0 bg-white dark:bg-slate-800
-                        rounded-lg shadow-lg overflow-hidden z-50 min-w-[120px]">
+        <div className="absolute top-full right-0 z-50 mt-2 min-w-[120px] overflow-hidden rounded-lg bg-white shadow-lg dark:bg-slate-800">
           {languages.map((lang) => (
             <button
               key={lang.code}
               onClick={() => handleLanguageChange(lang.code)}
-              className={`touch-manipulation w-full px-4 py-2 text-left flex items-center gap-2
-                         hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors duration-150
-                         ${lang.code === i18n.language
-                           ? "bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-blue-400 font-semibold"
-                           : "text-gray-700 dark:text-gray-300"}`}
+              style={{ transition: "var(--transition-bg)" }}
+              className={`flex w-full touch-manipulation items-center gap-2 px-4 py-2 text-left transition-colors duration-150 hover:bg-slate-100 dark:hover:bg-slate-700 ${
+                lang.code === i18n.language
+                  ? "bg-slate-200 font-semibold text-slate-800 dark:bg-slate-700 dark:text-blue-400"
+                  : "text-gray-700 dark:text-gray-300"
+              }`}
             >
               <span>{lang.flag}</span>
               <span>{lang.label}</span>

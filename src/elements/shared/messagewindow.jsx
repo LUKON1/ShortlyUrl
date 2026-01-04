@@ -31,6 +31,7 @@ const Notifications = forwardRef((props, ref) => {
 				<div
 					key={notification.id}
 					className="text-xl lg:text-2xl animate-fade-out opacity-100 bg-blue-500 dark:bg-slate-700 text-white dark:text-slate-100 px-4 py-2 lg:px-10 lg:py-6 rounded-lg shadow-xl border border-blue-600 dark:border-slate-600 w-full animate-fadeout"
+					style={{ transition: "var(--transition-bg)" }}
 				>
 					{notification.message}
 				</div>

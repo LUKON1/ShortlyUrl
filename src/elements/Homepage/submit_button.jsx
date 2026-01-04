@@ -28,6 +28,7 @@ function SubmitButton({ isLoading }) {
     >
       <motion.div
         className="absolute -top-4 right-32 z-10 h-40 w-40 rounded-full bg-blue-200 dark:bg-sky-800"
+        style={{ transition: "var(--transition-bg)" }}
         variants={{
           hover: { top: 4, scale: 1.5, right: 8 },
         }}
@@ -35,6 +36,7 @@ function SubmitButton({ isLoading }) {
       />
       <motion.div
         className="absolute -top-4 right-2 z-10 h-32 w-32 rounded-full bg-slate-100 dark:bg-blue-900"
+        style={{ transition: "var(--transition-bg)" }}
         variants={{
           hover: { top: 4, scale: 1.5, right: 8 },
         }}
@@ -42,6 +44,7 @@ function SubmitButton({ isLoading }) {
       />
       <motion.div
         className="absolute top-4 -right-12 z-10 h-24 w-24 rounded-full bg-blue-200 dark:bg-sky-800"
+        style={{ transition: "var(--transition-bg)" }}
         variants={{
           hover: { top: 4, right: 8, scale: 1.5 },
         }}
@@ -49,6 +52,7 @@ function SubmitButton({ isLoading }) {
       />
       <motion.div
         className="absolute -top-4 right-20 z-10 h-16 w-16 rounded-full bg-sky-400 dark:bg-sky-600"
+        style={{ transition: "var(--transition-bg)" }}
         variants={{
           hover: { top: 4, right: 8, scale: 1.5 },
         }}
