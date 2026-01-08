@@ -175,7 +175,7 @@ function UrlCard({
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "tween", duration: 0.2, ease: "easeOut" }}
                 onClick={() => (window.location.href = urlData.url)}
-                className="flex h-4 w-4 cursor-pointer touch-manipulation items-center justify-center rounded-xl border border-green-600 bg-green-500 p-1 sm:h-5 sm:w-5 md:h-6 md:w-6 dark:bg-green-700"
+                className="flex min-h-5 min-w-5 cursor-pointer touch-manipulation items-center justify-center rounded-xl border border-green-600 bg-green-500 p-1 md:h-6 md:w-6 dark:bg-green-700"
                 title={t("shared.visitSite")}
               >
                 <svg fill="#FFFFFF" viewBox="0 0 15 15">

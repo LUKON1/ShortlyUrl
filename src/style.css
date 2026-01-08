@@ -104,7 +104,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
-  --transition-bg: background-color 0.2s ease-out, border-color 0.3s ease-out;
+  --transition-bg: background-color 0.2s ease-out, border-color 0.3s ease-out, box-shadow 0.3s ease;
 }
 
 :root.dark {
@@ -115,7 +115,7 @@
     transform 0.4s ease,
     scale 0.4s ease,
     opacity 0.3s ease,
-    box-shadow 0.4s ease,
+    box-shadow 0.3s ease,
     width 0.4s ease,
     height 0.4s ease,
     margin 0.4s ease,

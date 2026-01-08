@@ -123,6 +123,7 @@ function ShortenerForm() {
             />
             <motion.div
               className="absolute mt-2.5 flex w-full flex-col justify-center gap-x-2.5 gap-y-6 rounded-lg border-2 border-sky-400 bg-white px-1 py-2 text-xs text-gray-900 shadow-md will-change-transform focus:outline-none md:flex-row md:text-lg lg:gap-x-10 lg:text-2xl dark:border-sky-500 dark:bg-slate-800 dark:text-gray-100"
+              style={{ zIndex: 70 }}
               initial={{ opacity: 0, transform: "translateY(100px)" }}
               animate={{ opacity: 1, transform: "translateY(0px)" }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}

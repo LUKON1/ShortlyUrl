@@ -1,43 +1,51 @@
 import { useState, useEffect, forwardRef, useImperativeHandle } from "react";
+import { motion, AnimatePresence } from "motion/react";
 
 const Notifications = forwardRef((props, ref) => {
-	const [notifications, setNotifications] = useState([]);
+  const [notifications, setNotifications] = useState([]);
 
-	useImperativeHandle(ref, () => ({
-		addNotification(message, duration = 5000) {
-			const newNotification = {
-				id: Date.now(),
-				message,
-				timestamp: Date.now(),
-				duration,
-			};
-			setNotifications((prev) => [...prev, newNotification]);
-		},
-	}));
+  useImperativeHandle(ref, () => ({
+    addNotification(message, duration = 5000) {
+      const newNotification = {
+        id: Date.now(),
+        message,
+        timestamp: Date.now(),
+        duration,
+      };
+      setNotifications((prev) => [...prev, newNotification]);
+    },
+  }));
 
-	useEffect(() => {
-		notifications.forEach((notification) => {
-			setTimeout(() => {
-				setNotifications((prev) =>
-					prev.filter((n) => n.id !== notification.id)
-				);
-			}, notification.duration);
-		});
-	}, [notifications]);
+  useEffect(() => {
+    notifications.forEach((notification) => {
+      setTimeout(() => {
+        setNotifications((prev) => prev.filter((n) => n.id !== notification.id));
+      }, notification.duration);
+    });
+  }, [notifications]);
 
-	return (
-		<div className="opacity-70 fixed mt-21 right-1/2 translate-x-1/2 w-[90vw] space-y-2 z-50 sm:w-60 sm:right-4 sm:translate-none sm:top-4">
-			{notifications.map((notification) => (
-				<div
-					key={notification.id}
-					className="text-xl lg:text-2xl animate-fade-out opacity-100 bg-blue-500 dark:bg-slate-700 text-white dark:text-slate-100 px-4 py-2 lg:px-10 lg:py-6 rounded-lg shadow-xl border border-blue-600 dark:border-slate-600 w-full animate-fadeout"
-					style={{ transition: "var(--transition-bg)" }}
-				>
-					{notification.message}
-				</div>
-			))}
-		</div>
-	);
+  return (
+    <div className="fixed top-24 right-1/2 z-80 w-[90vw] translate-x-1/2 space-y-2 opacity-95 sm:top-4 sm:right-4 sm:w-60 sm:translate-none">
+      <AnimatePresence mode="sync">
+        {notifications.map((notification, index) => (
+          <motion.div
+            key={notification.id}
+            className="w-full rounded-lg border border-blue-600 bg-blue-500 px-4 py-2 text-xl text-white shadow-xl lg:px-10 lg:py-6 lg:text-2xl dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
+            style={{ transition: "var(--transition-bg)" }}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, x: 300 }}
+            transition={{
+              ease: [0.25, 0.46, 0.45, 0.94],
+              delay: index * 0.1,
+            }}
+          >
+            {notification.message}
+          </motion.div>
+        ))}
+      </AnimatePresence>
+    </div>
+  );
 });
 
 export default Notifications;

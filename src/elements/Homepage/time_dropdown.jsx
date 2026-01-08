@@ -44,14 +44,14 @@ function TimeDropdown({ value, onChange, options, className }) {
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 z-50 mt-2 min-w-[120px] overflow-hidden rounded-lg bg-white shadow-lg dark:bg-slate-800">
+        <div className="absolute top-full left-0 z-60 mt-2 min-w-[120px] overflow-hidden rounded-lg bg-white shadow-lg dark:bg-slate-800">
           {options.map((opt) => (
             <button
               type="button"
               key={opt.value}
               onClick={() => handleOptionChange(opt.value)}
               style={{ transition: "var(--transition-bg)" }}
-              className={`z-50 flex w-full touch-manipulation items-center px-4 py-2 text-left transition-colors duration-150 hover:bg-slate-100 dark:hover:bg-slate-700 ${
+              className={`z-60 flex w-full touch-manipulation items-center px-4 py-2 text-left transition-colors duration-150 hover:bg-slate-100 dark:hover:bg-slate-700 ${
                 opt.value === value
                   ? "bg-slate-200 font-semibold text-slate-800 dark:bg-slate-700 dark:text-blue-400"
                   : "text-gray-700 dark:text-gray-300"
