@@ -138,8 +138,8 @@ function UrlCard({
       className="rounded-xl border border-gray-200 bg-white p-4 shadow-lg transition-all duration-200 hover:shadow-xl sm:p-6 dark:border-slate-700 dark:bg-slate-800"
       style={{ willChange: "transform, opacity, background-color, border-color, color" }}
     >
-      <div className="mb-3 flex items-start justify-between sm:mb-4">
-        <div className="flex max-w-[60%] min-w-0 flex-col sm:max-w-[60%] md:max-w-[65%]">
+      <div className="mb-4 flex flex-col gap-4 sm:mb-4 sm:flex-row sm:items-start sm:justify-between">
+        <div className="flex w-full min-w-0 flex-col sm:max-w-[60%] md:max-w-[65%]">
           {mode === "myurls" && (
             <div className="xs:mb-1.5 xs:gap-1 mb-1.5 flex items-center gap-1 sm:mb-2 sm:gap-2">
               {isEditingTitle ? (
@@ -149,7 +149,7 @@ function UrlCard({
                     value={editTitle}
                     onChange={(e) => setEditTitle(e.target.value)}
                     onKeyDown={handleTitleKeyDown}
-                    className="xs:h-8 xs:px-2 xs:py-1 xs:text-sm h-8 w-auto max-w-[180px] min-w-[100px] rounded-md border border-gray-300 bg-white px-2 py-1 text-sm font-semibold text-gray-800 focus:border-sky-500 focus:outline-none sm:h-9 sm:max-w-[200px] sm:min-w-[120px] sm:px-3 sm:py-1 sm:text-lg dark:border-slate-600 dark:bg-slate-700 dark:text-gray-200 dark:focus:border-sky-400"
+                    className="xs:h-8 xs:px-2 xs:py-1 xs:text-sm h-8 w-full min-w-[100px] rounded-md border border-gray-300 bg-white px-2 py-1 text-sm font-semibold text-gray-800 focus:border-sky-500 focus:outline-none sm:h-9 sm:max-w-[200px] sm:min-w-[120px] sm:px-3 sm:py-1 sm:text-lg dark:border-slate-600 dark:bg-slate-700 dark:text-gray-200 dark:focus:border-sky-400"
                     placeholder={t("shared.enterTitle")}
                     maxLength={24}
                     autoFocus
@@ -174,11 +174,11 @@ function UrlCard({
               ) : (
                 <>
                   {urlData.title ? (
-                    <span className="xs:h-8 xs:px-2 xs:py-1 xs:text-lg inline-block h-8 w-auto min-w-[70px] rounded-md border border-gray-200 px-2 py-1 text-lg font-extrabold text-black sm:h-9 sm:min-w-[80px] sm:px-3 sm:py-1 sm:text-xl dark:border-slate-600 dark:text-white">
+                    <span className="xs:h-8 xs:px-2 xs:py-1 xs:text-lg inline-block h-8 w-full min-w-[70px] rounded-md border border-gray-200 px-2 py-1 text-lg font-extrabold text-black sm:h-9 sm:min-w-[80px] sm:px-3 sm:py-1 sm:text-xl dark:border-slate-600 dark:text-white">
                       {urlData.title}
                     </span>
                   ) : (
-                    <span className="xs:h-8 xs:px-2 xs:py-1 xs:text-sm inline-block h-8 max-w-[180px] min-w-[70px] truncate rounded-md border border-gray-200 px-2 py-1 text-sm text-gray-500 sm:h-9 sm:max-w-[200px] sm:min-w-[80px] sm:px-3 sm:py-1 sm:text-lg dark:border-slate-600 dark:text-gray-400">
+                    <span className="xs:h-8 xs:px-2 xs:py-1 xs:text-sm inline-block h-8 w-full min-w-[70px] truncate rounded-md border border-gray-200 px-2 py-1 text-sm text-gray-500 sm:h-9 sm:max-w-[200px] sm:min-w-[80px] sm:px-3 sm:py-1 sm:text-lg dark:border-slate-600 dark:text-gray-400">
                       {t("shared.titlePlaceholder")}
                     </span>
                   )}
@@ -232,7 +232,7 @@ function UrlCard({
                 value={editUrl}
                 onChange={(e) => setEditUrl(e.target.value)}
                 onKeyDown={handleUrlKeyDown}
-                className="truncate rounded-md border border-gray-300 bg-white px-2 py-1 text-sm text-gray-600 focus:border-sky-500 focus:outline-none sm:text-base md:text-lg dark:border-slate-600 dark:bg-slate-700 dark:text-gray-400 dark:focus:border-sky-400"
+                className="w-full truncate rounded-md border border-gray-300 bg-white px-2 py-1 text-sm text-gray-600 focus:border-sky-500 focus:outline-none sm:text-base md:text-lg dark:border-slate-600 dark:bg-slate-700 dark:text-gray-400 dark:focus:border-sky-400"
                 placeholder={t("shared.enterUrl")}
                 autoFocus
               />
@@ -279,7 +279,7 @@ function UrlCard({
             </div>
           )}
         </div>
-        <div className="flex flex-row-reverse items-center gap-1.5 sm:gap-2">
+        <div className="flex flex-wrap items-center gap-3 sm:flex-row-reverse sm:gap-2">
           {mode === "myurls" && (
             <>
               {/* Share Button */}
@@ -402,9 +402,9 @@ function UrlCard({
           )}
         </div>
       </div>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div
-          className={`flex items-center gap-1.5 self-end rounded-lg border px-3 py-1.5 shadow-md sm:gap-2 sm:px-4 sm:py-2 dark:text-white ${
+          className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 shadow-md sm:gap-2 sm:px-4 sm:py-2 dark:text-white ${
             urlData.isActive === false
               ? "border-gray-600 bg-gray-500 text-white dark:border-gray-500 dark:bg-gray-600"
               : dayjs(urlData.expiredAt).isAfter(dayjs())
@@ -434,7 +434,7 @@ function UrlCard({
             </span>
           </div>
         </div>
-        <div className="flex flex-row-reverse items-center gap-3 self-end sm:gap-4">
+        <div className="flex items-center justify-between gap-3 sm:flex-row-reverse sm:gap-4">
           <div
             className="flex h-6 w-auto flex-row items-center gap-0.5 rounded-xl border border-transparent bg-sky-500 px-2 sm:h-7 sm:gap-1 md:h-12 dark:border-sky-600 dark:bg-sky-600"
             title="Clicks"
