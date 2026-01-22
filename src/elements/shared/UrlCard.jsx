@@ -15,12 +15,15 @@ function UrlCard({
   onToggleActive,
   onDelete,
   onUpdateTitle,
+  onUpdateUrl,
   t,
   notificationRef,
 }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [editTitle, setEditTitle] = useState("");
+  const [isEditingUrl, setIsEditingUrl] = useState(false);
+  const [editUrl, setEditUrl] = useState("");
   const DONT_ASK_DELETE_KEY = "dontAskDeleteConfirmation";
 
   const checkDontAskAgain = () => {
@@ -92,13 +95,51 @@ function UrlCard({
       setEditTitle("");
     }
   };
+
+  const handleEditUrlClick = () => {
+    if (isEditingUrl) {
+      // Сохранить при повторном нажатии
+      handleSaveUrl();
+    } else {
+      // Начать редактирование
+      setEditUrl(urlData.url);
+      setIsEditingUrl(true);
+    }
+  };
+
+  const handleSaveUrl = async () => {
+    const trimmedUrl = editUrl.trim();
+    if (!trimmedUrl) {
+      notificationRef.current?.addNotification(t("shared.urlInvalid"), 3000);
+      return;
+    }
+
+    try {
+      if (onUpdateUrl) {
+        await onUpdateUrl(urlData._id, trimmedUrl);
+      }
+      setIsEditingUrl(false);
+      notificationRef.current?.addNotification(t("shared.urlUpdated"), 2000);
+    } catch (error) {
+      notificationRef.current?.addNotification(t("shared.urlUpdateError"), 3000);
+    }
+  };
+
+  const handleUrlKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSaveUrl();
+    } else if (e.key === "Escape") {
+      setIsEditingUrl(false);
+      setEditUrl("");
+    }
+  };
   return (
     <div
       className="rounded-xl border border-gray-200 bg-white p-4 shadow-lg transition-all duration-200 hover:shadow-xl sm:p-6 dark:border-slate-700 dark:bg-slate-800"
       style={{ willChange: "transform, opacity, background-color, border-color, color" }}
     >
       <div className="mb-3 flex items-start justify-between sm:mb-4">
-        <div className="flex max-w-[60%] min-w-0 flex-col sm:max-w-[70%] md:max-w-[75%]">
+        <div className="flex max-w-[60%] min-w-0 flex-col sm:max-w-[60%] md:max-w-[65%]">
           {mode === "myurls" && (
             <div className="xs:mb-1.5 xs:gap-1 mb-1.5 flex items-center gap-1 sm:mb-2 sm:gap-2">
               {isEditingTitle ? (
@@ -184,9 +225,59 @@ function UrlCard({
               </motion.button>
             )}
           </div>
-          <p className="mt-1 truncate text-sm text-gray-600 sm:text-base md:text-lg dark:text-gray-400">
-            {urlData.url}
-          </p>
+          {isEditingUrl ? (
+            <div className="mt-1 flex items-center gap-2">
+              <input
+                type="url"
+                value={editUrl}
+                onChange={(e) => setEditUrl(e.target.value)}
+                onKeyDown={handleUrlKeyDown}
+                className="truncate rounded-md border border-gray-300 bg-white px-2 py-1 text-sm text-gray-600 focus:border-sky-500 focus:outline-none sm:text-base md:text-lg dark:border-slate-600 dark:bg-slate-700 dark:text-gray-400 dark:focus:border-sky-400"
+                placeholder={t("shared.enterUrl")}
+                autoFocus
+              />
+              <button
+                style={{ transition: "var(--transition-bg)" }}
+                onClick={handleEditUrlClick}
+                className="flex h-6 w-6 cursor-pointer touch-manipulation items-center justify-center rounded-md bg-sky-500 px-1 py-1 text-white hover:bg-sky-600 sm:h-7 sm:w-7 dark:bg-sky-500 dark:hover:bg-sky-400"
+                title={t("shared.save")}
+              >
+                <svg
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  viewBox="0 0 24 24"
+                  className="h-3 w-3 sm:h-4 sm:w-4"
+                >
+                  <use href="#redact"></use>
+                </svg>
+              </button>
+            </div>
+          ) : (
+            <div className="mt-1 flex items-center gap-2">
+              <p className="truncate text-sm text-gray-600 sm:text-base md:text-lg dark:text-gray-400">
+                {urlData.url}
+              </p>
+              {mode === "myurls" && (
+                <button
+                  onClick={handleEditUrlClick}
+                  style={{ transition: "var(--transition-bg)" }}
+                  className="flex h-6 w-6 cursor-pointer touch-manipulation items-center justify-center rounded-md bg-gray-200 px-1 py-1 text-gray-700 hover:bg-gray-300 sm:h-7 sm:w-7 dark:bg-slate-600 dark:text-gray-200 dark:hover:bg-slate-500"
+                  title={t("shared.editUrl")}
+                >
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    viewBox="0 0 24 24"
+                    className="h-3 w-3 sm:h-4 sm:w-4"
+                  >
+                    <use href="#redact"></use>
+                  </svg>
+                </button>
+              )}
+            </div>
+          )}
         </div>
         <div className="flex flex-row-reverse items-center gap-1.5 sm:gap-2">
           {mode === "myurls" && (

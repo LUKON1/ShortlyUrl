@@ -21,6 +21,7 @@ dist-ssr
 .vscode/*
 .continue/*
 .continue
+.cursor/*
 !.vscode/extensions.json
 .idea
 .DS_Store

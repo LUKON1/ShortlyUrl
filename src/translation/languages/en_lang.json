@@ -141,10 +141,16 @@
     "copy": "Copy",
     "editTitle": "Edit Title",
     "addTitle": "Add Title",
+    "editUrl": "Edit URL",
     "save": "Save",
     "titlePlaceholder": "Enter a title for this URL",
+    "enterTitle": "Enter title",
+    "enterUrl": "Enter new URL",
     "titleUpdated": "Title updated successfully",
     "titleUpdateError": "Failed to update title",
+    "urlUpdated": "URL updated successfully",
+    "urlUpdateError": "Failed to update URL",
+    "urlInvalid": "Invalid URL",
     "titleTooLong": "Title must be 24 characters or less"
   },
   "paused": {

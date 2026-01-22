@@ -141,10 +141,16 @@
     "copy": "Копировать",
     "editTitle": "Изменить название",
     "addTitle": "Добавить название",
+    "editUrl": "Изменить URL",
     "save": "Сохранить",
     "titlePlaceholder": "Введите название для этой ссылки",
+    "enterTitle": "Введите название",
+    "enterUrl": "Введите новый URL",
     "titleUpdated": "Название успешно обновлено",
     "titleUpdateError": "Не удалось обновить название",
+    "urlUpdated": "URL успешно обновлен",
+    "urlUpdateError": "Не удалось обновить URL",
+    "urlInvalid": "Некорректный URL",
     "titleTooLong": "Название должно быть не более 24 символов"
   },
   "urlCard": {

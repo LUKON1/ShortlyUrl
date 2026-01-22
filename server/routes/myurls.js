@@ -248,6 +248,56 @@ router.patch("/update-title/:urlId", async (req, res) => {
   }
 });
 
+router.patch("/update-url/:urlId", async (req, res) => {
+  try {
+    const userId = req.userId;
+    const { urlId } = req.params;
+    const { url } = req.body;
+
+    if (!userId) {
+      return res.status(401).json({ error: "User not authenticated" });
+    }
+
+    if (!url || !url.trim()) {
+      return res.status(400).json({ error: "URL is required" });
+    }
+
+    // Check if URL contains the project's domain (similar to creation validation)
+    const containsMyDomain = (testUrl) => {
+      const MyDomainHost = process.env.HOST_NAME.replace(/^https?:\/\//, "");
+      const MyDomainName = MyDomainHost.split(":")[0]; // Remove port if present
+      const banedDomains = [MyDomainName, MyDomainHost];
+      const regexp = new RegExp(`^(https?:\/\/)?(www\.)?(${banedDomains.join("|")})(\/|$)`, "i");
+      return regexp.test(testUrl);
+    };
+
+    if (containsMyDomain(url)) {
+      return res.status(400).json({ error: "URL cannot contain the project's domain" });
+    }
+
+    // Basic URL validation
+    try {
+      new URL(url);
+    } catch (urlErr) {
+      return res.status(400).json({ error: "Invalid URL format" });
+    }
+
+    const urlEntry = await UrlModel.findOne({ _id: urlId, userId: userId });
+
+    if (!urlEntry) {
+      return res.status(404).json({ error: "URL not found or access denied" });
+    }
+
+    urlEntry.url = url.trim();
+    await urlEntry.save();
+
+    res.status(200).json(urlEntry);
+  } catch (err) {
+    console.error("Error in PATCH /update-url/:urlId route:", err);
+    res.status(500).json({ error: "Server error", details: err.message });
+  }
+});
+
 router.delete("/:urlId", async (req, res) => {
   try {
     const userId = req.userId;
