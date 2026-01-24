@@ -28,7 +28,7 @@ function Header_bar() {
               <img
                 onDragStart={(e) => e.preventDefault()}
                 className="relative h-14 w-14 transition-transform duration-200 select-none group-hover:scale-110"
-                src="/src/assets/home-page.png"
+                src="src/assets/favicon.svg"
                 alt="home"
                 style={{ zIndex: 60 }}
               />

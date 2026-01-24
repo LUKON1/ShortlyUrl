@@ -1,63 +1,129 @@
-# ShortURL - Мощный сервис сокращения ссылок и управления ими | ShortURL - Powerful URL Shortening and Management Service
+# ShortURL - Cервис сокращения ссылок и управления ими
 
-## О проекте || About the Project
+## О проекте
 
 **ShortURL** — это сервис для эффективного сокращения длинных URL-адресов и расширенного управления ими. Проект создан с использованием React и демонстрирует передовые подходы к разработке веб-приложений. Наша цель — не просто сокращать ссылки, но и предоставлять ценные инструменты для их отслеживания и анализа, особенно актуальные для RU-сегмента рынка, где подобные решения для бизнеса пока ограничены.
 
-**ShortURL** is a service for efficient URL shortening and advanced link management. The project is built with React, showcasing advanced web application development approaches. Our goal is not just to shorten links, but to provide valuable tools for tracking and analyzing them, particularly relevant for the Russian market where similar business solutions are currently limited.
+## Возможности
 
-## Возможности || Features
+- **Сокращение URL:** Мгновенное преобразование длинных и неудобных ссылок в короткие, удобные для обмена.
+- **Гибкие настройки URL:** Возможность устанавливать срок жизни кликов для каждой сокращенной ссылки, предоставляя контроль над распространением контента.
+- **Генерация динамических QR-кодов:** Автоматическое создание уникальных QR-кодов для каждой сокращенной ссылки с возможностью скачивания для удобного распространения в офлайн-среде.
+- **Аутентификация и Управление Пользователями:** Надежная система регистрации и авторизации, обеспечивающая доступ к персональным функциям и защищенным маршрутам для зарегистрированных пользователей.
+- **Персональный Кабинет:** Просмотр, копирование и полное управление всеми сокращенными ссылками в удобном интерфейсе для авторизованных пользователей.
+- **Аналитика и Статистика:** Cтатистика по кликам, графики производительности ссылок, топ-ссылки и пользовательская аналитика для отслеживания эффективности.
+- **Темная тема:** Поддержка светлой и темной темы интерфейса для комфортного использования в различных условиях освещения.
+- **Мультиязычность (i18n):** Интерфейс с поддержкой нескольких языков (русский и английский) для максимального удобства глобальной аудитории.
+- **Адаптивный дизайн:** Оптимизированный пользовательский интерфейс, который прекрасно выглядит и функционирует на любых устройствах: от мобильных телефонов до десктопов, благодаря Tailwind CSS.
+- **Совместное использование:** Возможность делиться сокращенными ссылками с другими пользователями через специальные страницы.
+- **Управление профилем:** Функции редактирования профиля, удаления аккаунта и просмотра статистики пользователя.
 
-- **Сокращение URL | URL Shortening:** Мгновенное преобразование длинных и неудобных ссылок в короткие, удобные для обмена. | Instantly transform long, unwieldy links into short, shareable ones.
-- **Гибкие настройки URL | Flexible URL Settings:** Возможность устанавливать срок жизни кликов для каждой сокращенной ссылки, предоставляя контроль над распространением контента. | Ability to set a lifetime and click limit for each shortened link, providing control over content distribution.
-- **Генерация QR-кодов | QR Code Generation:** Автоматическое создание уникальных QR-кодов для каждой сокращенной ссылки с возможностью скачивания для удобного распространения в офлайн-среде. | Automatically generate unique QR codes for each shortened link, with download capability for easy offline distribution.
-- **Аутентификация и Управление Пользователями | Authentication and User Management:** Надежная система регистрации и авторизации, обеспечивающая доступ к персональным функциям и защищенным маршрутам для зарегистрированных пользователей. | Robust registration and authorization system, providing access to personal features and protected routes for registered users.
-- **Персональный Кабинет | Personal Dashboard:** Просмотр, копирование и полное управление всеми сокращенными ссылками в удобном интерфейсе для авторизованных пользователей. | View, copy, and fully manage all shortened links through a user-friendly interface for authorized users.
-- **Мультиязычность (i18n) | Multilingual Support (i18n):** Интерфейс с поддержкой нескольких языков (русский и английский) для максимального удобства глобальной аудитории. | Multilingual interface (Russian and English) for maximum convenience of a global audience.
-- **Адаптивный дизайн | Responsive Design:** Оптимизированный пользовательский интерфейс, который прекрасно выглядит и функционирует на любых устройствах: от мобильных телефонов до десктопов, благодаря Tailwind CSS. | Optimized user interface that looks and functions beautifully on all devices, from mobile phones to desktops, thanks to Tailwind CSS.
-
-## Технологии || Technologies
+## Технологии
 
 - **Frontend:**
-  - [React](https://react.dev/) - Библиотека для создания пользовательских интерфейсов. | A library for building user interfaces.
-  - [Vite](https://vitejs.dev/) - Инструмент для быстрой сборки и разработки. | A fast build tool and development server.
-  - [React Router DOM](https://reactrouter.com/web/guides/quick-start) - Для маршрутизации в приложении. | For routing within the application.
-  - [Tailwind CSS](https://tailwindcss.com/) - CSS-фреймворк для быстрого стилизования. | A CSS framework for rapid styling.
-  - [i18next & react-i18next](https://react.i18next.com/) - Для международной локализации. | For internationalization.
-  - [react-qr-code](https://www.npmjs.com/package/react-qr-c0 ode) - Для генерации QR-кодов. | For generating QR codes.
+  - [React](https://react.dev/) (v19.1.0) - Библиотека для создания пользовательских интерфейсов.
+  - [Vite](https://vitejs.dev/) (v7.0.4) - Инструмент для быстрой сборки и разработки.
+  - [React Router DOM](https://reactrouter.com/web/guides/quick-start) (v7.8.0) - Для маршрутизации в приложении.
+  - [Tailwind CSS](https://tailwindcss.com/) (v4.1.14) - CSS-фреймворк для быстрого стилизования.
+  - [i18next & react-i18next](https://react.i18next.com/) (v25.3.4, v15.6.1) - Для международной локализации.
+  - [qrcode.react](https://www.npmjs.com/package/qrcode.react) (v4.2.0) - Для генерации QR-кодов.
+  - [Motion](https://motion.dev/) (v12.23.26) - Библиотека для анимаций.
+  - [Recharts](https://recharts.org/) (v3.3.0) - Библиотека для построения графиков.
+  - [Axios](https://axios-http.com/) (v1.12.2) - HTTP клиент.
+  - [Day.js](https://day.js.org/) (v1.11.18) - Легковесная альтернатива Moment.js.
 - **Backend:**
-  - [Node.js](https://nodejs.org/) - Среда выполнения JavaScript для создания масштабируемых сетевых приложений. | A JavaScript runtime for building scalable network applications.
-  - [Express.js](https://expressjs.com/) - Минималистичный и гибкий фреймворк для веб-приложений Node.js. | A minimalist and flexible Node.js web application framework.
-  - [MongoDB + Mongoose](https://www.mongodb.com/) - Популярная документо-ориентированная база данных NoSQL. | A popular document-oriented NoSQL database.
+  - [Node.js](https://nodejs.org/) - Среда выполнения JavaScript для создания масштабируемых сетевых приложений.
+  - [Express.js](https://expressjs.com/) (v5.1.0) - Минималистичный и гибкий фреймворк для веб-приложений Node.js.
+  - [MongoDB + Mongoose](https://www.mongodb.com/) (v8.18.1) - Популярная документо-ориентированная база данных NoSQL.
+  - [JWT](https://jwt.io/) (v9.0.2) - Для аутентификации.
+  - [bcrypt](https://www.npmjs.com/package/bcrypt) (v6.0.0) - Для хеширования паролей.
+  - [QRCode](https://www.npmjs.com/package/qrcode) (v1.5.4) - Для генерации QR-кодов на сервере.
 - **Testing and Development:**
-  - [Mock Service Worker (MSW)](https://mswjs.io/) - Для мокирования API в браузере. | For mocking API in the browser.
+  - [Mock Service Worker (MSW)](https://mswjs.io/) (v2.10.5) - Для мокирования API в браузере.
+  - [Vitest](https://vitest.dev/) (v3.2.4) - Фреймворк для тестирования.
+  - [ESLint](https://eslint.org/) (v9.30.1) - Для линтинга кода.
+  - [Prettier](https://prettier.io/) (v3.6.2) - Для форматирования кода.
 
-## Перспективы Развития и Будущие Обновления || Development Prospects and Future Updates
+## Установка и Запуск
 
-стремимся превратить ShortURL в комплексное решение для бизнеса и индивидуальных пользователей, предлагая расширенные функции управления трафиком и аналитики. В планах по развитию:
+### Требования
 
-aim to transform ShortURL into a comprehensive solution for businesses and individual users, offering advanced traffic management and analytics features. Development plans include:
+- Node.js (рекомендуется v18+)
+- MongoDB (локально или облако, например MongoDB Atlas)
+- npm или yarn
 
-- **Расширенный Трекинг и Аналитика | Advanced Tracking and Analytics:** Внедрение детальной статистики по кликам, географии, источникам трафика и другим показателям для глубокого анализа эффективности ссылок. | Implementing detailed statistics on clicks, geography, traffic sources, and other metrics for in-depth link performance analysis.
-- **Kill Switch (Остановка ссылки) | Kill Switch (Link Deactivation):** Возможность мгновенно деактивировать любую сокращенную ссылку для контроля над распространением информации. | The ability to instantly deactivate any shortened link to control information dissemination.
-- **Настраиваемые QR-коды | Customizable QR Codes:** Расширенные опции для кастомизации дизайна QR-кодов (цвета, логотипы) для соответствия брендингу. | Advanced options for customizing QR code design (colors, logos) to match branding.
-- **Управление Кастомными Доменами | Custom Domain Management:** Поддержка привязки собственных доменов для сокращения ссылок, повышая узнаваемость бренда и доверие пользователей. | Support for binding custom domains for link shortening, enhancing brand recognition and user trust.
-- **Динамический Редирект без Смены QR | Dynamic Redirect without QR Change:** Возможность изменять целевой URL сокращенной ссылки или QR-кода без необходимости перегенерации самого QR-кода. | The ability to change the target URL of a shortened link or QR code without needing to regenerate the QR code itself.
+### Установка
 
-## Структура проекта || Project Structure
+1. **Клонируйте репозиторий:**
+
+   ```bash
+   git clone https://github.com/LUKON1/ShrotlyUrl.git
+   cd ShrotlyUrl
+   ```
+
+2. **Установите зависимости клиента:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Установите зависимости сервера:**
+
+   ```bash
+   cd server
+   npm install
+   cd ..
+   ```
+
+4. **Настройте переменные окружения:**
+   - **Клиент (.env):**
+
+     ```env
+     VITE_API_BASE_URL=http://localhost:3000/api
+     VITE_BASE_URL=http://localhost:5173
+     VITE_MSW_ACTIVE="FALSE"
+     ```
+
+   - **Сервер (server/.env):**
+     ```env
+     PORT=3000
+     DB_URI=your_mongodb_connection_string
+     HOST_NAME=http://localhost:5173
+     JWT_SECRET=your_jwt_secret_key
+     JWT_REFRESH_SECRET=another_jwt_secret_key
+     ```
+
+### Запуск
+
+1. **Запуск сервера:**
+
+   ```bash
+   cd server
+   npm run dev
+   ```
+
+2. **Запуск клиента (в новом терминале):**
+
+   ```bash
+   npm run dev
+   ```
+
+3. **Открыть приложение:**
+   Перейдите по адресу `http://localhost:5173`
+
+## Структура проекта
 
 ```
 ShrotlyUrl
+├─ .prettierrc
+├─ LICENSE
 ├─ README.md
 ├─ eslint.config.js
 ├─ index.html
-├─ index.js
 ├─ package-lock.json
 ├─ package.json
 ├─ public
 │  └─ mockServiceWorker.js
-├─ routes
-│  └─ cut.js
 ├─ server
 │  ├─ index.js
 │  ├─ middleware
@@ -71,7 +137,9 @@ ShrotlyUrl
 │  │  ├─ cut.js
 │  │  ├─ myurls.js
 │  │  ├─ redirect.js
+│  │  ├─ share.js
 │  │  └─ user.js
+│  ├─ testgen.js
 │  └─ utils
 │     └─ shortcodegen.js
 ├─ src
@@ -81,27 +149,40 @@ ShrotlyUrl
 │  │  ├─ burger-cross.svg
 │  │  ├─ burger.svg
 │  │  ├─ cross.svg
-│  │  └─ home-page.png
+│  │  ├─ home-page.png
+│  │  └─ reload.svg
 │  ├─ context
-│  │  └─ AuthProvider.jsx
+│  │  ├─ AuthProvider.jsx
+│  │  ├─ OfflineProvider.jsx
+│  │  └─ ThemeProvider.jsx
 │  ├─ elements
-│  │  ├─ Aboutpage.jsx
 │  │  ├─ App.jsx
+│  │  ├─ Dashboard
+│  │  │  ├─ ProfileAnalyticsChart.jsx
+│  │  │  ├─ StatsCard.jsx
+│  │  │  ├─ TopUrlsList.jsx
+│  │  │  ├─ UrlAnalyticsChart.jsx
+│  │  │  ├─ UserProfile.jsx
+│  │  │  ├─ deleteProfile.jsx
+│  │  │  ├─ logout.jsx
+│  │  │  └─ myurlslist.jsx
 │  │  ├─ Homepage
 │  │  │  ├─ copy_button.jsx
 │  │  │  ├─ loadQR_Button.jsx
 │  │  │  ├─ main_form.jsx
 │  │  │  ├─ qr_gen.jsx
-│  │  │  └─ submit_button.jsx
-│  │  ├─ Myurls
-│  │  │  ├─ logout.jsx
-│  │  │  └─ myurlslist.jsx
+│  │  │  ├─ submit_button.jsx
+│  │  │  └─ time_dropdown.jsx
 │  │  ├─ Pages
 │  │  │  ├─ !Homepage.jsx
 │  │  │  ├─ !Myurlspage.jsx
 │  │  │  ├─ !Registrpage.jsx
 │  │  │  ├─ !Signinpage.jsx
-│  │  │  └─ PrivateRoute.jsx
+│  │  │  ├─ ExpiredPage.jsx
+│  │  │  ├─ PausedPage.jsx
+│  │  │  ├─ PrivateRoute.jsx
+│  │  │  └─ SharePage.jsx
+│  │  ├─ PrivacyPolicyPage.jsx
 │  │  ├─ Registration
 │  │  │  ├─ registr_form.jsx
 │  │  │  └─ signin_form.jsx
@@ -110,10 +191,16 @@ ShrotlyUrl
 │  │  │  └─ header_bar.jsx
 │  │  └─ shared
 │  │     ├─ AppLoader.jsx
+│  │     ├─ ConfirmModal.jsx
+│  │     ├─ HiddenSVGIcons.jsx
+│  │     ├─ OfflineModal.jsx
+│  │     ├─ UrlCard.jsx
 │  │     ├─ h1.jsx
 │  │     ├─ lang_checkbox.jsx
+│  │     ├─ lang_dropdown.jsx
 │  │     ├─ messagewindow.jsx
 │  │     ├─ registr_submit.jsx
+│  │     ├─ theme_toggle.jsx
 │  │     └─ wrapper_home.jsx
 │  ├─ fonts
 │  │  └─ amazdoomleft.ttf
@@ -121,7 +208,6 @@ ShrotlyUrl
 │  ├─ mocks
 │  │  ├─ browser.js
 │  │  └─ handlers.js
-│  ├─ planning.excalidraw
 │  ├─ style.css
 │  ├─ translation
 │  │  ├─ i18n.js
@@ -129,13 +215,15 @@ ShrotlyUrl
 │  │     ├─ en_lang.json
 │  │     └─ ru_lang.json
 │  └─ utils
+│     ├─ clientRoutes.js
 │     ├─ containsMyDomain.js
 │     ├─ formatDate.js
 │     ├─ loginvalidate.js
+│     ├─ retryRequest.js
 │     ├─ useAuth.js
 │     ├─ useAuthOnLoading.js
 │     ├─ useAxiosPrivate.js
 │     └─ useRefreshToken.js
-├─ tailwind.config.js
 └─ vite.config.js
+
 ```
