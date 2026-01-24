@@ -162,5 +162,10 @@
     "title": "Link Expired",
     "message": "This shortened link has expired and is no longer available.",
     "home": "Go Home"
+  },
+  "offline": {
+    "title": "No Internet Connection",
+    "message": "Please check your internet connection and try reloading the application.",
+    "reload": "Reload Application"
   }
 }

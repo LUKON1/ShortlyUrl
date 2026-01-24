@@ -25,7 +25,7 @@ const Notifications = forwardRef((props, ref) => {
   }, [notifications]);
 
   return (
-    <div className="sticky top-24 z-80 h-0 w-[90vw] space-y-2 opacity-95 sm:mr-4 sm:ml-auto sm:w-60">
+    <div className="sticky top-24 z-145 h-0 w-[90vw] space-y-2 opacity-95 sm:mr-4 sm:ml-auto sm:w-60">
       <AnimatePresence mode="sync">
         {notifications.map((notification, index) => (
           <motion.div

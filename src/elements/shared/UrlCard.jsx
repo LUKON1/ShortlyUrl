@@ -239,7 +239,7 @@ function UrlCard({
               <button
                 style={{ transition: "var(--transition-bg)" }}
                 onClick={handleEditUrlClick}
-                className="flex min-h-6 min-w-6 cursor-pointer touch-manipulation items-center justify-center rounded-md bg-sky-500 px-1 py-1 text-white hover:bg-sky-600 sm:h-7 sm:w-7 dark:bg-sky-500 dark:hover:bg-sky-400"
+                className="flex min-h-6 min-w-6 cursor-pointer touch-manipulation items-center justify-center rounded-md bg-sky-500 px-1 py-1 text-white hover:bg-sky-600 sm:h-7 sm:min-h-7 sm:w-7 sm:min-w-7 dark:bg-sky-500 dark:hover:bg-sky-400"
                 title={t("shared.save")}
               >
                 <svg
@@ -262,7 +262,7 @@ function UrlCard({
                 <button
                   onClick={handleEditUrlClick}
                   style={{ transition: "var(--transition-bg)" }}
-                  className="flex min-h-6 min-w-6 cursor-pointer touch-manipulation items-center justify-center rounded-md bg-gray-200 px-1 py-1 text-gray-700 hover:bg-gray-300 sm:h-7 sm:w-7 dark:bg-slate-600 dark:text-gray-200 dark:hover:bg-slate-500"
+                  className="flex min-h-6 min-w-6 cursor-pointer touch-manipulation items-center justify-center rounded-md bg-gray-200 px-1 py-1 text-gray-700 hover:bg-gray-300 sm:h-7 sm:min-h-7 sm:w-7 sm:min-w-7 dark:bg-slate-600 dark:text-gray-200 dark:hover:bg-slate-500"
                   title={t("shared.editUrl")}
                 >
                   <svg
