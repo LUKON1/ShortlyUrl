@@ -38,7 +38,10 @@ app.use("/api/share", shareRouter);
 app.use("/", redirectRouter);
 
 const startAggregation = require("./cron/aggregateStats");
+const startCleanupJob = require("./cron/cleanupExpiredUrls");
+
 startAggregation();
+startCleanupJob();
 
 mongoose
   .connect(DB_URI)
