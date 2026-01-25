@@ -28,12 +28,20 @@ router.post("/shorter", async (req, res) => {
 
     let shortCode;
     let isUnicue = false;
-    while (!isUnicue) {
+    let attempts = 0;
+    const maxAttempts = 10;
+
+    while (!isUnicue && attempts < maxAttempts) {
+      attempts++;
       shortCode = getShortCode(7);
       const existingUrl = await UrlModel.findOne({ shortCode });
       if (!existingUrl) {
         isUnicue = true;
       }
+    }
+
+    if (!isUnicue) {
+      return res.status(500).json({ error: "Failed to generate unique code, please try again." });
     }
 
     const fullShortUrl = `${process.env.HOST_NAME}/${shortCode}`;

@@ -28,7 +28,9 @@ app.use(
 app.use(express.json());
 app.use(cookie());
 
-app.use("/api/cut", urlShorterRouter);
+const apiLimiter = require("./middleware/rateLimiter");
+
+app.use("/api/cut", apiLimiter, urlShorterRouter);
 app.use("/api/myurls", auth, getUsUrlsRouter);
 app.use("/api/user", userRouter);
 app.use("/api/share", shareRouter);

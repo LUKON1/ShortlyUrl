@@ -27,7 +27,7 @@ function Header_bar() {
             <Link to="/" className="group flex items-center gap-3" style={{ zIndex: 60 }}>
               <img
                 onDragStart={(e) => e.preventDefault()}
-                className="relative h-14 w-14 transition-transform duration-200 select-none group-hover:scale-110"
+                className="relative h-12 w-12 transition-transform duration-200 select-none group-hover:scale-110"
                 src="src/assets/favicon.svg"
                 alt="home"
                 style={{ zIndex: 60 }}

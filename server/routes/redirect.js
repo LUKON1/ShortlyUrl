@@ -10,7 +10,11 @@ router.get("/:shortCode", async (req, res) => {
       return res.status(404).send("Not found");
     }
 
-    const urlEntry = await UrlModel.findOne({ shortCode });
+    const urlEntry = await UrlModel.findOneAndUpdate(
+      { shortCode },
+      { $inc: { clicks: 1 } },
+      { new: true } // Return the updated document
+    );
 
     if (!urlEntry) {
       return res.status(404).send("Short URL not found.");
@@ -23,9 +27,6 @@ router.get("/:shortCode", async (req, res) => {
     if (new Date(urlEntry.expiredAt) < new Date()) {
       return res.redirect(302, `${process.env.HOST_NAME}/exp`);
     }
-
-    urlEntry.clicks++;
-    await urlEntry.save();
 
     return res.redirect(302, urlEntry.url);
   } catch (err) {

@@ -27,22 +27,6 @@ function UserProfile({ profile }) {
         <DeleteProfile />
         <Logout />
       </div>
-      <div className="mt-6 grid grid-cols-2 gap-4">
-        <div className="rounded-lg bg-gradient-to-br from-sky-50 to-blue-50 p-4 dark:from-slate-700 dark:to-slate-800">
-          <p className="mb-1 text-sm font-medium text-gray-600 dark:text-gray-400">
-            {t("dashboard.totalUrls")}
-          </p>
-          <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{profile.totalUrls}</p>
-        </div>
-        <div className="rounded-lg bg-gradient-to-br from-rose-50 to-red-50 p-4 dark:from-slate-700 dark:to-slate-800">
-          <p className="mb-1 text-sm font-medium text-gray-600 dark:text-gray-400">
-            {t("dashboard.totalClicks")}
-          </p>
-          <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-            {profile.totalClicks}
-          </p>
-        </div>
-      </div>
     </div>
   );
 }

@@ -174,11 +174,11 @@ function UrlCard({
               ) : (
                 <>
                   {urlData.title ? (
-                    <span className="xs:h-8 xs:px-2 xs:py-1 xs:text-lg inline-block h-8 w-full min-w-[70px] rounded-md border border-gray-200 px-2 py-1 text-lg font-extrabold text-black sm:h-9 sm:min-w-[80px] sm:px-3 sm:py-1 sm:text-xl dark:border-slate-600 dark:text-white">
+                    <span className="xs:h-8 xs:px-2 xs:py-1 xs:text-lg inline-block h-8 w-full rounded-md border border-gray-200 px-2 py-1 text-lg font-extrabold text-black sm:h-9 sm:w-fit sm:min-w-[80px] sm:px-3 sm:py-1 sm:text-xl dark:border-slate-600 dark:text-white">
                       {urlData.title}
                     </span>
                   ) : (
-                    <span className="xs:h-8 xs:px-2 xs:py-1 xs:text-sm inline-block h-8 w-full min-w-[70px] truncate rounded-md border border-gray-200 px-2 py-1 text-sm text-gray-500 sm:h-9 sm:max-w-[200px] sm:min-w-[80px] sm:px-3 sm:py-1 sm:text-lg dark:border-slate-600 dark:text-gray-400">
+                    <span className="xs:h-8 xs:px-2 xs:py-1 xs:text-sm inline-block h-8 w-full truncate rounded-md border border-gray-200 px-2 py-1 text-sm text-gray-500 sm:h-9 sm:w-[200px] sm:px-3 sm:py-1 sm:text-lg dark:border-slate-600 dark:text-gray-400">
                       {t("shared.titlePlaceholder")}
                     </span>
                   )}
