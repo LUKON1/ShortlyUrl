@@ -24,11 +24,24 @@ function TimeDropdown({ value, onChange, options, className }) {
   ];
 
   const currentOption = options.find((opt) => opt.value === value);
-  const displayLabel = currentOption
-    ? currentOption.label
-    : isCustomMode
-      ? `${customValue || 1} ${units.find((u) => u.value === customUnit)?.label || ""}`
-      : t("homepage.urlopt.urtime.custom");
+
+  // Helper to format custom time into readable string
+  const getCustomLabel = () => {
+    if (isCustomMode) {
+      // While editing, show what user is typing
+      return `${customValue || 1} ${units.find((u) => u.value === customUnit)?.label || ""}`;
+    }
+    // Sort units desc to find best match (e.g. 604800 is 1 week, not 7 days)
+    const sortedUnits = [...units].sort((a, b) => b.value - a.value);
+    for (const unit of sortedUnits) {
+      if (value >= unit.value && value % unit.value === 0) {
+        return `${Math.round(value / unit.value)} ${unit.label}`;
+      }
+    }
+    return t("homepage.urlopt.urtime.custom");
+  };
+
+  const displayLabel = currentOption ? currentOption.label : getCustomLabel();
 
   const handleOptionChange = (optValue) => {
     onChange(optValue);

@@ -73,6 +73,15 @@ function ShortenerForm() {
           throw new Error();
         }
 
+        // Save anonymous link if user is not logged in
+        if (!userId) {
+          const anonymousLinks = JSON.parse(localStorage.getItem("anonymousLinks") || "[]");
+          if (!anonymousLinks.includes(shortCode)) {
+            anonymousLinks.push(shortCode);
+            localStorage.setItem("anonymousLinks", JSON.stringify(anonymousLinks));
+          }
+        }
+
         const shortUrl = `${BASE_URL}/${shortCode}`;
         setShortUrl(shortUrl);
         setQrCodeDataUrl(response?.data?.qrCodeDataUrl);
@@ -122,13 +131,13 @@ function ShortenerForm() {
               placeholder={t("homepage.placeholder")}
             />
             <motion.div
-              className="absolute top-full left-0 mt-2.5 flex w-full flex-col items-center justify-center gap-4 rounded-xl border border-sky-100 bg-white/95 px-4 py-2 shadow-sm backdrop-blur-sm md:flex-row md:justify-between md:gap-8 dark:border-slate-700 dark:bg-slate-800/95"
+              className="absolute top-full left-0 mt-2.5 flex w-full flex-col items-center justify-center gap-4 rounded-xl border border-sky-100 bg-white/95 px-4 py-2 shadow-sm backdrop-blur-sm md:flex-row md:justify-center md:gap-8 dark:border-slate-700 dark:bg-slate-800/95"
               style={{ zIndex: 100 }}
               initial={{ opacity: 0, transform: "translateY(100px)" }}
               animate={{ opacity: 1, transform: "translateY(0px)" }}
               transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
             >
-              <div className="flex w-full items-center justify-center gap-3 md:w-auto md:justify-start">
+              <div className="flex w-full items-center justify-center gap-3 md:w-auto">
                 <p className="text-sm font-medium text-gray-600 md:text-base dark:text-gray-300">
                   {t("homepage.urlopt.urtime.liftimeword")}
                 </p>

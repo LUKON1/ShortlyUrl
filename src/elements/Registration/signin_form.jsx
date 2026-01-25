@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import axios from "../../api/axios";
 import useAuth from "../../utils/useAuth";
 import { CLIENT_ROUTES } from "../../utils/clientRoutes.js";
+import PasswordInput from "../shared/PasswordInput";
 
 function Signinform() {
   const API_SIGNIN = "/user/login";
@@ -37,7 +38,11 @@ function Signinform() {
       setPwd("");
       navigate(CLIENT_ROUTES.PROFILE);
     } catch (err) {
-      notificationRef.current?.addNotification(t("registration.incorrectpwdus"), 3000);
+      if (err.response && err.response.data && err.response.data.error) {
+        notificationRef.current?.addNotification(err.response.data.error, 3000);
+      } else {
+        notificationRef.current?.addNotification(t("registration.incorrectpwdus"), 3000);
+      }
     }
   };
 
@@ -62,14 +67,11 @@ function Signinform() {
           transition={{ duration: 0.2, ease: "easeOut" }}
           required
         />
-        <motion.input
-          className="text-1xl h-16 w-3xs max-w-5xl rounded-lg border-2 border-sky-400 bg-white p-2 text-center text-gray-900 shadow-sm focus:ring-2 focus:ring-sky-500 focus:outline-none md:w-[55vw] md:text-2xl lg:h-20 lg:w-[70vw] lg:text-3xl dark:border-sky-500 dark:bg-slate-700 dark:text-gray-100"
-          type="password"
+        <PasswordInput
+          className="text-1xl h-16"
           placeholder={t("registration.passwordPlaceholder")}
           value={pwd}
           onChange={(e) => setPwd(e.target.value)}
-          whileFocus={{ scale: 1.02 }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
           required
           minLength={5}
         />

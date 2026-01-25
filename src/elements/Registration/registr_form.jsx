@@ -8,12 +8,15 @@ import { useTranslation } from "react-i18next";
 import useAuth from "../../utils/useAuth";
 import { validateLogin } from "../../utils/loginvalidate";
 import { CLIENT_ROUTES } from "../../utils/clientRoutes.js";
+import PasswordInput from "../shared/PasswordInput";
+import PasswordStrength from "../shared/PasswordStrength";
 
 function Registrform() {
   const API_REGISTR = "/user/registr";
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
   const [confPwd, setConfPwd] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const notificationRef = useRef();
   const inputRef = useRef();
   const navigate = useNavigate();
@@ -35,10 +38,17 @@ function Registrform() {
         notificationRef.current?.addNotification(t("registration.pwddif"), 3000);
         return;
       }
-      const response = await axios.post(API_REGISTR, JSON.stringify({ user, pwd }), {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-      });
+
+      const anonymousLinks = JSON.parse(localStorage.getItem("anonymousLinks") || "[]");
+
+      const response = await axios.post(
+        API_REGISTR,
+        JSON.stringify({ user, pwd, anonymousCodes: anonymousLinks }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
       const accessToken = response?.data?.accessToken;
       const userId = response?.data?.userId;
       console.log(userId);
@@ -46,6 +56,10 @@ function Registrform() {
       setUser("");
       setPwd("");
       setConfPwd("");
+
+      // Clear anonymous links as they are now transferred
+      localStorage.removeItem("anonymousLinks");
+
       navigate(CLIENT_ROUTES.PROFILE);
     } catch (err) {
       if (err.response) {
@@ -79,27 +93,30 @@ function Registrform() {
           transition={{ duration: 0.2, ease: "easeOut" }}
           required
         />
-        <motion.input
-          className="text-1xl h-16 w-3xs max-w-5xl rounded-lg border-2 border-sky-400 bg-white p-2 text-center text-gray-900 shadow-sm focus:ring-2 focus:ring-sky-500 focus:outline-none md:w-[55vw] md:text-2xl lg:h-20 lg:w-[70vw] lg:text-3xl dark:border-sky-500 dark:bg-slate-700 dark:text-gray-100"
-          type="password"
-          placeholder={t("registration.passwordPlaceholder")}
-          value={pwd}
-          onChange={(e) => setPwd(e.target.value)}
-          whileFocus={{ scale: 1.02 }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
-          required
-          minLength={5}
-        />
-        <motion.input
-          className="text-1xl h-16 w-3xs max-w-5xl rounded-lg border-2 border-sky-400 bg-white p-2 text-center text-gray-900 shadow-sm focus:ring-2 focus:ring-sky-500 focus:outline-none md:w-[55vw] md:text-2xl lg:h-20 lg:w-[70vw] lg:text-3xl dark:border-sky-500 dark:bg-slate-700 dark:text-gray-100"
-          type="password"
+
+        <div className="flex w-full flex-col items-center gap-2">
+          <PasswordInput
+            className="text-1xl h-16"
+            placeholder={t("registration.passwordPlaceholder")}
+            value={pwd}
+            onChange={(e) => setPwd(e.target.value)}
+            required
+            minLength={5}
+            externalShowPassword={showPassword}
+            onToggle={setShowPassword}
+          />
+          <PasswordStrength password={pwd} />
+        </div>
+
+        <PasswordInput
+          className="text-1xl h-16"
           placeholder={t("registration.passwordPlaceholderagain")}
           value={confPwd}
           onChange={(e) => setConfPwd(e.target.value)}
-          whileFocus={{ scale: 1.02 }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
           required
           minLength={5}
+          externalShowPassword={showPassword}
+          hideToggle={true}
         />
         <Registrsubmit>{t("registration.submit")}</Registrsubmit>
         <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2, ease: "easeOut" }}>

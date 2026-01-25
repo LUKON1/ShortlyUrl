@@ -6,10 +6,11 @@ const jwt = require("jsonwebtoken");
 const UserModel = require("../models/User");
 const UrlModel = require("../models/Url");
 const auth = require("../middleware/auth");
+const loginLimiter = require("../middleware/loginLimiter");
 
 router.post("/registr", async (req, res) => {
   try {
-    const { pwd, user } = req.body;
+    const { pwd, user, anonymousCodes } = req.body;
     if (!pwd || !user) {
       return res.status(400).json({ error: "required fields missing" });
     }
@@ -25,6 +26,14 @@ router.post("/registr", async (req, res) => {
     });
 
     await newUser.save();
+
+    // Link anonymous URLs if provided
+    if (anonymousCodes && Array.isArray(anonymousCodes) && anonymousCodes.length > 0) {
+      await UrlModel.updateMany(
+        { shortCode: { $in: anonymousCodes }, userId: null },
+        { $set: { userId: newUser._id } }
+      );
+    }
 
     const accessToken = jwt.sign(
       { userId: newUser._id, user: newUser.user },
@@ -53,7 +62,7 @@ router.post("/registr", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", loginLimiter, async (req, res) => {
   try {
     const { user, pwd } = req.body;
     if (!user || !pwd) {
