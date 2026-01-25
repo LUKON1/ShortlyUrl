@@ -93,7 +93,7 @@ function ShortenerForm() {
         className="flex flex-col gap-15 transition-all duration-200 ease-out md:gap-0 lg:gap-1.5"
       >
         <div className="mb-6 flex flex-col items-center gap-24 md:mb-18 md:flex-row md:gap-6">
-          <div className="felx relative flex-col">
+          <div className="relative flex flex-col">
             {url && (
               <button
                 className="absolute z-10 touch-manipulation p-1"
@@ -122,19 +122,21 @@ function ShortenerForm() {
               placeholder={t("homepage.placeholder")}
             />
             <motion.div
-              className="absolute mt-2.5 flex w-full flex-col justify-center gap-x-2.5 gap-y-6 rounded-lg border-2 border-sky-400 bg-white px-1 py-2 text-xs text-gray-900 shadow-md will-change-transform focus:outline-none md:flex-row md:text-lg lg:gap-x-10 lg:text-2xl dark:border-sky-500 dark:bg-slate-800 dark:text-gray-100"
-              style={{ zIndex: 70 }}
+              className="absolute top-full left-0 mt-2.5 flex w-full flex-col items-center justify-center gap-4 rounded-xl border border-sky-100 bg-white/95 px-4 py-2 shadow-sm backdrop-blur-sm md:flex-row md:justify-between md:gap-8 dark:border-slate-700 dark:bg-slate-800/95"
+              style={{ zIndex: 100 }}
               initial={{ opacity: 0, transform: "translateY(100px)" }}
               animate={{ opacity: 1, transform: "translateY(0px)" }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
             >
-              <div className="flex flex-row justify-between md:justify-normal md:gap-2">
-                <p className="flex items-center">{t("homepage.urlopt.urtime.liftimeword")}</p>
+              <div className="flex w-full items-center justify-center gap-3 md:w-auto md:justify-start">
+                <p className="text-sm font-medium text-gray-600 md:text-base dark:text-gray-300">
+                  {t("homepage.urlopt.urtime.liftimeword")}
+                </p>
                 <TimeDropdown
                   value={urlTime}
                   onChange={setUrlTime}
                   options={urlTimeOptions}
-                  className="w-30 md:w-24 lg:w-35"
+                  className="min-w-[140px]"
                 />
               </div>
             </motion.div>

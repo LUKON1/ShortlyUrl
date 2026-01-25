@@ -10,10 +10,14 @@
     "urlopt": {
       "urtime": {
         "liftimeword": "Lifetime:",
-        "week": "week",
-        "day": "day",
+        "minutes": "minutes",
         "hour": "hour",
-        "month": "month"
+        "day": "day",
+        "week": "week",
+        "month": "month",
+        "year": "year",
+        "custom": "Custom",
+        "confirm": "Set"
       }
     }
   },

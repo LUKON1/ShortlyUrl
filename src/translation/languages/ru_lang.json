@@ -10,10 +10,14 @@
     "urlopt": {
       "urtime": {
         "liftimeword": "Время жизни:",
-        "week": "неделя",
-        "day": "день",
+        "minutes": "минут",
         "hour": "час",
-        "month": "месяц"
+        "day": "день",
+        "week": "неделя",
+        "month": "месяц",
+        "year": "год",
+        "custom": "Свой",
+        "confirm": "ОК"
       }
     }
   },
