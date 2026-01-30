@@ -7,8 +7,6 @@ import ThemeToggle from "../shared/theme_toggle";
 import useAuth from "../../utils/useAuth";
 import { CLIENT_ROUTES } from "../../utils/clientRoutes.js";
 import logo from "../../assets/favicon.svg";
-import burgerIcon from "../../assets/burger.svg";
-import crossIcon from "../../assets/burger-cross.svg";
 
 function Header_bar() {
   const { t } = useTranslation();

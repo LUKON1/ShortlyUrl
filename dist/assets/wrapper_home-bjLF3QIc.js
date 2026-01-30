@@ -1,0 +1,1 @@
+import{j as t}from"./index-BGm7yBNk.js";function s({children:e}){return t.jsx("div",{className:"flex flex-col text-center items-center w-full text-sky-600 dark:text-sky-400",children:e})}export{s as P};
