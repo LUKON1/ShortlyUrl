@@ -42,7 +42,8 @@
     "legal": "Legal",
     "license": "MIT License",
     "poweredBy": "Created by",
-    "and": "and"
+    "and": "and",
+    "reportBug": "Report a Bug"
   },
   "message": {
     "welcome": "Welcome to Shortly",

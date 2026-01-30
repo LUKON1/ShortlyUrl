@@ -42,7 +42,8 @@
     "legal": "Правовая информация",
     "license": "Лицензия MIT",
     "poweredBy": "Создано",
-    "and": "и"
+    "and": "и",
+    "reportBug": "Сообщить об ошибке"
   },
   "message": {
     "qrdowngenerror": "Ошибка генерации QR",
