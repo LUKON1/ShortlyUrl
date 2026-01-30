@@ -87,7 +87,26 @@ function ShortenerForm() {
         setShortUrl(shortUrl);
         setQrCodeDataUrl(response?.data?.qrCodeDataUrl);
       } catch (error) {
-        notificationRef.current?.addNotification(t("message.urlcuterror"), 3000);
+        if (!error?.response) {
+          notificationRef.current?.addNotification(t("message.servererror"), 3000);
+        } else if (error.response?.status === 429) {
+          notificationRef.current?.addNotification(
+            error.response.data.error || t("message.ratelimit"),
+            5000
+          );
+        } else if (error.response?.status === 400) {
+          notificationRef.current?.addNotification(
+            error.response.data.error || t("message.invalidurl"),
+            3000
+          );
+        } else if (error.response?.status === 409) {
+          notificationRef.current?.addNotification(
+            error.response.data.error || t("message.conflicterror"),
+            3000
+          );
+        } else {
+          notificationRef.current?.addNotification(t("message.urlcuterror"), 3000);
+        }
       } finally {
         setIsLoading(false);
       }

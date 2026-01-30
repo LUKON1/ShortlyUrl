@@ -62,9 +62,21 @@ function Registrform() {
 
       navigate(CLIENT_ROUTES.PROFILE);
     } catch (err) {
-      if (err.response) {
-        if (err.response.data.error === "Username already exists") {
+      if (!err?.response) {
+        notificationRef.current?.addNotification(t("message.servererror"), 3000);
+      } else if (err.response.status === 429) {
+        notificationRef.current?.addNotification(
+          err.response.data.error || t("message.ratelimit"),
+          5000
+        );
+      } else if (err.response.data && err.response.data.error) {
+        // Show specific backend error if available (e.g. "Username already exists")
+        // Translate common ones if needed, otherwise show raw
+        const errorMsg = err.response.data.error;
+        if (errorMsg === "Username already exists") {
           notificationRef.current?.addNotification(t("registration.Usalreadyexists"), 3000);
+        } else {
+          notificationRef.current?.addNotification(errorMsg, 3000);
         }
       } else {
         notificationRef.current?.addNotification(t("registration.registrationError"), 3000);

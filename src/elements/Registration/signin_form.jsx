@@ -38,7 +38,14 @@ function Signinform() {
       setPwd("");
       navigate(CLIENT_ROUTES.PROFILE);
     } catch (err) {
-      if (err.response && err.response.data && err.response.data.error) {
+      if (!err?.response) {
+        notificationRef.current?.addNotification(t("message.servererror"), 3000);
+      } else if (err.response.status === 429) {
+        notificationRef.current?.addNotification(
+          err.response.data.error || t("message.ratelimit"),
+          5000
+        );
+      } else if (err.response.data && err.response.data.error) {
         notificationRef.current?.addNotification(err.response.data.error, 3000);
       } else {
         notificationRef.current?.addNotification(t("registration.incorrectpwdus"), 3000);

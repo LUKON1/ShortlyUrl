@@ -45,9 +45,14 @@
     "and": "and"
   },
   "message": {
+    "welcome": "Welcome to Shortly",
     "qrdowngenerror": "Error generating QR",
-    "urlblank": "Enter a URL",
-    "urlcuterror": "Failed to shorten URL",
+    "urlblank": "Please enter a URL",
+    "urlcuterror": "Something went wrong. Please try again.",
+    "servererror": "Server unavailable. Please try again later.",
+    "ratelimit": "Rate limit exceeded. Try again later.",
+    "invalidurl": "Invalid URL provided.",
+    "conflicterror": "This URL cannot be shortened.",
     "qrdownloaderror": "QR download error",
     "qrdownloading": "QR code not ready yet"
   },

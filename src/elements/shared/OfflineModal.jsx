@@ -1,99 +1,70 @@
-import { AnimatePresence, motion } from "motion/react";
+import { Dialog, Transition } from "@headlessui/react";
 import { useTranslation } from "react-i18next";
-import { useEffect } from "react";
+import { Fragment } from "react";
 import { useOffline } from "../../context/OfflineProvider";
 
 function OfflineModal() {
   const { t } = useTranslation();
   const { isOfflineModalOpen, hideOfflineModal } = useOffline();
 
-  // Закрытие по Escape
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === "Escape" && isOfflineModalOpen) {
-        hideOfflineModal();
-      }
-    };
-
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, [isOfflineModalOpen, hideOfflineModal]);
-
-  // Блокировка скролла при открытом модале
-  useEffect(() => {
-    if (isOfflineModalOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [isOfflineModalOpen]);
-
   const handleReload = () => {
     window.location.reload();
   };
 
   return (
-    <AnimatePresence>
-      {isOfflineModalOpen && (
-        <>
-          {/* Backdrop */}
-          <motion.div
-            className="fixed inset-0 z-140 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            onClick={hideOfflineModal}
-          />
+    <Transition appear show={isOfflineModalOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-[9999]" onClose={hideOfflineModal}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" />
+        </Transition.Child>
 
-          {/* Modal */}
-          <motion.div
-            className="fixed inset-0 z-150 flex items-center justify-center p-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-          >
-            <motion.div
-              className="relative w-full max-w-md transform rounded-xl bg-white shadow-xl dark:bg-slate-800"
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
             >
-              <div className="p-6">
-                {/* Header */}
-                <div className="mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                    {t("offline.title")}
-                  </h3>
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-slate-800">
+                <Dialog.Title
+                  as="h3"
+                  className="text-lg leading-6 font-bold text-gray-900 dark:text-white"
+                >
+                  {t("offline.title")}
+                </Dialog.Title>
+                <div className="mt-2">
+                  <p className="text-sm text-gray-500 dark:text-slate-300">
+                    {t("offline.message")}
+                  </p>
                 </div>
 
-                {/* Message */}
-                <p className="mb-6 leading-relaxed text-gray-600 dark:text-gray-400">
-                  {t("offline.message")}
-                </p>
-
-                {/* Buttons */}
-                <div className="flex justify-center">
+                <div className="mt-6 flex justify-center">
                   <button
+                    type="button"
+                    className="inline-flex justify-center rounded-lg bg-sky-500 px-6 py-2 text-sm font-medium text-white shadow-sm hover:bg-sky-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2"
                     onClick={handleReload}
-                    className="touch-manipulation rounded-md bg-sky-500 px-6 py-2 font-medium text-white transition-colors hover:bg-sky-600 focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:outline-none"
-                    style={{ transition: "var(--transition-bg)" }}
                   >
                     {t("offline.reload")}
                   </button>
                 </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </div>
+      </Dialog>
+    </Transition>
   );
 }
 
