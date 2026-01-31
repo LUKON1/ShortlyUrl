@@ -207,7 +207,10 @@ function UrlCard({
             </div>
           )}
           <div className="flex flex-row items-center gap-3 sm:gap-4">
-            <p className="text-base font-bold text-sky-400 select-all hover:text-sky-600 sm:text-lg md:text-xl dark:text-sky-500 dark:hover:text-sky-300">
+            <p
+              className="notranslate text-base font-bold text-sky-400 select-all hover:text-sky-600 sm:text-lg md:text-xl dark:text-sky-500 dark:hover:text-sky-300"
+              translate="no"
+            >
               {`${import.meta.env.VITE_BASE_URL || window.location.origin}/${urlData.shortCode}`}
             </p>
             {mode === "share" && (

@@ -38,8 +38,9 @@ function Header_bar() {
                 style={{ zIndex: 60 }}
               />
               <span
-                className="text-xl font-bold text-white lg:text-2xl dark:text-slate-100"
+                className="notranslate text-xl font-bold text-white lg:text-2xl dark:text-slate-100"
                 style={{ zIndex: 60 }}
+                translate="no"
               >
                 ShortlyURL
               </span>

@@ -20,7 +20,8 @@ const BetaBanner = () => {
             {items.map((text, idx) => (
               <div key={`t1-${idx}`} className="flex items-center gap-12">
                 <motion.span
-                  className="motion-safe cursor-default text-sm font-bold tracking-[0.2em] text-cyan-400 uppercase opacity-80"
+                  className="motion-safe notranslate cursor-default text-sm font-bold tracking-[0.2em] text-cyan-400 uppercase opacity-80"
+                  translate="no"
                   whileHover={{
                     scale: 1.2,
                     color: "#22d3ee",
@@ -41,7 +42,8 @@ const BetaBanner = () => {
             {items.map((text, idx) => (
               <div key={`t2-${idx}`} className="flex items-center gap-12">
                 <motion.span
-                  className="motion-safe cursor-default text-sm font-bold tracking-[0.2em] text-cyan-400 uppercase opacity-80"
+                  className="motion-safe notranslate cursor-default text-sm font-bold tracking-[0.2em] text-cyan-400 uppercase opacity-80"
+                  translate="no"
                   whileHover={{
                     scale: 1.2,
                     color: "#22d3ee",

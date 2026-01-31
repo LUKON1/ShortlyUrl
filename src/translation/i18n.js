@@ -12,13 +12,24 @@ const resources = {
   },
 };
 
-i18n.use(initReactI18next).init({
-  resources,
-  lng: localStorage.getItem("lang") || "ru",
-  fallbackLng: "en",
-  interpolation: {
-    escapeValue: false,
-  }
+i18n.on("languageChanged", (lng) => {
+  document.documentElement.lang = lng;
 });
+
+i18n.use(initReactI18next).init(
+  {
+    resources,
+    lng: localStorage.getItem("lang") || "ru",
+    fallbackLng: "en",
+    interpolation: {
+      escapeValue: false,
+    },
+  },
+  (err, t) => {
+    if (!err) {
+      document.documentElement.lang = i18n.language;
+    }
+  }
+);
 
 export default i18n;
