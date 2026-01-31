@@ -37,15 +37,8 @@ router.get("/:shortCode", async (req, res) => {
       return res.status(404).send("Short URL not found.");
     }
 
-    if (urlEntry.isActive === false) {
-      return res.redirect(302, `${process.env.HOST_NAME}/pau`);
-    }
-
-    if (new Date(urlEntry.expiredAt) < new Date()) {
-      return res.redirect(302, `${process.env.HOST_NAME}/exp`);
-    }
-
     // Fire-and-forget analytics logging (Only for humans)
+    // Runs BEFORE redirecting to /pau or /exp so clicks are counted in analytics
     if (!isBot) {
       (async () => {
         try {
@@ -89,6 +82,14 @@ router.get("/:shortCode", async (req, res) => {
           console.error("Analytics logging failed:", logErr);
         }
       })();
+    }
+
+    if (urlEntry.isActive === false) {
+      return res.redirect(302, `${process.env.HOST_NAME}/pau`);
+    }
+
+    if (new Date(urlEntry.expiredAt) < new Date()) {
+      return res.redirect(302, `${process.env.HOST_NAME}/exp`);
     }
 
     return res.redirect(302, urlEntry.url);
