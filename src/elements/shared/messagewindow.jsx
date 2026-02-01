@@ -30,7 +30,7 @@ const Notifications = forwardRef((props, ref) => {
         {notifications.map((notification, index) => (
           <motion.div
             key={notification.id}
-            className="w-full rounded-lg border border-blue-600 bg-blue-500 px-4 py-2 text-xl text-white shadow-xl !transition-none lg:px-10 lg:py-6 lg:text-2xl dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
+            className="w-full rounded-lg border border-blue-600 bg-blue-500 px-4 py-2 text-xl text-white shadow-xl transition-none! lg:px-10 lg:py-6 lg:text-2xl dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, x: 300 }}

@@ -1,6 +1,7 @@
 {
   "name": "shortlyurl",
   "private": true,
+  "license": "BUSL-1.1",
   "version": "1.0",
   "type": "module",
   "scripts": {

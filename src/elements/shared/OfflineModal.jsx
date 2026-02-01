@@ -13,7 +13,7 @@ function OfflineModal() {
 
   return (
     <Transition appear show={isOfflineModalOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-[9999]" onClose={hideOfflineModal}>
+      <Dialog as="div" className="relative z-9999" onClose={hideOfflineModal}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"

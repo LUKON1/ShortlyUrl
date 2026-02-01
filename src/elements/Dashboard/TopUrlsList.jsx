@@ -43,7 +43,7 @@ function TopUrlsList({ topUrls }) {
                 scale: { duration: 0.2, ease: "easeOut" },
               }}
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-sky-400 to-blue-500 text-sm font-bold text-white dark:from-sky-500 dark:to-blue-600">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-linear-to-br from-sky-400 to-blue-500 text-sm font-bold text-white dark:from-sky-500 dark:to-blue-600">
                 {index + 1}
               </div>
               <div className="min-w-0 flex-1">

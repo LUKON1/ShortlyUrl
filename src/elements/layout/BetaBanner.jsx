@@ -10,11 +10,11 @@ const BetaBanner = () => {
   return (
     <div className="relative z-0 w-full overflow-hidden bg-slate-900 py-3 dark:bg-slate-800">
       {/* Decorative Gradient Strips */}
-      <div className="absolute top-0 left-0 h-[1px] w-full bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
-      <div className="absolute bottom-0 left-0 h-[1px] w-full bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
+      <div className="absolute top-0 left-0 h-px w-full bg-linear-to-r from-transparent via-cyan-500/50 to-transparent" />
+      <div className="absolute bottom-0 left-0 h-px w-full bg-linear-to-r from-transparent via-cyan-500/50 to-transparent" />
 
       <div className="flex w-max">
-        <div className="animate-infinite-scroll flex w-max shrink-0 !transition-none will-change-transform">
+        <div className="animate-infinite-scroll flex w-max shrink-0 transition-none! will-change-transform">
           {/* TRACK 1 */}
           <div className="flex shrink-0 items-center gap-12 pr-12">
             {items.map((text, idx) => (

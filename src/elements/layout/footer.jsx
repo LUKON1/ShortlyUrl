@@ -180,7 +180,7 @@ function Footer() {
               </h4>
               <div className="space-y-2 text-sm text-slate-400">
                 <p>{t("footer.copyright", "© ShortlyURL. All rights reserved.")}</p>
-                <p>{t("footer.license", "MIT License")}</p>
+                <p>{t("footer.license", "BSL 1.1 License")}</p>
                 <p>
                   {t("footer.poweredBy", "Created by")}{" "}
                   <motion.a

@@ -39,7 +39,7 @@ const PieChartWidget = ({ data, title }) => {
       <h3 className="mb-2 text-center text-lg font-bold text-gray-800 dark:text-gray-100">
         {title}
       </h3>
-      <div className="min-h-[250px] w-full flex-1">
+      <div className="min-h-62.5 w-full flex-1">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
