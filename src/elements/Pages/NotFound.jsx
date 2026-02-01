@@ -21,7 +21,7 @@ const NotFound = () => {
         <img
           src={notFound}
           alt="404"
-          className="absolute -top-15 right-16 z-20 h-19 w-16"
+          className="absolute -top-15 right-12 z-20 h-19 w-16"
           onDragStart={(e) => e.preventDefault()}
         />
         <h1 className="z-15 text-6xl font-bold text-gray-800 dark:text-gray-200">404</h1>
