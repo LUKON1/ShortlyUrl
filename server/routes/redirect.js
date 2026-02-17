@@ -11,9 +11,9 @@ router.get("/:shortCode", async (req, res) => {
   try {
     const { shortCode } = req.params;
 
-    if (shortCode.length !== 7) {
-      return res.status(404).send("Not found");
-    }
+    // if (shortCode.length !== 7) {
+    //   return res.status(404).send("Not found");
+    // }
 
     // Bot Detection
     const userAgent = req.headers["user-agent"] || "";

@@ -18,7 +18,10 @@
         "year": "год",
         "custom": "Свой",
         "confirm": "ОК"
-      }
+      },
+      "alias": "Алиас:",
+      "aliasPlaceholder": "Ваш алиас",
+      "customize": "Настроить"
     }
   },
   "header": {

@@ -18,7 +18,10 @@
         "year": "year",
         "custom": "Custom",
         "confirm": "Set"
-      }
+      },
+      "alias": "Alias:",
+      "aliasPlaceholder": "Custom alias",
+      "customize": "Customize"
     }
   },
   "header": {

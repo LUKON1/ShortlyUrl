@@ -1,10 +1,12 @@
 const rateLimit = require("express-rate-limit");
 
+const MAX_ATTEMPTS = 15;
+
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 15, // Limit each IP to 5 login requests per `window` (here, per 15 minutes)
+  max: MAX_ATTEMPTS,
   message: {
-    error: "Too many login attempts from this IP, please try again after 15 minutes",
+    error: `Too many login attempts from this IP, please try again after 15 minutes.`,
   },
   handler: (req, res, next, options) => {
     res.status(options.statusCode).send(options.message);

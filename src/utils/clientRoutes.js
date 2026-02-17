@@ -1,13 +1,3 @@
-export const CLIENT_ROUTES = {
-  PRIVACY: "/priv",
-  PAUSED: "/pau",
-  EXPIRED: "/exp",
-  PROFILE: "/prof",
-  REGISTRATION: "/reg",
-  SIGNIN: "/sign",
-  SHARE: "/share",
-  ABOUT: "/about",
-  FAQ: "/faq",
-  CONTACT: "/cont",
-  HOME: "/",
-};
+import routes from "../../shared/clientRoutes.json";
+
+export const CLIENT_ROUTES = routes;

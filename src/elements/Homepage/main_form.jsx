@@ -26,6 +26,8 @@ function ShortenerForm() {
   const [shortUrl, setShortUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState("");
+  const [customAlias, setCustomAlias] = useState("");
+  const [isAliasOpen, setIsAliasOpen] = useState(false);
 
   const notificationRef = useRef();
   const inputRef = useRef();
@@ -63,6 +65,7 @@ function ShortenerForm() {
           JSON.stringify({
             url: url,
             urlTime: urlTime,
+            customAlias: customAlias ? customAlias : undefined,
           }),
           {
             headers: { "Content-Type": "application/json" },
@@ -70,9 +73,6 @@ function ShortenerForm() {
         );
 
         const shortCode = response?.data?.shortCode;
-        if (shortCode.length !== 7) {
-          throw new Error();
-        }
 
         // Save anonymous link if user is not logged in
         if (!userId) {
@@ -111,7 +111,7 @@ function ShortenerForm() {
         setIsLoading(false);
       }
     },
-    [urlTime, url, userId, axiosPrivate, axios]
+    [urlTime, url, userId, axiosPrivate, axios, customAlias]
   );
 
   return (
@@ -119,18 +119,18 @@ function ShortenerForm() {
       <Notifications ref={notificationRef} />
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-15 transition-all duration-200 ease-out md:gap-0 lg:gap-1.5"
+        className="flex flex-col gap-6 transition-all duration-200 ease-out md:gap-0 lg:gap-1.5"
       >
-        <div className="mb-6 flex flex-col items-center gap-24 md:mb-18 md:flex-row md:gap-6">
-          <div className="relative flex flex-col">
+        <div className="mb-6 flex flex-col items-center gap-6 md:mb-18 md:flex-row md:gap-6">
+          <div className="relative flex flex-col items-center">
             {url && (
               <button
-                className="absolute z-10 touch-manipulation p-1"
+                className="absolute top-1 left-1 z-10 flex cursor-pointer touch-manipulation items-center justify-center rounded-full p-0.5 md:top-2"
                 onClick={() => setUrl("")}
                 type="button"
               >
                 <img
-                  className="h-full w-8 hover:cursor-pointer lg:w-10 dark:invert"
+                  className="h-6 w-6 opacity-40 transition-opacity hover:opacity-100 dark:invert"
                   src={crossIcon}
                   alt="X"
                 />
@@ -151,7 +151,7 @@ function ShortenerForm() {
               placeholder={t("homepage.placeholder")}
             />
             <motion.div
-              className="motion-safe absolute top-full left-0 mt-2.5 flex w-full flex-col items-center justify-center gap-4 rounded-lg border border-sky-100 bg-white/95 px-4 py-2 shadow-sm backdrop-blur-sm md:flex-row md:justify-center md:gap-8 dark:border-slate-700 dark:bg-slate-800/95"
+              className="motion-safe mt-6 flex w-3xs flex-col items-center justify-center gap-4 rounded-lg border border-sky-100 bg-white/95 px-4 py-2 shadow-sm backdrop-blur-sm md:absolute md:top-full md:left-0 md:mt-2.5 md:w-full md:min-w-130 md:flex-row md:justify-center md:gap-8 dark:border-slate-700 dark:bg-slate-800/95"
               style={{ zIndex: 100 }}
               initial={{ opacity: 0, transform: "translateY(100px)" }}
               animate={{ opacity: 1, transform: "translateY(0px)" }}
@@ -167,6 +167,68 @@ function ShortenerForm() {
                   options={urlTimeOptions}
                   className="min-w-35"
                 />
+              </div>
+              <div className="hidden h-4 w-px bg-sky-200 md:block dark:bg-slate-600"></div>
+              {/* Alias section */}
+              <div className="relative flex w-full items-center md:w-auto">
+                {/* Close button - absolute, left of input */}
+                {isAliasOpen && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsAliasOpen(false);
+                      setCustomAlias("");
+                    }}
+                    className="absolute -left-5.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 text-gray-400 transition-colors hover:text-gray-600 md:-left-7 dark:text-gray-500 dark:hover:text-gray-300"
+                  >
+                    <img
+                      className="h-6 w-6 opacity-40 hover:opacity-100 dark:invert"
+                      src={crossIcon}
+                      alt="Close"
+                    />
+                  </button>
+                )}
+                <div
+                  className={`flex flex-1 items-center overflow-hidden rounded-md border bg-sky-50/50 md:min-w-48 ${
+                    isAliasOpen
+                      ? "border-sky-300 dark:border-sky-700"
+                      : "cursor-pointer border-sky-200 hover:border-sky-300 dark:border-slate-600 dark:hover:border-sky-700"
+                  } dark:bg-slate-900/60`}
+                  onClick={() => !isAliasOpen && setIsAliasOpen(true)}
+                >
+                  <span className="shrink-0 border-r border-sky-200 bg-sky-100/80 px-2 py-1.5 text-xs font-medium text-sky-700 select-none dark:border-sky-800 dark:bg-sky-900/40 dark:text-sky-300">
+                    {window.location.host}/
+                  </span>
+                  {!isAliasOpen ? (
+                    <span className="px-2 py-1.5 text-sm text-gray-400 italic select-none dark:text-gray-500">
+                      {t("homepage.urlopt.aliasPlaceholder")}
+                    </span>
+                  ) : (
+                    <>
+                      <input
+                        type="text"
+                        autoFocus
+                        value={customAlias}
+                        onChange={(e) =>
+                          setCustomAlias(e.target.value.replace(/[^a-zA-Z0-9-_]/g, ""))
+                        }
+                        placeholder={t("homepage.urlopt.aliasPlaceholder")}
+                        className="w-full min-w-0 flex-1 bg-transparent px-2 py-1.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none dark:text-gray-100 dark:placeholder-gray-500"
+                        maxLength={30}
+                      />
+                      {/* Character counter */}
+                      <span
+                        className={`mr-2 shrink-0 text-xs opacity-60 select-none ${
+                          customAlias.length > 0 && customAlias.length < 4
+                            ? "text-amber-500 dark:text-amber-400"
+                            : "text-gray-400 dark:text-gray-500"
+                        }`}
+                      >
+                        {customAlias.length}/30
+                      </span>
+                    </>
+                  )}
+                </div>
               </div>
             </motion.div>
           </div>

@@ -2,11 +2,12 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-COPY --chown=node:node package*.json ./
+COPY server/package*.json ./
 
 RUN npm install --production
 
-COPY --chown=node:node . .
+COPY server/ .
+COPY shared/ ../shared/
 
 USER node
 

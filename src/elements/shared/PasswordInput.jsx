@@ -30,7 +30,7 @@ const PasswordInput = ({
   return (
     <div className="relative w-full">
       <motion.input
-        className={`w-full max-w-5xl rounded-lg border-2 border-sky-400 bg-white p-2 text-center text-gray-900 shadow-sm focus:ring-2 focus:ring-sky-500 focus:outline-none md:text-xl lg:text-2xl dark:border-sky-500 dark:bg-slate-700 dark:text-gray-100 ${className || ""}`}
+        className={`w-3xs max-w-5xl rounded-lg border-2 border-sky-400 bg-white p-2 text-center text-gray-900 shadow-sm focus:ring-2 focus:ring-sky-500 focus:outline-none md:w-[55vw] md:text-2xl lg:h-20 lg:w-[70vw] lg:text-3xl dark:border-sky-500 dark:bg-slate-700 dark:text-gray-100 ${className || ""}`}
         type={showPassword ? "text" : "password"}
         placeholder={placeholder}
         value={value}
