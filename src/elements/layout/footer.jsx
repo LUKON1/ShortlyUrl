@@ -82,6 +82,16 @@ function Footer() {
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
                   >
+                    <Link to={CLIENT_ROUTES.FEATURES} className="text-sky-300 hover:text-sky-400">
+                      {t("footer.features", "Features")}
+                    </Link>
+                  </motion.div>
+                </li>
+                <li>
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                  >
                     <Link to={CLIENT_ROUTES.HOME} className="text-slate-300 hover:text-white">
                       {t("footer.home", "Home")}
                     </Link>

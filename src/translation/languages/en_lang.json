@@ -62,7 +62,8 @@
     "license": "BSL 1.1 License",
     "poweredBy": "Created by",
     "and": "and",
-    "reportBug": "Report a Bug"
+    "reportBug": "Report a Bug",
+    "features": "Features"
   },
   "message": {
     "welcome": "Welcome to Shortly",

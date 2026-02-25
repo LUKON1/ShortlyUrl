@@ -62,7 +62,8 @@
     "license": "Лицензия BSL 1.1",
     "poweredBy": "Создано",
     "and": "и",
-    "reportBug": "Сообщить об ошибке"
+    "reportBug": "Сообщить об ошибке",
+    "features": "Возможности"
   },
   "message": {
     "qrdowngenerror": "Ошибка генерации QR",

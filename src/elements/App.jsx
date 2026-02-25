@@ -27,6 +27,7 @@ const FAQPage = lazy(() => import("./Pages/FAQPage.jsx"));
 const ContactPage = lazy(() => import("./Pages/ContactPage.jsx"));
 const Footer = lazy(() => import("./layout/footer.jsx"));
 const NotFound = lazy(() => import("./Pages/NotFound.jsx"));
+const FeaturesPage = lazy(() => import("./Pages/FeaturesPage.jsx"));
 
 function AppContent() {
   const { isOfflineModalOpen, showOfflineModal, hideOfflineModal } = useOffline();
@@ -58,6 +59,7 @@ function AppContent() {
             <Route path={CLIENT_ROUTES.ABOUT} element={<AboutPage />} />
             <Route path={CLIENT_ROUTES.FAQ} element={<FAQPage />} />
             <Route path={CLIENT_ROUTES.CONTACT} element={<ContactPage />} />
+            <Route path={CLIENT_ROUTES.FEATURES} element={<FeaturesPage />} />
             <Route
               path={CLIENT_ROUTES.PROFILE}
               element={
