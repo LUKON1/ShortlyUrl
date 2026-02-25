@@ -34,22 +34,35 @@ const BackgroundEffect = () => {
     const baseOpacity = 0.3;
     const velocityColorBoost = 0.15; // How much brighter when fast
 
+    let lastW = 0;
+
     const resize = () => {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
+      const newW = window.innerWidth;
+      const newH = window.innerHeight;
+
+      const widthChanged = lastW !== newW;
+
+      w = canvas.width = newW;
+      h = canvas.height = newH;
+      lastW = newW;
 
       // On resize, if we haven't interacted yet, center the "resume" point
       if (lastPosRef.current.x === 0 && lastPosRef.current.y === 0) {
         lastPosRef.current = { x: w / 2, y: h / 2 };
       }
-      initParticles();
+
+      // Only re-init particles if width changes (orientation) to avoid flash on mobile vertical scroll
+      if (widthChanged || particles.length === 0) {
+        initParticles();
+      }
       wakeUp();
     };
 
     const initParticles = () => {
       particles = [];
       const cols = Math.ceil(w / particleSpacing);
-      const rows = Math.ceil(h / particleSpacing);
+      // Add a generous 300px buffer to height to prevent empty space when mobile address bar hides
+      const rows = Math.ceil((h + 300) / particleSpacing);
 
       for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
