@@ -1,25 +1,40 @@
 version: "3.8"
 
 services:
+  # Local MongoDB (no Atlas required)
+  mongo:
+    image: mongo:7
+    container_name: shortly_mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: shortlyurl
+
+  # Backend API server
   backend:
     build:
       context: .
       dockerfile: server/Dockerfile
     container_name: shortly_backend
-    restart: always
+    restart: unless-stopped
     ports:
       - "3000:3000"
     env_file: .env
-    # Убрали depends_on: mongo, так как база внешняя
+    depends_on:
+      - mongo
 
+  # Frontend (Nginx serves built React app + proxies API)
   frontend:
     build: .
     container_name: shortly_frontend
-    restart: always
+    restart: unless-stopped
     ports:
       - "80:80"
-      - "443:443"
-    volumes:
-      - /etc/letsencrypt:/etc/letsencrypt:ro
     depends_on:
       - backend
+
+volumes:
+  mongo_data:
