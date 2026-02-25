@@ -1,6 +1,6 @@
 # ShortlyURL — Self-Hosted Edition
 
-Современный сервис сокращения ссылок с аналитикой, UTM-параметрами и QR-кодами. Запускается локально с помощью Docker — никаких облачных зависимостей.
+Корпоративный сервис сокращения ссылок. Разворачивается на собственном сервере под брендовым доменом — `go.brand.com`, `links.company.ru` и т.д. Полный HTTPS, никаких внешних зависимостей.
 
 ## Функционал
 
@@ -18,12 +18,19 @@
 | Аккаунты          | Регистрация, авторизация, JWT                                        |
 | Панель управления | Список ссылок с фильтром, редактированием и удалением                |
 
+---
+
 ## Требования
 
+- Сервер с публичным IP или hostname в корпоративной сети
+- Домен (например `go.brand.com`), указывающий на IP сервера
 - [Docker](https://docs.docker.com/get-docker/) 24+
 - [Docker Compose](https://docs.docker.com/compose/) v2+
+- SSL-сертификат для домена
 
 > Node.js и MongoDB устанавливать **не нужно** — всё работает внутри контейнеров.
+
+---
 
 ## Быстрый старт
 
@@ -34,113 +41,155 @@ git clone https://github.com/LUKON1/ShrotlyUrl.git
 cd ShrotlyUrl
 ```
 
-### 2. Создать файл конфигурации
+### 2. Получить SSL-сертификат
+
+#### Вариант A: Let's Encrypt (рекомендуется для публичных доменов)
+
+```bash
+# Установить certbot
+sudo apt install certbot
+
+# Получить сертификат (порт 80 должен быть свободен)
+sudo certbot certonly --standalone -d go.brand.com
+
+# Сертификаты будут в:
+# /etc/letsencrypt/live/go.brand.com/fullchain.pem
+# /etc/letsencrypt/live/go.brand.com/privkey.pem
+```
+
+Создать папку `ssl/` и скопировать туда сертификаты:
+
+```bash
+mkdir ssl
+sudo cp /etc/letsencrypt/live/go.brand.com/fullchain.pem ssl/
+sudo cp /etc/letsencrypt/live/go.brand.com/privkey.pem  ssl/
+sudo chown $USER:$USER ssl/*.pem
+```
+
+#### Вариант B: Корпоративный/самоподписанный сертификат
+
+Поместите файлы сертификата в папку `ssl/`:
+
+```
+ssl/
+  fullchain.pem   — сертификат + цепочка CA
+  privkey.pem     — приватный ключ
+```
+
+### 3. Создать файл конфигурации
 
 ```bash
 cp .env.example .env
 ```
 
-Откройте `.env` и заполните обязательные значения:
+Откройте `.env` и заполните значения:
 
 ```env
-VITE_BASE_URL=http://localhost          # адрес, на котором будет доступен сервис
-HOST_NAME=http://localhost              # тот же адрес для бекенда
-JWT_SECRET=<случайная_строка_32+_символа>
-REFRESH_TOKEN_SECRET=<другая_случайная_строка>
+# Ваш домен (используется в генерируемых ссылках)
+VITE_BASE_URL=https://go.brand.com
+HOST_NAME=https://go.brand.com
+
+# JWT-секреты — замените на случайные строки 32+ символа
+JWT_SECRET=<случайная_строка>
+JWT_REFRESH_SECRET=<другая_случайная_строка>
 ```
 
-> Остальные значения можно оставить по умолчанию для локального запуска.
+> `VITE_API_BASE_URL` оставьте `/api` — Nginx проксирует запросы внутри контейнера.
 
-### 3. Запустить
+### 4. Собрать фронтенд
+
+Перед сборкой Docker-образа нужно собрать React-приложение локально (переменные Vite встраиваются на этапе сборки):
+
+```bash
+npm install
+npm run build
+```
+
+### 5. Запустить
 
 ```bash
 docker compose up -d --build
 ```
 
-Сервис будет доступен по адресу: **http://localhost**
+Сервис будет доступен по адресу: **https://go.brand.com**
 
-### 4. Остановить
+---
 
-```bash
-docker compose down
+## Структура файлов
+
+```
+ShrotlyUrl/
+├── ssl/
+│   ├── fullchain.pem   ← сертификат (не коммитить в git!)
+│   └── privkey.pem     ← приватный ключ (не коммитить в git!)
+├── dist/               ← собранный фронтенд (npm run build)
+├── nginx.conf          ← конфигурация Nginx
+├── docker-compose.yml
+└── .env                ← ваши настройки
 ```
 
-Данные MongoDB сохраняются в Docker volume `mongo_data` и не удаляются при остановке.
+> Папка `ssl/` и `dist/` добавлены в `.gitignore` — секреты не попадут в репозиторий.
+
+---
 
 ## Структура контейнеров
 
 ```
 shortly_mongo     — MongoDB 7 (данные в volume mongo_data)
-shortly_backend   — Node.js / Express API (порт 3000)
-shortly_frontend  — Nginx со сборкой React (порт 80)
+shortly_backend   — Node.js / Express API (внутренний порт 3000)
+shortly_frontend  — Nginx: статика + SSL-терминация (порты 80, 443)
 ```
 
-## Сброс данных
+HTTP (порт 80) автоматически перенаправляется на HTTPS (порт 443).
 
-Чтобы полностью очистить базу данных:
+---
+
+## Управление
+
+### Остановить
+
+```bash
+docker compose down
+```
+
+Данные MongoDB сохраняются в Docker volume `mongo_data`.
+
+### Сбросить базу данных
 
 ```bash
 docker compose down -v
 ```
 
-> Флаг `-v` удаляет volume с данными MongoDB.
-
-## Обновление
+### Обновить приложение
 
 ```bash
 git pull
+npm run build
 docker compose up -d --build
 ```
 
-## Кастомный домен организации
+### Обновить SSL-сертификат (Let's Encrypt)
 
-По умолчанию сервис доступен на `http://localhost`. Чтобы использовать внутренний домен (`links.company.local`) или внешний (`go.company.com`):
-
-### 1. Задать домен в `.env`
-
-```env
-VITE_BASE_URL=http://links.company.local
-HOST_NAME=http://links.company.local
-VITE_API_BASE_URL=http://links.company.local/api
+```bash
+sudo certbot renew
+sudo cp /etc/letsencrypt/live/go.brand.com/fullchain.pem ssl/
+sudo cp /etc/letsencrypt/live/go.brand.com/privkey.pem  ssl/
+docker compose restart frontend
 ```
 
-### 2a. Локальная сеть (без внешнего IP)
+---
 
-Добавить DNS-запись на корпоративный DNS-сервер:
+## .gitignore
 
-```
-links.company.local  A  192.168.1.10   # IP сервера с Docker
-```
-
-Или на каждом компьютере в `/etc/hosts` (Linux/Mac) / `C:\Windows\System32\drivers\etc\hosts` (Windows):
+Убедитесь, что в `.gitignore` есть:
 
 ```
-192.168.1.10  links.company.local
+ssl/
+dist/
+.env
 ```
 
-### 2b. Внешний домен с HTTPS
-
-Разместить перед контейнером reverse proxy (Nginx/Caddy) и настроить SSL:
-
-```nginx
-server {
-    listen 443 ssl;
-    server_name go.company.com;
-    # ssl_certificate / ssl_certificate_key ...
-
-    location / {
-        proxy_pass http://localhost:80;
-    }
-}
-```
-
-Обновить `.env`:
-
-```env
-VITE_BASE_URL=https://go.company.com
-HOST_NAME=https://go.company.com
-VITE_API_BASE_URL=https://go.company.com/api
-```
+---
 
 ## Лицензия
 

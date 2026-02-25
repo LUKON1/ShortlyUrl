@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY server/package*.json ./
 
-RUN npm install --production
+RUN npm install --omit=dev
 
 COPY server/ .
 COPY shared/ ../shared/

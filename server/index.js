@@ -12,7 +12,6 @@ const userRouter = require("./routes/user");
 const shareRouter = require("./routes/share");
 const auth = require("./middleware/auth");
 const redirectRouter = require("./routes/redirect");
-const supportRouter = require("./routes/support");
 
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
@@ -76,7 +75,6 @@ app.use("/api/cut", apiLimiter, urlShorterRouter);
 app.use("/api/myurls", auth, getUsUrlsRouter);
 app.use("/api/user", authLimiter, userRouter);
 app.use("/api/share", shareRouter);
-app.use("/api/support", supportRouter);
 
 app.use("/", redirectRouter);
 

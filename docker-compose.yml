@@ -1,13 +1,9 @@
-version: "3.8"
-
 services:
   # Local MongoDB (no Atlas required)
   mongo:
     image: mongo:7
     container_name: shortly_mongo
     restart: unless-stopped
-    ports:
-      - "27017:27017"
     volumes:
       - mongo_data:/data/db
     environment:
@@ -20,19 +16,21 @@ services:
       dockerfile: server/Dockerfile
     container_name: shortly_backend
     restart: unless-stopped
-    ports:
-      - "3000:3000"
     env_file: .env
     depends_on:
       - mongo
 
-  # Frontend (Nginx serves built React app + proxies API)
+  # Frontend: Nginx + React (HTTPS)
   frontend:
     build: .
     container_name: shortly_frontend
     restart: unless-stopped
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      # SSL certificates from host (see README for setup)
+      - ./ssl:/etc/nginx/ssl:ro
     depends_on:
       - backend
 

@@ -1,6 +1,6 @@
 const rateLimit = require("express-rate-limit");
 
-const MAX_REQUESTS = 5;
+const MAX_REQUESTS = 40;
 
 const apiLimiter = rateLimit({
   windowMs: 24 * 60 * 60 * 1000, // 24 hours

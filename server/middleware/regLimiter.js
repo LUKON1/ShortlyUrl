@@ -1,6 +1,6 @@
 const rateLimit = require("express-rate-limit");
 
-const MAX_REGISTRATIONS = 5;
+const MAX_REGISTRATIONS = 40;
 
 const regLimiter = rateLimit({
   windowMs: 24 * 60 * 60 * 1000, // 24 hours

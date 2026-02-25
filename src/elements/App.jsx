@@ -23,6 +23,7 @@ const SharePage = lazy(() => import("./Pages/SharePage.jsx"));
 const PausedPage = lazy(() => import("./Pages/PausedPage.jsx"));
 const ExpiredPage = lazy(() => import("./Pages/ExpiredPage.jsx"));
 const AboutPage = lazy(() => import("./Pages/AboutPage.jsx"));
+const FeaturesPage = lazy(() => import("./Pages/FeaturesPage.jsx"));
 const FAQPage = lazy(() => import("./Pages/FAQPage.jsx"));
 const ContactPage = lazy(() => import("./Pages/ContactPage.jsx"));
 const Footer = lazy(() => import("./layout/footer.jsx"));
@@ -56,6 +57,7 @@ function AppContent() {
             <Route path={CLIENT_ROUTES.PAUSED} element={<PausedPage />} />
             <Route path={CLIENT_ROUTES.EXPIRED} element={<ExpiredPage />} />
             <Route path={CLIENT_ROUTES.ABOUT} element={<AboutPage />} />
+            <Route path={CLIENT_ROUTES.FEATURES} element={<FeaturesPage />} />
             <Route path={CLIENT_ROUTES.FAQ} element={<FAQPage />} />
             <Route path={CLIENT_ROUTES.CONTACT} element={<ContactPage />} />
             <Route

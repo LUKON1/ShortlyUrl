@@ -62,43 +62,33 @@ function Footer() {
               </p>
             </div>
 
-            {/* Navigation */}
+            {/* Features link */}
             <div>
-              <h4 className="mb-4 text-lg font-semibold text-white">
-                {t("footer.information", "Navigation")}
-              </h4>
-              <ul className="space-y-2">
-                <li>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
-                  >
-                    <Link to={CLIENT_ROUTES.HOME} className="text-slate-300 hover:text-white">
-                      {t("footer.home", "Home")}
-                    </Link>
-                  </motion.div>
-                </li>
-                <li>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
-                  >
-                    <Link to={CLIENT_ROUTES.ABOUT} className="text-slate-300 hover:text-white">
-                      {t("footer.about", "About")}
-                    </Link>
-                  </motion.div>
-                </li>
-                <li>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
-                  >
-                    <Link to={CLIENT_ROUTES.SIGNIN} className="text-slate-300 hover:text-white">
-                      {t("footer.login", "Login")}
-                    </Link>
-                  </motion.div>
-                </li>
+              <Link to={CLIENT_ROUTES.FEATURES}>
+                <h4 className="mb-4 text-lg font-semibold text-white transition-colors hover:text-sky-400">
+                  Функционал и использование
+                </h4>
+              </Link>
+              <ul className="space-y-1.5 text-sm text-slate-300">
+                <li>Сокращение ссылок и кастомные алиасы</li>
+                <li>UTM-конструктор и QR-коды</li>
+                <li>Аналитика кликов и Share-страница</li>
+                <li>Время жизни и панель управления</li>
               </ul>
+              <Link
+                to={CLIENT_ROUTES.FEATURES}
+                className="mt-3 inline-flex items-center gap-1 text-xs text-sky-400 hover:text-sky-300"
+              >
+                Подробнее
+                <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </Link>
             </div>
 
             {/* Legal */}

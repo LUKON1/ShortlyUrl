@@ -12,6 +12,9 @@ node_modules
 dist-ssr
 *.local
 
+# SSL certificates (never commit private keys)
+ssl/
+
 # Environment files
 .env
 .env.*

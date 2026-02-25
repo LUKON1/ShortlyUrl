@@ -9,5 +9,6 @@
   "ABOUT": "/about",
   "FAQ": "/faq",
   "CONTACT": "/cont",
-  "HOME": "/"
+  "HOME": "/",
+  "FEATURES": "/features"
 }
