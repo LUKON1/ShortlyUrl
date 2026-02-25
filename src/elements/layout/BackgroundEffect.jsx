@@ -108,17 +108,9 @@ const BackgroundEffect = () => {
       if (isIdle.current) {
         // Ghost cursor movement (Lissajous-like pattern)
 
-        let centerX, centerY;
-
-        if (isMobile) {
-          // On mobile, resume from last touch position
-          centerX = lastPosRef.current.x;
-          centerY = lastPosRef.current.y;
-        } else {
-          // On desktop, default to center of screen
-          centerX = w / 2;
-          centerY = h / 2;
-        }
+        // On all devices, default to center of screen for the idle ghost pattern
+        const centerX = w / 2;
+        const centerY = h / 2;
 
         // Wander radius
         const radiusX = w * 0.3;
@@ -296,6 +288,10 @@ const BackgroundEffect = () => {
     window.addEventListener("mousedown", handleClick);
     window.addEventListener("mouseout", handleMouseLeave);
 
+    // Listen for touches just to set mobile state, do not track movement
+    window.addEventListener("touchstart", handleTouchMove, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd, { passive: true });
+
     // Initial setup
     resize();
     animate();
@@ -305,6 +301,8 @@ const BackgroundEffect = () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mousedown", handleClick);
       window.removeEventListener("mouseout", handleMouseLeave);
+      window.removeEventListener("touchstart", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
       cancelAnimationFrame(animationFrameId.current);
     };
   }, [theme]);
