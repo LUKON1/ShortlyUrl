@@ -10,9 +10,8 @@ function UtmBuilder({ utmData, onChange }) {
 
   const hasAnyUtm = Object.values(utmData).some((val) => val.trim() !== "");
 
-  /* Shared input class */
   const inputClass =
-    "w-full rounded-md border border-sky-200 bg-sky-50/50 px-3 py-1.5 text-sm text-gray-900 transition-colors focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none dark:border-slate-600 dark:bg-slate-900/60 dark:text-gray-100 dark:focus:border-sky-400 dark:focus:ring-sky-400";
+    "w-full min-w-0 rounded-md border border-sky-200 bg-sky-50/50 px-3 py-1.5 text-sm text-gray-900 transition-colors focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none dark:border-slate-600 dark:bg-slate-900/60 dark:text-gray-100 dark:focus:border-sky-400 dark:focus:ring-sky-400";
 
   return (
     <div>
@@ -24,7 +23,7 @@ function UtmBuilder({ utmData, onChange }) {
       {/* UTM fields */}
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:items-end">
         {/* Source */}
-        <div className="space-y-1">
+        <div className="min-w-0 space-y-1">
           <label className="text-xs font-medium text-gray-600 dark:text-gray-300">
             Source (utm_source) <span className="text-red-400">*</span>
           </label>
@@ -38,7 +37,7 @@ function UtmBuilder({ utmData, onChange }) {
         </div>
 
         {/* Medium */}
-        <div className="space-y-1">
+        <div className="min-w-0 space-y-1">
           <label className="text-xs font-medium text-gray-600 dark:text-gray-300">
             Medium (utm_medium)
           </label>
@@ -52,7 +51,7 @@ function UtmBuilder({ utmData, onChange }) {
         </div>
 
         {/* Campaign */}
-        <div className="space-y-1">
+        <div className="min-w-0 space-y-1">
           <label className="text-xs font-medium text-gray-600 dark:text-gray-300">
             Campaign (utm_campaign)
           </label>
@@ -66,7 +65,7 @@ function UtmBuilder({ utmData, onChange }) {
         </div>
 
         {/* Term */}
-        <div className="space-y-1">
+        <div className="min-w-0 space-y-1">
           <label className="text-xs font-medium text-gray-600 dark:text-gray-300">
             Term (utm_term)
           </label>
@@ -80,7 +79,7 @@ function UtmBuilder({ utmData, onChange }) {
         </div>
 
         {/* Content */}
-        <div className="space-y-1 sm:col-span-2">
+        <div className="min-w-0 space-y-1 sm:col-span-full">
           <label className="text-xs font-medium text-gray-600 dark:text-gray-300">
             Content (utm_content)
           </label>

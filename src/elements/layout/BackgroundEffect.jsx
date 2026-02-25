@@ -293,10 +293,6 @@ const BackgroundEffect = () => {
 
     window.addEventListener("resize", resize);
     window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("touchmove", handleTouchMove);
-    window.addEventListener("touchstart", handleTouchMove);
-    window.addEventListener("touchend", handleTouchEnd);
-    window.addEventListener("touchcancel", handleTouchEnd);
     window.addEventListener("mousedown", handleClick);
     window.addEventListener("mouseout", handleMouseLeave);
 
@@ -307,10 +303,6 @@ const BackgroundEffect = () => {
     return () => {
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("touchstart", handleTouchMove);
-      window.removeEventListener("touchend", handleTouchEnd);
-      window.removeEventListener("touchcancel", handleTouchEnd);
       window.removeEventListener("mousedown", handleClick);
       window.removeEventListener("mouseout", handleMouseLeave);
       cancelAnimationFrame(animationFrameId.current);

@@ -15,7 +15,7 @@ import crossIcon from "../../assets/cross.svg";
 
 function ShortenerForm() {
   const API_SHORTER = "/cut/shorter";
-  const BASE_URL = import.meta.env.VITE_BASE_URL || window.location.origin;
+  const BASE_URL = window.location.origin;
   const { t } = useTranslation();
   const { auth } = useAuth();
   const userId = auth?.userId;
@@ -137,11 +137,11 @@ function ShortenerForm() {
       <Notifications ref={notificationRef} />
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         {/* Top row: input left + submit button right (desktop) */}
-        <div className="flex flex-col gap-4 md:grid md:grid-cols-[1fr_auto] md:items-start md:gap-6">
+        <div className="flex flex-col gap-4 md:grid md:grid-cols-[minmax(0,1fr)_auto] md:items-start md:gap-6">
           {/* Left column: input + settings */}
-          <div className="flex flex-col items-center gap-4 md:max-w-6xl md:min-w-[40vw] md:items-stretch lg:min-w-[55vw]">
+          <div className="flex min-w-0 flex-col items-center gap-4 md:w-[45vw] md:items-stretch lg:w-[50vw] xl:w-[45vw]">
             {/* Input */}
-            <div className="relative flex flex-col items-center md:items-stretch">
+            <div className="relative flex w-full flex-col items-center md:items-stretch">
               {url && (
                 <button
                   className="absolute top-1 left-1 z-10 flex cursor-pointer touch-manipulation items-center justify-center rounded-full p-0.5 md:top-2"
@@ -178,7 +178,7 @@ function ShortenerForm() {
 
             {/* Settings panel */}
             <motion.div
-              className="motion-safe w-3xs md:w-full"
+              className="motion-safe w-3xs min-w-0 md:w-full"
               initial={{ opacity: 0, transform: "translateY(100px)" }}
               animate={{ opacity: 1, transform: "translateY(0px)" }}
               transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
@@ -204,9 +204,9 @@ function ShortenerForm() {
         {/* Result: short URL + copy + QR */}
         {shortUrl && (
           <div className="mb-30 flex flex-col items-center">
-            <div className="mb-30 flex flex-col items-center justify-center gap-5 md:flex-row md:gap-6">
+            <div className="mb-30 flex flex-col items-center justify-center gap-5 transition-all duration-300 md:flex-row md:items-stretch md:justify-start md:gap-6">
               <motion.div
-                className="text-1xl box-border flex h-16 w-3xs flex-col items-center justify-center overflow-hidden rounded-lg border-2 border-green-500 bg-green-50 p-2 text-center font-semibold text-green-700 shadow-lg transition-none! md:max-w-6xl md:min-w-[40vw] md:items-stretch md:text-2xl lg:h-20 lg:min-w-[55vw] lg:text-3xl dark:border-green-400 dark:bg-slate-800 dark:text-green-300"
+                className="text-1xl box-border flex h-16 w-3xs flex-col items-center justify-center overflow-hidden rounded-lg border-2 border-green-500 bg-green-50 p-2 text-center font-semibold text-green-700 shadow-lg transition-all duration-300 md:h-16 md:w-[45vw] md:text-2xl lg:h-20 lg:w-[50vw] lg:text-3xl xl:w-[45vw] dark:border-green-400 dark:bg-slate-800 dark:text-green-300"
                 initial={{ opacity: 0, transform: "translateY(100px)" }}
                 animate={{ opacity: 1, transform: "translateY(0px)" }}
                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
@@ -214,7 +214,7 @@ function ShortenerForm() {
                 <span className="select-all">{shortUrl}</span>
               </motion.div>
               <motion.div
-                className="motion-safe"
+                className="motion-safe transition-all duration-300"
                 initial={{ opacity: 0, transform: "translateY(100px)" }}
                 animate={{ opacity: 1, transform: "translateY(0px)" }}
                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
@@ -223,7 +223,7 @@ function ShortenerForm() {
               </motion.div>
             </div>
             <motion.div
-              className="motion-safe flex flex-col gap-5 md:flex-col-reverse md:gap-8"
+              className="motion-safe flex flex-col gap-5 transition-all duration-300 md:flex-col-reverse md:gap-8"
               initial={{ opacity: 0, transform: "translateY(100px)" }}
               animate={{ opacity: 1, transform: "translateY(0px)" }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}

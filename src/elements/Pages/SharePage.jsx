@@ -106,9 +106,7 @@ function SharePage() {
                 urlData={urlData}
                 t={t}
                 onCopy={() => {
-                  navigator.clipboard.writeText(
-                    `${import.meta.env.VITE_BASE_URL || window.location.origin}/${urlData.shortCode}`
-                  );
+                  navigator.clipboard.writeText(`${window.location.origin}/${urlData.shortCode}`);
                   notificationRef.current?.addNotification(t("homepage.copied"), 2000);
                 }}
               />

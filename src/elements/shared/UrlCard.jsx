@@ -261,9 +261,7 @@ function UrlCard({
             {/* Short URL row */}
             <div
               onClick={() => {
-                navigator.clipboard.writeText(
-                  `${import.meta.env.VITE_BASE_URL || window.location.origin}/${urlData.shortCode}`
-                );
+                navigator.clipboard.writeText(`${window.location.origin}/${urlData.shortCode}`);
                 notificationRef.current?.addNotification(t("homepage.copied") || "Copied!", 2000);
               }}
               className="group flex cursor-pointer items-center border-b border-gray-200/80 transition-colors hover:bg-sky-50/60 dark:border-slate-700/60 dark:hover:bg-sky-900/20"
@@ -273,11 +271,7 @@ function UrlCard({
                 className="notranslate shrink-0 border-r border-gray-200/80 bg-sky-100/60 px-3 py-2 text-sm font-medium text-sky-700/80 dark:border-slate-700/60 dark:bg-sky-900/40 dark:text-sky-500"
                 translate="no"
               >
-                {(import.meta.env.VITE_BASE_URL || window.location.origin).replace(
-                  /^https?:\/\//,
-                  ""
-                )}
-                /
+                {window.location.origin.replace(/^https?:\/\//, "")}/
               </span>
               <span
                 className="notranslate flex-1 px-3 py-2 text-base font-bold text-sky-600 dark:text-sky-300"
@@ -520,9 +514,7 @@ function UrlCard({
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "tween", duration: 0.2, ease: "easeOut" }}
                 onClick={() => {
-                  navigator.clipboard.writeText(
-                    `${import.meta.env.VITE_BASE_URL || window.location.origin}/share/${urlData._id}`
-                  );
+                  navigator.clipboard.writeText(`${window.location.origin}/share/${urlData._id}`);
                   notificationRef.current?.addNotification(t("shared.shareLinkCopied"), 2000);
                 }}
                 className="flex h-7 w-7 cursor-pointer touch-manipulation items-center justify-center rounded-xl border border-transparent bg-sky-500 sm:h-9 sm:w-9 md:h-12 md:w-12 dark:border-sky-600 dark:bg-sky-600"
@@ -563,9 +555,7 @@ function UrlCard({
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "tween", duration: 0.2, ease: "easeOut" }}
                 onClick={() => {
-                  navigator.clipboard.writeText(
-                    `${import.meta.env.VITE_BASE_URL || window.location.origin}/${urlData.shortCode}`
-                  );
+                  navigator.clipboard.writeText(`${window.location.origin}/${urlData.shortCode}`);
                   notificationRef.current?.addNotification(t("homepage.copied"), 2000);
                 }}
                 className="flex h-7 w-7 cursor-pointer touch-manipulation items-center justify-center rounded-xl border border-transparent bg-sky-500 sm:h-9 sm:w-9 md:h-12 md:w-12 dark:border-sky-600 dark:bg-sky-600"

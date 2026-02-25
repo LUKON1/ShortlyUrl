@@ -99,7 +99,6 @@
 
     ```env
     VITE_API_BASE_URL=http://localhost:3000/api
-    VITE_BASE_URL=http://localhost:5173
     ```
 
     **Server (server/.env):**
@@ -151,7 +150,6 @@
 
     # Frontend Configuration
     VITE_API_BASE_URL=/api
-    VITE_BASE_URL=https://shortlyurl.ru
     ```
 
 2.  **Соберите Frontend:**
