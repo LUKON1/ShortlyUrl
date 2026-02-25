@@ -1,6 +1,6 @@
 const rateLimit = require("express-rate-limit");
 
-const MAX_ATTEMPTS = 15;
+const MAX_ATTEMPTS = 240;
 
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes

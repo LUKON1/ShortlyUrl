@@ -22,6 +22,21 @@
       "alias": "Alias:",
       "aliasPlaceholder": "Custom alias",
       "customize": "Customize"
+    },
+    "settings": {
+      "lifetime": "Lifetime",
+      "alias": "Custom Alias",
+      "utm": "UTM Tags",
+      "aliasSummary": "Not set",
+      "utmSummary": "Not configured"
+    },
+    "utm": {
+      "add": "Add UTM Tags",
+      "edit": "Edit UTM Tags",
+      "title": "UTM Parameters",
+      "description": "Add tags to track your campaign performance",
+      "clear": "Clear all fields",
+      "none": "No UTM Tags"
     }
   },
   "header": {

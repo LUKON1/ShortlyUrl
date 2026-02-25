@@ -14,8 +14,10 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      // Proxy short codes (7+ characters) to the backend
-      "^/[a-zA-Z0-9]{7,}$": {
+      // Proxy all short codes and custom aliases to the backend.
+      // Matches any single-segment path with alphanumeric, hyphens, underscores (4+ chars),
+      // but NOT known client-side routes.
+      "^/(?!api|assets|public|priv|pau|exp|prof|reg|sign|share|about|faq|cont)[a-zA-Z0-9_-]{4,}$": {
         target: "http://localhost:3000",
         changeOrigin: true,
       },

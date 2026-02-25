@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import dayjs from "dayjs";
 import { formatDate } from "../../utils/formatDate";
 import ConfirmModal from "./ConfirmModal";
+import UtmBuilder from "../Homepage/utm_builder";
 
 function UrlCard({
   urlData,
@@ -24,6 +25,24 @@ function UrlCard({
   const [editTitle, setEditTitle] = useState("");
   const [isEditingUrl, setIsEditingUrl] = useState(false);
   const [editUrl, setEditUrl] = useState("");
+  const [isEditingUtm, setIsEditingUtm] = useState(false);
+
+  // Extract UTMs from current URL
+  let initialUtms = { source: "", medium: "", campaign: "", term: "", content: "" };
+  try {
+    const parsed = new URL(urlData.url);
+    initialUtms = {
+      source: parsed.searchParams.get("utm_source") || "",
+      medium: parsed.searchParams.get("utm_medium") || "",
+      campaign: parsed.searchParams.get("utm_campaign") || "",
+      term: parsed.searchParams.get("utm_term") || "",
+      content: parsed.searchParams.get("utm_content") || "",
+    };
+  } catch (e) {}
+
+  const [utmData, setUtmData] = useState(initialUtms);
+  const hasAnyUtm = Object.values(initialUtms).some((val) => val.trim() !== "");
+
   const DONT_ASK_DELETE_KEY = "dontAskDeleteConfirmation";
 
   const checkDontAskAgain = () => {
@@ -133,6 +152,37 @@ function UrlCard({
       setEditUrl("");
     }
   };
+
+  const handleSaveUtm = async () => {
+    try {
+      const parsedUrl = new URL(urlData.url);
+
+      // Update or delete search params
+      ["source", "medium", "campaign", "term", "content"].forEach((key) => {
+        if (utmData[key]) {
+          parsedUrl.searchParams.set(`utm_${key}`, utmData[key]);
+        } else {
+          parsedUrl.searchParams.delete(`utm_${key}`);
+        }
+      });
+
+      const newUrl = parsedUrl.toString();
+      if (newUrl !== urlData.url && onUpdateUrl) {
+        await onUpdateUrl(urlData._id, newUrl);
+        notificationRef.current?.addNotification(
+          t("shared.urlUpdated") || "UTM tags updated",
+          2000
+        );
+      }
+      setIsEditingUtm(false);
+    } catch (e) {
+      notificationRef.current?.addNotification(
+        t("shared.urlUpdateError") || "Error updating UTM tags",
+        3000
+      );
+    }
+  };
+
   return (
     <div
       className="rounded-xl border border-gray-200 bg-white p-4 shadow-lg transition-all duration-200 hover:shadow-xl sm:p-6 dark:border-slate-700 dark:bg-slate-800"
@@ -174,7 +224,7 @@ function UrlCard({
               ) : (
                 <>
                   {urlData.title ? (
-                    <span className="xs:h-8 xs:px-2 xs:py-1 xs:text-lg inline-block h-8 w-full rounded-md border border-gray-200 px-2 py-1 text-lg font-extrabold text-black sm:h-9 sm:w-fit sm:min-w-20 sm:px-3 sm:py-1 sm:text-xl dark:border-slate-600 dark:text-white">
+                    <span className="xs:h-8 xs:px-2 xs:py-1 xs:text-lg inline-block h-8 w-full rounded-md border border-gray-200 px-2 py-1 text-lg font-extrabold text-gray-700 sm:h-9 sm:w-fit sm:min-w-20 sm:px-3 sm:py-1 sm:text-xl dark:border-slate-600 dark:text-gray-100">
                       {urlData.title}
                     </span>
                   ) : (
@@ -206,81 +256,260 @@ function UrlCard({
               )}
             </div>
           )}
-          <div className="flex flex-row items-center gap-3 sm:gap-4">
-            <p
-              className="notranslate text-base font-bold text-sky-400 select-all hover:text-sky-600 sm:text-lg md:text-xl dark:text-sky-500 dark:hover:text-sky-300"
-              translate="no"
+          {/* URL block - short + long unified */}
+          <div className="mt-1.5 overflow-hidden rounded-xl border border-gray-200/80 bg-gray-50/50 dark:border-slate-700/60 dark:bg-slate-900/30">
+            {/* Short URL row */}
+            <div
+              onClick={() => {
+                navigator.clipboard.writeText(
+                  `${import.meta.env.VITE_BASE_URL || window.location.origin}/${urlData.shortCode}`
+                );
+                notificationRef.current?.addNotification(t("homepage.copied") || "Copied!", 2000);
+              }}
+              className="group flex cursor-pointer items-center border-b border-gray-200/80 transition-colors hover:bg-sky-50/60 dark:border-slate-700/60 dark:hover:bg-sky-900/20"
+              title={t("myurls.copy")}
             >
-              {`${import.meta.env.VITE_BASE_URL || window.location.origin}/${urlData.shortCode}`}
-            </p>
-            {mode === "share" && (
-              <motion.button
-                whileHover={{ scale: 1.14 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "tween", duration: 0.2, ease: "easeOut" }}
-                onClick={() => (window.location.href = urlData.url)}
-                className="flex min-h-5 min-w-5 cursor-pointer touch-manipulation items-center justify-center rounded-xl border border-green-600 bg-green-500 p-1 md:h-6 md:w-6 dark:bg-green-700"
-                title={t("shared.visitSite")}
+              <span
+                className="notranslate shrink-0 border-r border-gray-200/80 bg-sky-100/60 px-3 py-2 text-sm font-medium text-sky-700/80 dark:border-slate-700/60 dark:bg-sky-900/40 dark:text-sky-500"
+                translate="no"
               >
-                <svg fill="#FFFFFF" viewBox="0 0 15 15">
-                  <use href="#arrow"></use>
-                </svg>
-              </motion.button>
-            )}
-          </div>
-          {isEditingUrl ? (
-            <div className="mt-1 flex items-center gap-2">
-              <input
-                type="url"
-                value={editUrl}
-                onChange={(e) => setEditUrl(e.target.value)}
-                onKeyDown={handleUrlKeyDown}
-                className="w-full truncate rounded-md border border-gray-300 bg-white px-2 py-1 text-sm text-gray-600 focus:border-sky-500 focus:outline-none sm:text-base md:text-lg dark:border-slate-600 dark:bg-slate-700 dark:text-gray-400 dark:focus:border-sky-400"
-                placeholder={t("shared.enterUrl")}
-                autoFocus
-              />
-              <button
-                style={{ transition: "var(--transition-bg)" }}
-                onClick={handleEditUrlClick}
-                className="flex min-h-6 min-w-6 cursor-pointer touch-manipulation items-center justify-center rounded-md bg-sky-500 px-1 py-1 text-white hover:bg-sky-600 sm:h-7 sm:min-h-7 sm:w-7 sm:min-w-7 dark:bg-sky-500 dark:hover:bg-sky-400"
-                title={t("shared.save")}
+                {(import.meta.env.VITE_BASE_URL || window.location.origin).replace(
+                  /^https?:\/\//,
+                  ""
+                )}
+                /
+              </span>
+              <span
+                className="notranslate flex-1 px-3 py-2 text-base font-bold text-sky-600 dark:text-sky-300"
+                translate="no"
               >
+                {urlData.shortCode}
+              </span>
+              <div className="flex shrink-0 items-center justify-center px-3 transition-opacity">
                 <svg
+                  className="h-4 w-4 text-sky-500 dark:text-sky-400"
                   fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
                   viewBox="0 0 24 24"
-                  className="h-3 w-3 sm:h-4 sm:w-4"
+                  stroke="currentColor"
                 >
-                  <use href="#redact"></use>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                  />
                 </svg>
-              </button>
+              </div>
+              {mode === "share" && (
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    window.location.href = urlData.url;
+                  }}
+                  className="mr-3 flex shrink-0 cursor-pointer items-center justify-center rounded-lg border border-green-600 bg-green-500 p-1.5 dark:bg-green-700"
+                  title={t("shared.visitSite")}
+                >
+                  <svg fill="#FFFFFF" viewBox="0 0 15 15" className="h-3.5 w-3.5">
+                    <use href="#arrow"></use>
+                  </svg>
+                </motion.div>
+              )}
             </div>
-          ) : (
-            <div className="mt-1 flex items-center gap-2">
-              <p className="truncate text-sm text-gray-600 sm:text-base md:text-lg dark:text-gray-400">
-                {urlData.url}
-              </p>
-              {mode === "myurls" && (
+            {/* Long URL row */}
+            {isEditingUrl ? (
+              <div className="flex items-center gap-2 px-3 py-2">
+                <svg
+                  className="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                  />
+                </svg>
+                <input
+                  type="url"
+                  value={editUrl}
+                  onChange={(e) => setEditUrl(e.target.value)}
+                  onKeyDown={handleUrlKeyDown}
+                  className="w-full truncate bg-transparent py-1.5 text-sm text-gray-600 focus:outline-none dark:text-gray-300"
+                  placeholder={t("shared.enterUrl")}
+                  autoFocus
+                />
                 <button
                   onClick={handleEditUrlClick}
-                  style={{ transition: "var(--transition-bg)" }}
-                  className="flex min-h-6 min-w-6 cursor-pointer touch-manipulation items-center justify-center rounded-md bg-gray-200 px-1 py-1 text-gray-700 hover:bg-gray-300 sm:h-7 sm:min-h-7 sm:w-7 sm:min-w-7 dark:bg-slate-600 dark:text-gray-200 dark:hover:bg-slate-500"
-                  title={t("shared.editUrl")}
+                  className="mr-1 flex shrink-0 cursor-pointer items-center justify-center rounded-md bg-sky-500 p-1.5 text-white hover:bg-sky-600 dark:bg-sky-500 dark:hover:bg-sky-400"
+                  title={t("shared.save")}
                 >
                   <svg
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="1.5"
+                    strokeWidth="2"
                     viewBox="0 0 24 24"
-                    className="h-3 w-3 sm:h-4 sm:w-4"
+                    className="h-4 w-4"
                   >
-                    <use href="#redact"></use>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </button>
-              )}
-            </div>
-          )}
+              </div>
+            ) : (
+              <div className="group flex items-center">
+                <div className="flex min-w-0 flex-1 items-center gap-2 px-3 py-2">
+                  <svg
+                    className="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                    />
+                  </svg>
+                  <p className="truncate text-sm text-gray-500 dark:text-gray-400">{urlData.url}</p>
+                </div>
+                {mode === "myurls" && (
+                  <button
+                    onClick={handleEditUrlClick}
+                    className="mr-3 flex shrink-0 cursor-pointer items-center justify-center rounded-md p-1 text-gray-400 transition-all hover:bg-sky-100 hover:text-sky-600 dark:text-gray-500 dark:hover:bg-slate-700 dark:hover:text-sky-400"
+                    title={t("shared.editUrl")}
+                  >
+                    <svg
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      viewBox="0 0 24 24"
+                      className="h-4 w-4 transition-transform group-hover:scale-110"
+                    >
+                      <use href="#redact"></use>
+                    </svg>
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+          {/* UTM Display & Edit Section */}
+          <div className="relative mt-2 flex flex-col gap-2">
+            {!isEditingUtm && hasAnyUtm && (
+              <div className="flex flex-wrap items-center gap-2 rounded-lg border border-sky-100 bg-sky-50/40 px-3 py-2 dark:border-slate-600/50 dark:bg-slate-700/30">
+                <span className="mr-1 flex items-center gap-1 text-xs font-semibold text-gray-500 dark:text-gray-400">
+                  <svg
+                    className="h-3.5 w-3.5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                    />
+                  </svg>
+                  UTM
+                </span>
+                {initialUtms.source && (
+                  <span className="inline-flex items-center rounded-md bg-blue-50 px-2.5 py-1 text-sm font-medium text-blue-700 ring-1 ring-blue-700/10 ring-inset dark:bg-blue-400/10 dark:text-blue-400 dark:ring-blue-400/30">
+                    source: {initialUtms.source}
+                  </span>
+                )}
+                {initialUtms.medium && (
+                  <span className="inline-flex items-center rounded-md bg-green-50 px-2.5 py-1 text-sm font-medium text-green-700 ring-1 ring-green-600/20 ring-inset dark:bg-green-500/10 dark:text-green-400 dark:ring-green-500/20">
+                    medium: {initialUtms.medium}
+                  </span>
+                )}
+                {initialUtms.campaign && (
+                  <span className="inline-flex items-center rounded-md bg-purple-50 px-2.5 py-1 text-sm font-medium text-purple-700 ring-1 ring-purple-700/10 ring-inset dark:bg-purple-400/10 dark:text-purple-400 dark:ring-purple-400/30">
+                    cmp: {initialUtms.campaign}
+                  </span>
+                )}
+                {initialUtms.term && (
+                  <span className="inline-flex items-center rounded-md bg-indigo-50 px-2.5 py-1 text-sm font-medium text-indigo-700 ring-1 ring-indigo-700/10 ring-inset dark:bg-indigo-400/10 dark:text-indigo-400 dark:ring-indigo-400/30">
+                    term: {initialUtms.term}
+                  </span>
+                )}
+                {initialUtms.content && (
+                  <span className="inline-flex items-center rounded-md bg-pink-50 px-2.5 py-1 text-sm font-medium text-pink-700 ring-1 ring-pink-700/10 ring-inset dark:bg-pink-400/10 dark:text-pink-400 dark:ring-pink-400/30">
+                    cnt: {initialUtms.content}
+                  </span>
+                )}
+              </div>
+            )}
+
+            {/* Share mode: show "no UTM" label when none present */}
+            {mode === "share" && !hasAnyUtm && (
+              <div className="flex items-center gap-1.5 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 dark:border-slate-700/60 dark:bg-slate-800/50">
+                <svg
+                  className="h-3.5 w-3.5 text-gray-400 dark:text-gray-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                  />
+                </svg>
+                <span className="text-xs text-gray-400 dark:text-gray-500">
+                  {t("homepage.utm.none")}
+                </span>
+              </div>
+            )}
+
+            {mode === "myurls" && !isEditingUtm && (
+              <button
+                onClick={() => setIsEditingUtm(true)}
+                className="flex w-max items-center gap-1.5 rounded-md border border-sky-200 bg-sky-50 px-2.5 py-1.5 text-xs font-semibold text-sky-600 transition-colors hover:bg-sky-100 hover:text-sky-700 dark:border-sky-800/60 dark:bg-sky-900/40 dark:text-sky-400 dark:hover:bg-sky-900/60 dark:hover:text-sky-300"
+              >
+                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  {hasAnyUtm ? (
+                    <use href="#redact"></use>
+                  ) : (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 4v16m8-8H4"
+                    />
+                  )}
+                </svg>
+                {hasAnyUtm ? t("homepage.utm.edit") : t("homepage.utm.add")}
+              </button>
+            )}
+
+            {isEditingUtm && (
+              <div className="mt-2 w-full rounded-lg border border-sky-200 bg-sky-50/50 p-3 shadow-inner sm:p-4 dark:border-slate-600 dark:bg-slate-900/50">
+                <UtmBuilder utmData={utmData} onChange={setUtmData} />
+                <div className="mt-4 flex justify-end gap-2 text-sm">
+                  <button
+                    onClick={() => {
+                      setUtmData(initialUtms);
+                      setIsEditingUtm(false);
+                    }}
+                    className="rounded-md px-3 py-1.5 font-medium text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-700"
+                  >
+                    {t("common.cancel")}
+                  </button>
+                  <button
+                    onClick={handleSaveUtm}
+                    className="rounded-md bg-sky-500 px-3 py-1.5 font-medium text-white transition-colors hover:bg-sky-600 dark:bg-sky-600 dark:hover:bg-sky-500"
+                  >
+                    {t("shared.save")}
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
         <div className="flex flex-wrap items-center gap-3 sm:flex-row-reverse sm:gap-2">
           {mode === "myurls" && (

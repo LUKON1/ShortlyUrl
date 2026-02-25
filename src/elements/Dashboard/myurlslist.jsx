@@ -166,7 +166,7 @@ function Urlslist({ urls, notificationRef, getMyUrls, updateUrl, removeUrl, isLo
                         animate={deletingIds.has(urlItem._id) ? "exit" : "enter"}
                         variants={{
                           enter: { opacity: 1, x: 0, y: 0 },
-                          exit: { opacity: 0, x: 5000, y: 0 },
+                          exit: { opacity: 0, x: 500, y: 0 },
                         }}
                         transition={{
                           ease: [0.25, 0.46, 0.45, 0.94],
