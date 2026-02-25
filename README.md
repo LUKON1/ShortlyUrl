@@ -96,16 +96,7 @@ JWT_REFRESH_SECRET=<другая_случайная_строка>
 
 > `VITE_API_BASE_URL` оставьте `/api` — Nginx проксирует запросы внутри контейнера.
 
-### 4. Собрать фронтенд
-
-Перед сборкой Docker-образа нужно собрать React-приложение локально (переменные Vite встраиваются на этапе сборки):
-
-```bash
-npm install
-npm run build
-```
-
-### 5. Запустить
+### 4. Запустить
 
 ```bash
 docker compose up -d --build
@@ -122,13 +113,11 @@ ShrotlyUrl/
 ├── ssl/
 │   ├── fullchain.pem   ← сертификат (не коммитить в git!)
 │   └── privkey.pem     ← приватный ключ (не коммитить в git!)
-├── dist/               ← собранный фронтенд (npm run build)
+├── dist/               ← собранный фронтенд (коммитится в репозиторий)
 ├── nginx.conf          ← конфигурация Nginx
 ├── docker-compose.yml
 └── .env                ← ваши настройки
 ```
-
-> Папка `ssl/` и `dist/` добавлены в `.gitignore` — секреты не попадут в репозиторий.
 
 ---
 
@@ -164,7 +153,6 @@ docker compose down -v
 
 ```bash
 git pull
-npm run build
 docker compose up -d --build
 ```
 
@@ -175,18 +163,6 @@ sudo certbot renew
 sudo cp /etc/letsencrypt/live/go.brand.com/fullchain.pem ssl/
 sudo cp /etc/letsencrypt/live/go.brand.com/privkey.pem  ssl/
 docker compose restart frontend
-```
-
----
-
-## .gitignore
-
-Убедитесь, что в `.gitignore` есть:
-
-```
-ssl/
-dist/
-.env
 ```
 
 ---
