@@ -25,7 +25,6 @@ function ShortenerForm() {
   const [url, setUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [qrCodeDataUrl, setQrCodeDataUrl] = useState("");
   const [customAlias, setCustomAlias] = useState("");
   const [utm, setUtm] = useState({ source: "", medium: "", campaign: "", term: "", content: "" });
 
@@ -103,7 +102,6 @@ function ShortenerForm() {
 
         const shortUrl = `${BASE_URL}/${shortCode}`;
         setShortUrl(shortUrl);
-        setQrCodeDataUrl(response?.data?.qrCodeDataUrl);
       } catch (error) {
         if (!error?.response) {
           notificationRef.current?.addNotification(t("message.servererror"), 3000);
@@ -228,8 +226,8 @@ function ShortenerForm() {
               animate={{ opacity: 1, transform: "translateY(0px)" }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
             >
-              <Qrgen qrCodeDataUrl={qrCodeDataUrl} />
-              <LoadQR_Button qrCodeDataUrl={qrCodeDataUrl} url={url} />
+              <Qrgen shortUrl={shortUrl} />
+              <LoadQR_Button shortUrl={shortUrl} url={url} />
             </motion.div>
           </div>
         )}

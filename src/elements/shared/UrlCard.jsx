@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import { formatDate } from "../../utils/formatDate";
 import ConfirmModal from "./ConfirmModal";
 import UtmBuilder from "../Homepage/utm_builder";
+import { generateQRDataUrl } from "../../utils/qrHelper";
 
 function UrlCard({
   urlData,
@@ -38,7 +39,9 @@ function UrlCard({
       term: parsed.searchParams.get("utm_term") || "",
       content: parsed.searchParams.get("utm_content") || "",
     };
-  } catch (e) {}
+  } catch (e) {
+    // ignore
+  }
 
   const [utmData, setUtmData] = useState(initialUtms);
   const hasAnyUtm = Object.values(initialUtms).some((val) => val.trim() !== "");
@@ -531,13 +534,18 @@ function UrlCard({
                 transition={{ type: "tween", duration: 0.2, ease: "easeOut" }}
                 type="button"
                 className="flex h-7 w-7 cursor-pointer touch-manipulation items-center justify-center rounded-xl border border-transparent bg-sky-500 sm:h-9 sm:w-9 md:h-12 md:w-12 dark:border-sky-600 dark:bg-sky-600"
-                onClick={() => {
+                onClick={async () => {
                   const urlFullDomain = new URL(urlData.url);
                   const urlMainDomain = urlFullDomain.hostname;
                   const domainParts = urlMainDomain.split(".");
                   const baseDomain = domainParts.slice(-2).join(".");
+
+                  const shortUrl = `${window.location.origin}/${urlData.shortCode}`;
+                  const dataUrl = await generateQRDataUrl(shortUrl);
+                  if (!dataUrl) return;
+
                   const link = document.createElement("a");
-                  link.href = urlData.qrCodeDataUrl;
+                  link.href = dataUrl;
                   link.download = `${baseDomain}-QRcode.png`;
                   document.body.appendChild(link);
                   link.click();
@@ -589,13 +597,18 @@ function UrlCard({
                 transition={{ type: "tween", duration: 0.2, ease: "easeOut" }}
                 type="button"
                 className="flex h-7 w-7 cursor-pointer touch-manipulation items-center justify-center rounded-xl border border-transparent bg-sky-500 sm:h-9 sm:w-9 md:h-12 md:w-12 dark:border-sky-600 dark:bg-sky-600"
-                onClick={() => {
+                onClick={async () => {
                   const urlFullDomain = new URL(urlData.url);
                   const urlMainDomain = urlFullDomain.hostname;
                   const domainParts = urlMainDomain.split(".");
                   const baseDomain = domainParts.slice(-2).join(".");
+
+                  const shortUrl = `${window.location.origin}/${urlData.shortCode}`;
+                  const dataUrl = await generateQRDataUrl(shortUrl);
+                  if (!dataUrl) return;
+
                   const link = document.createElement("a");
-                  link.href = urlData.qrCodeDataUrl;
+                  link.href = dataUrl;
                   link.download = `${baseDomain}-QRcode.png`;
                   document.body.appendChild(link);
                   link.click();

@@ -32,11 +32,6 @@ const UrlSchema = new mongoose.Schema({
     required: true,
     default: 0,
   },
-  qrCodeDataUrl: {
-    type: String,
-    required: true,
-    trim: true,
-  },
   isActive: {
     type: Boolean,
     required: true,

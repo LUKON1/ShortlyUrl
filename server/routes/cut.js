@@ -3,7 +3,6 @@ const router = express.Router();
 const UrlModel = require("../models/Url");
 const getShortCode = require("../utils/shortcodegen");
 const jwt = require("jsonwebtoken");
-const qrcode = require("qrcode");
 
 router.post("/shorter", async (req, res) => {
   try {
@@ -72,16 +71,6 @@ router.post("/shorter", async (req, res) => {
       }
     }
 
-    const fullShortUrl = `${process.env.HOST_NAME}/${shortCode}`;
-    const qrCodeDataUrl = await qrcode.toDataURL(fullShortUrl, {
-      errorCorrectionLevel: "M",
-      type: "image/png",
-      width: 256,
-      color: {
-        dark: "#101828",
-        light: "#ffffff",
-      },
-    });
     const newUrl = new UrlModel({
       url: url,
       shortCode: shortCode,
@@ -89,11 +78,10 @@ router.post("/shorter", async (req, res) => {
       createdAt: createdAt,
       expiredAt: expiredAt,
       clicks: 0,
-      qrCodeDataUrl: qrCodeDataUrl,
     });
     await newUrl.save();
 
-    res.status(201).json({ shortCode: newUrl.shortCode, qrCodeDataUrl: newUrl.qrCodeDataUrl });
+    res.status(201).json({ shortCode: newUrl.shortCode });
   } catch (err) {
     console.error("Error in /shorter route:", err);
     res.status(500).json({ error: "Server error", details: err.message });
