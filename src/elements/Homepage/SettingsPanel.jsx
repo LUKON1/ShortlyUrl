@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useTranslation } from "react-i18next";
 import UtmBuilder from "./utm_builder.jsx";
@@ -60,6 +60,14 @@ function LifetimeSelector({ value, onChange, options }) {
   const [isCustomMode, setIsCustomMode] = useState(false);
   const [customValue, setCustomValue] = useState("1");
   const [customUnit, setCustomUnit] = useState(86400);
+
+  const customInputRef = useRef(null);
+
+  useEffect(() => {
+    if (isCustomMode && customInputRef.current) {
+      customInputRef.current.focus();
+    }
+  }, [isCustomMode]);
 
   const ONE_YEAR_SECONDS = 31536000;
 
@@ -143,7 +151,7 @@ function LifetimeSelector({ value, onChange, options }) {
           >
             <div className="flex items-center gap-2">
               <input
-                autoFocus
+                ref={customInputRef}
                 type="number"
                 min="1"
                 max="999"

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import dayjs from "dayjs";
@@ -27,6 +27,9 @@ function UrlCard({
   const [isEditingUrl, setIsEditingUrl] = useState(false);
   const [editUrl, setEditUrl] = useState("");
   const [isEditingUtm, setIsEditingUtm] = useState(false);
+
+  const titleInputRef = useRef(null);
+  const urlInputRef = useRef(null);
 
   // Extract UTMs from current URL
   let initialUtms = { source: "", medium: "", campaign: "", term: "", content: "" };
@@ -83,6 +86,12 @@ function UrlCard({
     }
   };
 
+  useEffect(() => {
+    if (isEditingTitle && titleInputRef.current) {
+      titleInputRef.current.focus();
+    }
+  }, [isEditingTitle]);
+
   const handleSaveTitle = async () => {
     if (editTitle.length > 24) {
       notificationRef.current?.addNotification(t("shared.titleTooLong"), 3000);
@@ -128,6 +137,12 @@ function UrlCard({
       setIsEditingUrl(true);
     }
   };
+
+  useEffect(() => {
+    if (isEditingUrl && urlInputRef.current) {
+      urlInputRef.current.focus();
+    }
+  }, [isEditingUrl]);
 
   const handleSaveUrl = async () => {
     const trimmedUrl = editUrl.trim();
@@ -187,10 +202,7 @@ function UrlCard({
   };
 
   return (
-    <div
-      className="rounded-xl border border-gray-200 bg-white p-4 shadow-lg transition-all duration-200 hover:shadow-xl sm:p-6 dark:border-slate-700 dark:bg-slate-800"
-      style={{ willChange: "transform, opacity, background-color, border-color, color" }}
-    >
+    <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-lg transition-all duration-200 hover:shadow-xl sm:p-6 dark:border-slate-700 dark:bg-slate-800">
       <div className="mb-4 flex flex-col gap-4 sm:mb-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex w-full min-w-0 flex-col sm:max-w-[60%] md:max-w-[65%]">
           {mode === "myurls" && (
@@ -205,7 +217,7 @@ function UrlCard({
                     className="xs:h-8 xs:px-2 xs:py-1 xs:text-sm h-8 w-full min-w-25 rounded-md border border-gray-300 bg-white px-2 py-1 text-sm font-semibold text-gray-800 focus:border-sky-500 focus:outline-none sm:h-9 sm:max-w-50 sm:min-w-30 sm:px-3 sm:py-1 sm:text-lg dark:border-slate-600 dark:bg-slate-700 dark:text-gray-200 dark:focus:border-sky-400"
                     placeholder={t("shared.enterTitle")}
                     maxLength={24}
-                    autoFocus
+                    ref={titleInputRef}
                   />
                   <button
                     style={{ transition: "var(--transition-bg)" }}
@@ -263,6 +275,15 @@ function UrlCard({
           <div className="mt-1.5 overflow-hidden rounded-xl border border-gray-200/80 bg-gray-50/50 dark:border-slate-700/60 dark:bg-slate-900/30">
             {/* Short URL row */}
             <div
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  navigator.clipboard.writeText(`${window.location.origin}/${urlData.shortCode}`);
+                  notificationRef.current?.addNotification(t("homepage.copied") || "Copied!", 2000);
+                }
+              }}
               onClick={() => {
                 navigator.clipboard.writeText(`${window.location.origin}/${urlData.shortCode}`);
                 notificationRef.current?.addNotification(t("homepage.copied") || "Copied!", 2000);
@@ -337,7 +358,7 @@ function UrlCard({
                   onKeyDown={handleUrlKeyDown}
                   className="w-full truncate bg-transparent py-1.5 text-sm text-gray-600 focus:outline-none dark:text-gray-300"
                   placeholder={t("shared.enterUrl")}
-                  autoFocus
+                  ref={urlInputRef}
                 />
                 <button
                   onClick={handleEditUrlClick}

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useReducer } from "react";
 import { motion } from "motion/react";
 import CopyButton from "./copy_button.jsx";
 import SubmitButton from "./submit_button.jsx";
@@ -13,6 +13,31 @@ import useAxiosPrivate from "../../utils/useAxiosPrivate.js";
 import SettingsPanel from "./SettingsPanel.jsx";
 import crossIcon from "../../assets/cross.svg";
 
+const initialState = {
+  url: "",
+  shortUrl: "",
+  isLoading: false,
+  customAlias: "",
+  utm: { source: "", medium: "", campaign: "", term: "", content: "" },
+};
+
+function formReducer(state, action) {
+  switch (action.type) {
+    case "SET_FIELD":
+      return { ...state, [action.field]: action.value };
+    case "SET_LOADING":
+      return { ...state, isLoading: action.value };
+    case "RESET_URL":
+      return { ...state, url: "" };
+    case "SUCCESS":
+      return { ...state, shortUrl: action.shortUrl, isLoading: false };
+    case "SET_UTM":
+      return { ...state, utm: action.value };
+    default:
+      return state;
+  }
+}
+
 function ShortenerForm() {
   const API_SHORTER = "/cut/shorter";
   const BASE_URL = window.location.origin;
@@ -22,11 +47,8 @@ function ShortenerForm() {
 
   const axiosPrivate = useAxiosPrivate();
 
-  const [url, setUrl] = useState("");
-  const [shortUrl, setShortUrl] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [customAlias, setCustomAlias] = useState("");
-  const [utm, setUtm] = useState({ source: "", medium: "", campaign: "", term: "", content: "" });
+  const [state, dispatch] = useReducer(formReducer, initialState);
+  const { url, shortUrl, isLoading, customAlias, utm } = state;
 
   const notificationRef = useRef();
   const inputRef = useRef();
@@ -73,7 +95,7 @@ function ShortenerForm() {
           // If URL cannot be parsed, let it be just the string, the backend will validate it
         }
 
-        setIsLoading(true);
+        dispatch({ type: "SET_LOADING", value: true });
 
         const currentAxiosInstance = userId ? axiosPrivate : axios;
 
@@ -100,8 +122,8 @@ function ShortenerForm() {
           }
         }
 
-        const shortUrl = `${BASE_URL}/${shortCode}`;
-        setShortUrl(shortUrl);
+        const shortUrlStr = `${BASE_URL}/${shortCode}`;
+        dispatch({ type: "SUCCESS", shortUrl: shortUrlStr });
       } catch (error) {
         if (!error?.response) {
           notificationRef.current?.addNotification(t("message.servererror"), 3000);
@@ -124,7 +146,7 @@ function ShortenerForm() {
           notificationRef.current?.addNotification(t("message.urlcuterror"), 3000);
         }
       } finally {
-        setIsLoading(false);
+        dispatch({ type: "SET_LOADING", value: false });
       }
     },
     [urlTime, url, userId, axiosPrivate, axios, customAlias, utm]
@@ -143,7 +165,7 @@ function ShortenerForm() {
               {url && (
                 <button
                   className="absolute top-1 left-1 z-10 flex cursor-pointer touch-manipulation items-center justify-center rounded-full p-0.5 md:top-2"
-                  onClick={() => setUrl("")}
+                  onClick={() => dispatch({ type: "RESET_URL" })}
                   type="button"
                 >
                   <img
@@ -162,8 +184,7 @@ function ShortenerForm() {
                 type="url"
                 value={url}
                 onChange={(e) => {
-                  const url = e?.target.value;
-                  setUrl(url);
+                  dispatch({ type: "SET_FIELD", field: "url", value: e?.target.value });
                 }}
                 placeholder={t("homepage.placeholder")}
               />
@@ -186,9 +207,11 @@ function ShortenerForm() {
                 setUrlTime={setUrlTime}
                 urlTimeOptions={urlTimeOptions}
                 customAlias={customAlias}
-                setCustomAlias={setCustomAlias}
+                setCustomAlias={(val) =>
+                  dispatch({ type: "SET_FIELD", field: "customAlias", value: val })
+                }
                 utm={utm}
-                setUtm={setUtm}
+                setUtm={(val) => dispatch({ type: "SET_UTM", value: val })}
               />
             </motion.div>
           </div>

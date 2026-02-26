@@ -24,10 +24,14 @@ function UtmBuilder({ utmData, onChange }) {
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:items-end">
         {/* Source */}
         <div className="min-w-0 space-y-1">
-          <label className="text-xs font-medium text-gray-600 dark:text-gray-300">
+          <label
+            htmlFor="utm_source"
+            className="text-xs font-medium text-gray-600 dark:text-gray-300"
+          >
             Source (utm_source) <span className="text-red-400">*</span>
           </label>
           <input
+            id="utm_source"
             type="text"
             value={utmData.source}
             onChange={(e) => handleInputChange("source", e.target.value)}
@@ -38,10 +42,14 @@ function UtmBuilder({ utmData, onChange }) {
 
         {/* Medium */}
         <div className="min-w-0 space-y-1">
-          <label className="text-xs font-medium text-gray-600 dark:text-gray-300">
+          <label
+            htmlFor="utm_medium"
+            className="text-xs font-medium text-gray-600 dark:text-gray-300"
+          >
             Medium (utm_medium)
           </label>
           <input
+            id="utm_medium"
             type="text"
             value={utmData.medium}
             onChange={(e) => handleInputChange("medium", e.target.value)}
@@ -52,10 +60,14 @@ function UtmBuilder({ utmData, onChange }) {
 
         {/* Campaign */}
         <div className="min-w-0 space-y-1">
-          <label className="text-xs font-medium text-gray-600 dark:text-gray-300">
+          <label
+            htmlFor="utm_campaign"
+            className="text-xs font-medium text-gray-600 dark:text-gray-300"
+          >
             Campaign (utm_campaign)
           </label>
           <input
+            id="utm_campaign"
             type="text"
             value={utmData.campaign}
             onChange={(e) => handleInputChange("campaign", e.target.value)}
@@ -66,10 +78,14 @@ function UtmBuilder({ utmData, onChange }) {
 
         {/* Term */}
         <div className="min-w-0 space-y-1">
-          <label className="text-xs font-medium text-gray-600 dark:text-gray-300">
+          <label
+            htmlFor="utm_term"
+            className="text-xs font-medium text-gray-600 dark:text-gray-300"
+          >
             Term (utm_term)
           </label>
           <input
+            id="utm_term"
             type="text"
             value={utmData.term}
             onChange={(e) => handleInputChange("term", e.target.value)}
@@ -80,10 +96,14 @@ function UtmBuilder({ utmData, onChange }) {
 
         {/* Content */}
         <div className="min-w-0 space-y-1 sm:col-span-full">
-          <label className="text-xs font-medium text-gray-600 dark:text-gray-300">
+          <label
+            htmlFor="utm_content"
+            className="text-xs font-medium text-gray-600 dark:text-gray-300"
+          >
             Content (utm_content)
           </label>
           <input
+            id="utm_content"
             type="text"
             value={utmData.content}
             onChange={(e) => handleInputChange("content", e.target.value)}

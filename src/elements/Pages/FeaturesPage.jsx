@@ -174,7 +174,7 @@ const features = [
       "Список всех ссылок с поиском и сортировкой",
       "Редактирование оригинального URL и UTM-меток",
       "Пауза ссылки (редиректит на /pau) без удаления",
-      "Удаление ссылки с анимацией",
+      "Добавление названия для ссылки для удобной навигации",
       "Отображение статистики по каждой ссылке",
     ],
   },
@@ -250,6 +250,39 @@ const FeaturesPage = () => {
           </motion.div>
         ))}
       </div>
+
+      {/* Self-Hosted Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="motion-safe mt-12 mb-4 rounded-xl border border-sky-200 bg-sky-50 p-8 text-center shadow-sm dark:border-sky-800/60 dark:bg-sky-900/20"
+      >
+        <h2 className="mb-3 text-2xl font-bold text-slate-800 dark:text-slate-100">
+          Open Source и Self-Hosted
+        </h2>
+        <p className="mx-auto mb-6 max-w-3xl text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+          Для корпоративных клиентов и команд, заботящихся о приватности: проект имеет открытый
+          исходный код. Вы можете развернуть собственную копию ShortlyURL на своих серверах
+          (Self-Hosted), чтобы вся агрегированная статистика по кликам и UTM-кампаниям оставалась
+          строго внутри вашей закрытой инфраструктуры, без передачи сторонним сервисам.
+        </p>
+        <a
+          href="https://github.com/LUKON1/ShortlyUrl/tree/self-host-edition"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 rounded-lg bg-slate-800 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600"
+        >
+          <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .08 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"
+            />
+          </svg>
+          Смотреть Self-Hosted версию
+        </a>
+      </motion.div>
 
       {/* Back link */}
       <div className="mt-10 text-center">
