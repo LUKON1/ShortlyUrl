@@ -7,10 +7,7 @@ services:
       dockerfile: server/Dockerfile
     container_name: shortly_backend
     restart: always
-    ports:
-      - "3000:3000"
     env_file: .env
-    # Убрали depends_on: mongo, так как база внешняя
 
   frontend:
     build: .
